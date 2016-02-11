@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actioncable (5.0.1)
       actionpack (= 5.0.1)
@@ -378,6 +378,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari
+  listen (~> 3.1.5)
   memory_profiler
   meta_request
   mina-puma

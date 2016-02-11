@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 ruby '2.4.0'
 
 git_source(:github) do |repo_name|
@@ -63,7 +63,7 @@ end
 group :development do
   gem "bullet"
   gem 'meta_request'
-  # gem 'listen', '~> 3.0.5'
+  gem 'listen', '~> 3.1.5'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'guard-rspec', require: false
