@@ -44,7 +44,11 @@
                     <td><%= registry.client_trainings.count %></td>
                   <td><%= link_to registry.name, worker_registry_path(registry) %></td>
                   <td><%= number_to_human_size registry.spreadsheet_file_size %></td>
-                  <td><%= registry.date.strftime("%B %e, %Y") %></td>
+                  <td>
+                    <% if registry.date %>
+                      <%= registry.strftime("%B %e, %Y") %>
+                    <% end %>
+                  </td>
                   </tr>
                 <% end %>
               </tbody>
