@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123222546) do
+ActiveRecord::Schema.define(version: 20170123224301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,10 @@ ActiveRecord::Schema.define(version: 20170123222546) do
     t.datetime "date"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "training_id"
     t.index ["assessor_id"], name: "index_assessments_on_assessor_id", using: :btree
     t.index ["trainee_id"], name: "index_assessments_on_trainee_id", using: :btree
+    t.index ["training_id"], name: "index_assessments_on_training_id", using: :btree
   end
 
   create_table "assessors", force: :cascade do |t|
@@ -89,7 +91,21 @@ ActiveRecord::Schema.define(version: 20170123222546) do
     t.index ["certificate_id"], name: "index_issuances_on_certificate_id", using: :btree
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_provinces_on_region_id", using: :btree
+  end
+
   create_table "qualifications", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -112,12 +128,19 @@ ActiveRecord::Schema.define(version: 20170123222546) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "trainings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "accreditations", "assessors"
   add_foreign_key "accreditations", "qualifications"
   add_foreign_key "assessments", "assessors"
   add_foreign_key "assessments", "trainees"
+  add_foreign_key "assessments", "trainings"
   add_foreign_key "certificates", "certification_levels"
   add_foreign_key "certificates", "trainees"
   add_foreign_key "competencies", "qualifications"
   add_foreign_key "issuances", "certificates"
+  add_foreign_key "provinces", "regions"
 end
