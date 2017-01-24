@@ -14,6 +14,10 @@ module Trainees
       end
     end
 
+    def show
+      @trainee_training = TraineeTraining.find(params[:id])
+    end
+
     private
     def training_params
       params.require(:trainee_training).permit(:training_id)

@@ -1,0 +1,6 @@
+<%=simple_form_for [@trainee_training, @assessment] do |f| %>
+  <%=f.input :result, collection: Assessment.results.keys.to_a.map{|a| [a.titleize, a] }, as: :radio_buttons %>
+  <%=f.input :application_date, as: :string %>
+  <%=f.input :assessment_date, as: :string %>
+  <%= f.submit "Save Assessment" %>
+<% end %>

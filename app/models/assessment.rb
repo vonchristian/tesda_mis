@@ -3,5 +3,7 @@ class Assessment < ApplicationRecord
   belongs_to :assessor
   belongs_to :trainee_training
 
-  validates :date, presence: true
+  validates :application_date, :assessment_date, presence: true
+
+  enum results: [:competent, :not_yet_competent]
 end
