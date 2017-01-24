@@ -26,19 +26,15 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
           <li><a href="/"><i class="icon-speedometer"></i> <span> &nbsp; &nbsp;  Dashboard</span></a></li>
-          <li><a href="/collections"><i class="icon-credit-card"></i> <span> &nbsp; &nbsp;  Collections</span></a></li>
-
-        <li><a href="/taxpayers"><i class="icon-people"></i> <span> &nbsp; &nbsp; Taxpayers</span></a></li>
-        <li><a href="/businesses"><i class="icon-home"></i> <span> &nbsp; &nbsp;  Businesses</span></a></li>
+          
+        <li><a href="/trainees"><i class="icon-people"></i> <span> &nbsp; &nbsp; Trainees</span></a></li>
+        <li><a href="/assessment_centers"><i class="icon-home"></i> <span> &nbsp; &nbsp;  Assessment Centers</span></a></li>
+        <li><a href="/businesses"><i class="icon-folder"></i> <span> &nbsp; &nbsp;  Reports</span></a></li>
+        <%# if current_user.health_officer? %>
+        <li><a href="/certificates"><i class="icon-docs"></i> <span> &nbsp; &nbsp;  Certifications</span></a></li>
         <%# if current_user.bplo_officer? %>
           <li><a href="/settings/accounts"><i class="icon-settings"></i> <span> &nbsp; &nbsp;  Setings</span></a></li>
         <%# end %>
-        <li><a href="/businesses"><i class="icon-folder"></i> <span> &nbsp; &nbsp;  Reports</span></a></li>
-        <%# if current_user.health_officer? %>
-        <li><a href="/health_unit_section/health_certificates"><i class="icon-docs"></i> <span> &nbsp; &nbsp;  Health Certifications</span></a></li>
-          <li><a href="/health_unit_section/sanitary_permits"><i class="icon-notebook"></i> <span> &nbsp; &nbsp;  Sanitary Permits</span></a></li>
-          <li><a href="/system_configurations"><i class="icon-settings"></i> <span> &nbsp; &nbsp;  Sytem Configurations</span></a></li>
-
           <%# end %>
     </section>
     <!-- /.sidebar -->

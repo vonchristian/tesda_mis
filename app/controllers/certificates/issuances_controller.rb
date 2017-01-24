@@ -19,4 +19,4 @@ module Certificates
       params.require(:certificates_issuance).permit(:serial_number, :application_date, :claim_date)
     end
   end
-end 
+end
