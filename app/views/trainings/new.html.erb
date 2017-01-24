@@ -1,0 +1,5 @@
+<%=simple_form_for @training do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :competency_id, collection: Qualifications::Competency.all.map{ |a| [a.unit_title, a.id] } %>
+  <%= f.submit "Create Training", class: "btn btn-primary btn-flat" %>
+<% end %>
