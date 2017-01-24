@@ -1,5 +1,6 @@
 class CertificatesController < ApplicationController
   def index
+    @certificates = Assessments::Certificate.all
   end
   def new
     @assessment = Assessment.find(params[:assessment_id])
@@ -13,6 +14,9 @@ class CertificatesController < ApplicationController
     else
       render :new
     end
+  end
+  def show
+    @certificate = Assessments::Certificate.find(params[:id])
   end
   private
   def certificate_params

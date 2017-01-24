@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :assessments, only: [:index, :show] do
     resources :certificates, only: [:new, :create]
   end
-  resources :certificates, only: [:index, :show]
+  resources :certificates, only: [:index, :show] do
+    resources :issuances, only: [:new, :create], module: :certificates
+  end
 
   resources :trainees, except: [:destroy] do
     resources :trainee_trainings, only: [:new, :create, :show], module: :trainees

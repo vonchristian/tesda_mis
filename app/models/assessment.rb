@@ -10,4 +10,7 @@ class Assessment < ApplicationRecord
   def trainee_name
     trainee_training.trainee.first_name
   end
+  def name
+    trainee_training.trainee.first_name
+  end
 end

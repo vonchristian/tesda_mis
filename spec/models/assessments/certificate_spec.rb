@@ -4,6 +4,7 @@ module Assessments
     describe "associations" do
       it { is_expected.to belong_to :certification_level }
       it { is_expected.to belong_to :certified }
+      it { is_expected.to have_many :issuances }
 
     end
     describe "validations" do

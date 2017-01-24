@@ -1,0 +1,7 @@
+<%= simple_form_for [@certificate, @issuance], url: :certificate_issuances do |f| %>
+  <%=f.error_notification %>
+  <%= f.input :serial_number %>
+  <%= f.input :application_date, as: :string %>
+  <%= f.input :claim_date, as: :string %>
+  <%= f.submit "Issue Certificate" %>
+<% end %>
