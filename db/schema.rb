@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123224301) do
+ActiveRecord::Schema.define(version: 20170124011009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 20170123224301) do
     t.integer  "trainee_id"
     t.integer  "assessor_id"
     t.datetime "date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "training_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "trainee_training_id"
     t.index ["assessor_id"], name: "index_assessments_on_assessor_id", using: :btree
     t.index ["trainee_id"], name: "index_assessments_on_trainee_id", using: :btree
-    t.index ["training_id"], name: "index_assessments_on_training_id", using: :btree
+    t.index ["trainee_training_id"], name: "index_assessments_on_trainee_training_id", using: :btree
   end
 
   create_table "assessors", force: :cascade do |t|
@@ -117,6 +117,16 @@ ActiveRecord::Schema.define(version: 20170123224301) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "trainee_trainings", force: :cascade do |t|
+    t.integer  "trainee_id"
+    t.integer  "training_id"
+    t.string   "reference_number"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["trainee_id"], name: "index_trainee_trainings_on_trainee_id", using: :btree
+    t.index ["training_id"], name: "index_trainee_trainings_on_training_id", using: :btree
+  end
+
   create_table "trainees", force: :cascade do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -129,18 +139,23 @@ ActiveRecord::Schema.define(version: 20170123224301) do
   end
 
   create_table "trainings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "competency_id"
+    t.index ["competency_id"], name: "index_trainings_on_competency_id", using: :btree
   end
 
   add_foreign_key "accreditations", "assessors"
   add_foreign_key "accreditations", "qualifications"
   add_foreign_key "assessments", "assessors"
+  add_foreign_key "assessments", "trainee_trainings"
   add_foreign_key "assessments", "trainees"
-  add_foreign_key "assessments", "trainings"
   add_foreign_key "certificates", "certification_levels"
   add_foreign_key "certificates", "trainees"
   add_foreign_key "competencies", "qualifications"
   add_foreign_key "issuances", "certificates"
   add_foreign_key "provinces", "regions"
+  add_foreign_key "trainee_trainings", "trainees"
+  add_foreign_key "trainee_trainings", "trainings"
+  add_foreign_key "trainings", "competencies"
 end
