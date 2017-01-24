@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124045312) do
+ActiveRecord::Schema.define(version: 20170124051118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,21 @@ ActiveRecord::Schema.define(version: 20170124045312) do
     t.index ["qualification_id"], name: "index_competencies_on_qualification_id", using: :btree
   end
 
+  create_table "educational_attainments", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "educations", force: :cascade do |t|
+    t.integer  "trainee_id"
+    t.integer  "educational_attainment_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["educational_attainment_id"], name: "index_educations_on_educational_attainment_id", using: :btree
+    t.index ["trainee_id"], name: "index_educations_on_trainee_id", using: :btree
+  end
+
   create_table "issuances", force: :cascade do |t|
     t.integer  "certificate_id"
     t.string   "serial_number"
@@ -141,8 +156,10 @@ ActiveRecord::Schema.define(version: 20170124045312) do
     t.date     "date_of_birth"
     t.integer  "sex"
     t.string   "contact_number"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "educational_attainment_id"
+    t.index ["educational_attainment_id"], name: "index_trainees_on_educational_attainment_id", using: :btree
   end
 
   create_table "training_centers", force: :cascade do |t|
@@ -166,9 +183,12 @@ ActiveRecord::Schema.define(version: 20170124045312) do
   add_foreign_key "certificates", "certification_levels"
   add_foreign_key "certificates", "trainees"
   add_foreign_key "competencies", "qualifications"
+  add_foreign_key "educations", "educational_attainments"
+  add_foreign_key "educations", "trainees"
   add_foreign_key "issuances", "certificates"
   add_foreign_key "provinces", "regions"
   add_foreign_key "trainee_trainings", "trainees"
   add_foreign_key "trainee_trainings", "trainings"
+  add_foreign_key "trainees", "educational_attainments"
   add_foreign_key "trainings", "competencies"
 end

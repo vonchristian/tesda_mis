@@ -6,5 +6,8 @@
   <%= f.input :sex, collection: Trainee.sexes.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons %>
   <%= f.input :date_of_birth, as: :string %>
   <%= f.input :contact_number %>
+  <%=f.simple_fields_for :education do |ff| %>
+    <%=ff.input :educational_attainment_id, collection: EducationalAttainment.all.map{ |a| [a.title, a.id] } %>
+  <% end %>
   <%= f.submit "Save Trainee" %>
 <% end %>

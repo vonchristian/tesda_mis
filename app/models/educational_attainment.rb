@@ -1,0 +1,2 @@
+class EducationalAttainment < ApplicationRecord
+end
