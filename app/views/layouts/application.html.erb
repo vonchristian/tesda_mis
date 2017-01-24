@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TesdaMis</title>
+    <title>TESDA IFUGAO</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-
-  <body>
-    <%= yield %>
+  <body class="hold-transition skin-black-light sidebar-mini">
+    <div class="wrapper">
+      <%=render "layouts/shared/header" %>
+      <%=render "layouts/shared/sidebar" %>
+      <div class="content-wrapper">
+        <section class="content">
+          <%=render "layouts/shared/flash" %>
+          <%= yield %>
+        </section>
+      </div>
+    </div>
   </body>
 </html>
