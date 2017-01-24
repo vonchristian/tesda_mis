@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :training do
-    assessment nil
+    competency 
   end
 end

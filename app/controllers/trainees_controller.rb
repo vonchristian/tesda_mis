@@ -13,9 +13,12 @@ class TraineesController < ApplicationController
       render :new
     end
   end
+  def show
+    @trainee = Trainee.find(params[:id])
+  end
 
   private
   def trainee_params
     params.require(:trainee).permit(:first_name, :middle_name, :last_name, :sex, :date_of_birth, :contact_number)
   end
-end 
+end
