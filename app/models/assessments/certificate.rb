@@ -1,5 +1,6 @@
-module Trainees
+module Assessments
   class Certificate < ApplicationRecord
+    belongs_to :certified, polymorphic: true
     belongs_to :trainee
     belongs_to :certification_level
 

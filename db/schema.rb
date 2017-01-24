@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124022325) do
+ActiveRecord::Schema.define(version: 20170124033146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,11 @@ ActiveRecord::Schema.define(version: 20170124022325) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "certification_level_id"
+    t.integer  "certified_id"
+    t.string   "certified_type"
     t.index ["certification_level_id"], name: "index_certificates_on_certification_level_id", using: :btree
+    t.index ["certified_id"], name: "index_certificates_on_certified_id", using: :btree
+    t.index ["certified_type"], name: "index_certificates_on_certified_type", using: :btree
     t.index ["number"], name: "index_certificates_on_number", using: :btree
     t.index ["trainee_id"], name: "index_certificates_on_trainee_id", using: :btree
     t.index ["type"], name: "index_certificates_on_type", using: :btree

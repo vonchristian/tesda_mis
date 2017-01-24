@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :certificate, class: "Trainees::Certificate" do
+  factory :certificate, class: "Assessments::Certificate" do
     type ""
     trainee nil
     date_issued "2017-01-23 21:51:29"

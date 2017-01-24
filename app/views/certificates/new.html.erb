@@ -1,0 +1,5 @@
+<%=simple_form_for [@assessment, @certificate], url: :assessment_certificates do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :number %>
+  <%= f.submit "Save Certificate", class: "btn btn-primary btn-flat" %>
+<% end %>
