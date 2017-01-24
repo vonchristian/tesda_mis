@@ -9,4 +9,4 @@ feature "Create qualification" do
 
     expect(page).to have_content('created successfully')
   end
-end 
+end
