@@ -18,6 +18,6 @@ class QualificationsController < ApplicationController
   end
   private
   def qualification_params
-    params.require(:qualification).permit(:name)
+    params.require(:qualification).permit(:name, :description)
   end
 end
