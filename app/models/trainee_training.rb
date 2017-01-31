@@ -3,4 +3,6 @@ class TraineeTraining < ApplicationRecord
   belongs_to :trainee
   belongs_to :training
   delegate :name, to: :training
+  delegate :qualification, to: :training
+  delegate :name, to: :qualification, prefix: true, allow_nil: true
 end
