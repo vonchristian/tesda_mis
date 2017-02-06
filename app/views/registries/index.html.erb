@@ -1,0 +1,6 @@
+<%=link_to "Upload", new_registry_path, class: "btn btn-primary btn-flat" %>
+
+<% @registries.each do |registry| %>
+  <%=registry.sheet_file_name %>
+  <%=number_to_human_size registry.sheet_file_size %>
+<% end %>

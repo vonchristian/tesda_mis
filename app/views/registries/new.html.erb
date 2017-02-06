@@ -1,0 +1,7 @@
+<%=simple_form_for @registry, multipart: true do |f| %>
+  <%=f.error_notification %>
+  <%=f.input :sheet, as: :file %>
+  <div class="box-footer">
+  <%=f.submit "Upload RWAC", class: "btn btn-primary pull-right" %>
+</div>
+<% end %>

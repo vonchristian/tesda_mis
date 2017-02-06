@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131112725) do
+ActiveRecord::Schema.define(version: 20170131115232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,15 @@ ActiveRecord::Schema.define(version: 20170131112725) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "registries", force: :cascade do |t|
+    t.string   "sheet_file_name"
+    t.string   "sheet_content_type"
+    t.integer  "sheet_file_size"
+    t.datetime "sheet_updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "sectors", force: :cascade do |t|

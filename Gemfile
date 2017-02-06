@@ -42,7 +42,7 @@ gem 'barby'
 gem 'prawn-print'
 gem 'whenever', :require => false
 gem 'delayed_job_active_record'
-gem "roo"
+gem "spreadsheet"
 
 group :production do
   gem 'pg', '~> 0.18',  group: :development
