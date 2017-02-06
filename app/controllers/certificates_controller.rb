@@ -17,6 +17,13 @@ class CertificatesController < ApplicationController
   end
   def show
     @certificate = Assessments::Certificate.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Certificates::NationalCertificatePdf.new(@certificate, view_context)
+          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Certificate No. #{@certificate.number}.pdf"
+      end
+    end
   end
   private
   def certificate_params

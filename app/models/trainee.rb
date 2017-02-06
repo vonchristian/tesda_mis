@@ -1,14 +1,14 @@
 class Trainee < ApplicationRecord
-  has_one :education, class_name: "Trainees::Education"
-  has_one :educational_attainment, through: :education
-  has_many :trainee_trainings
+  has_many :educations, class_name: "Trainees::Education"
+  has_many :educational_attainments, through: :education
+  has_many :trainee_trainings, class_name: "Trainees::TraineeTraining"
   has_many :trainings, through: :trainee_trainings
   validates :first_name, :middle_name, :last_name, presence: true
 
   enum sex: [:male, :female]
 
-  accepts_nested_attributes_for :education
-  delegate :title, to: :education, prefix: true, allow_nil: true
+  accepts_nested_attributes_for :educations
+
   has_attached_file :avatar, styles: { medium: "300x300>",
                                                            thumb: "100x100#", small: "50x50#"}, default_url: ":style/profile_default.jpg"
 

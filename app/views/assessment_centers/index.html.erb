@@ -1,1 +1,4 @@
 <%= link_to "New Assessment Center", new_assessment_center_path, class: "btn btn-primary btn-flat" %>
+<% @assessment_centers.each do |center| %>
+  <%=center.name %>
+<% end %>

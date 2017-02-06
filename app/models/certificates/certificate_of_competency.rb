@@ -1,4 +1,4 @@
 module Certificates
-  class CertificateOfCompentency < Certificate
+  class CertificateOfCompetency < Assessments::Certificate
   end
-end 
+end

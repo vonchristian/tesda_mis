@@ -14,6 +14,10 @@ class RegistriesController < ApplicationController
     end
   end
 
+  def show
+    @registry = Registry.find(params[:id])
+  end
+
   private
   def registry_params
     params.require(:registry).permit(:sheet)

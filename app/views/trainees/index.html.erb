@@ -4,7 +4,7 @@
       <div class="box-header with-border">
         <div class="row">
           <div class="col-md-2">
-            <h3 class="box-title"> Trainees </h3>
+            <h3 class="box-title"> Trainees <%=Trainee.count %> </h3>
           </div>
           <div class="col-md-7">
           </div>
@@ -27,7 +27,7 @@
               <% @trainees.each do |trainee| %>
                 <tr>
                   <td><%= link_to trainee.full_name, trainee %> </td>
-                  <td><%= trainee.education_title%> </td>
+                  <td><%#= trainee.education_title%> </td>
                   <td><%= trainee.sex.capitalize %></td>
                 </tr>
               <% end %>

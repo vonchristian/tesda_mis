@@ -1,0 +1,2 @@
+class Modality < ApplicationRecord
+end

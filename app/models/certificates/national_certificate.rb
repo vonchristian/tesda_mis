@@ -1,4 +1,4 @@
 module Certificates
-  class NationalCertificate < Certificate
+  class NationalCertificate < Assessments::Certificate
   end
-end 
+end

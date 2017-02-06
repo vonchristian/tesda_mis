@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   resources :qualifications, except: [:destroy] do
     resources :competencies, only: [:new, :create], module: :qualifications
   end
-  resources :registries, only: [:index, :new, :create]
+  resources :registries, only: [:index, :new, :create, :show]
 end
