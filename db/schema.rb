@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206162126) do
+ActiveRecord::Schema.define(version: 20170207043007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,14 @@ ActiveRecord::Schema.define(version: 20170206162126) do
     t.integer  "trainee_id"
     t.integer  "assessor_id"
     t.datetime "date"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "trainee_training_id"
     t.integer  "result"
     t.datetime "assessment_date"
     t.datetime "application_date"
+    t.integer  "assessment_center_id"
+    t.index ["assessment_center_id"], name: "index_assessments_on_assessment_center_id", using: :btree
     t.index ["assessor_id"], name: "index_assessments_on_assessor_id", using: :btree
     t.index ["trainee_id"], name: "index_assessments_on_trainee_id", using: :btree
     t.index ["trainee_training_id"], name: "index_assessments_on_trainee_training_id", using: :btree
@@ -147,6 +149,8 @@ ActiveRecord::Schema.define(version: 20170206162126) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "description"
+    t.integer  "sector_id"
+    t.index ["sector_id"], name: "index_qualifications_on_sector_id", using: :btree
   end
 
   create_table "regions", force: :cascade do |t|
@@ -180,10 +184,12 @@ ActiveRecord::Schema.define(version: 20170206162126) do
     t.integer  "province_id"
     t.integer  "modality_id"
     t.integer  "client_type_id"
+    t.integer  "registry_id"
     t.index ["client_type_id"], name: "index_trainee_trainings_on_client_type_id", using: :btree
     t.index ["modality_id"], name: "index_trainee_trainings_on_modality_id", using: :btree
     t.index ["province_id"], name: "index_trainee_trainings_on_province_id", using: :btree
     t.index ["region_id"], name: "index_trainee_trainings_on_region_id", using: :btree
+    t.index ["registry_id"], name: "index_trainee_trainings_on_registry_id", using: :btree
     t.index ["trainee_id"], name: "index_trainee_trainings_on_trainee_id", using: :btree
     t.index ["training_id"], name: "index_trainee_trainings_on_training_id", using: :btree
   end
@@ -224,6 +230,7 @@ ActiveRecord::Schema.define(version: 20170206162126) do
 
   add_foreign_key "accreditations", "assessors"
   add_foreign_key "accreditations", "qualifications"
+  add_foreign_key "assessments", "assessment_centers"
   add_foreign_key "assessments", "assessors"
   add_foreign_key "assessments", "trainee_trainings"
   add_foreign_key "assessments", "trainees"
@@ -234,10 +241,12 @@ ActiveRecord::Schema.define(version: 20170206162126) do
   add_foreign_key "educations", "trainees"
   add_foreign_key "issuances", "certificates"
   add_foreign_key "provinces", "regions"
+  add_foreign_key "qualifications", "sectors"
   add_foreign_key "trainee_trainings", "client_types"
   add_foreign_key "trainee_trainings", "modalities"
   add_foreign_key "trainee_trainings", "provinces"
   add_foreign_key "trainee_trainings", "regions"
+  add_foreign_key "trainee_trainings", "registries"
   add_foreign_key "trainee_trainings", "trainees"
   add_foreign_key "trainee_trainings", "trainings"
   add_foreign_key "trainees", "educational_attainments"

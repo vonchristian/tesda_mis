@@ -8,6 +8,9 @@ module Certificates
       level
       qualification
       certified
+      certificate_number
+      issued_date
+      expiry_date
     end
     def level
       bounding_box [420, 850], width: 100 do
@@ -17,14 +20,25 @@ module Certificates
 
     def qualification
       bounding_box [100, 750], width: 400 do
-        text "#{@certificate.qualification.name}", size: 25, style: :bold, align: :center
+        text "#{@certificate.qualification.name.upcase}", size: 25, style: :bold, align: :center
       end
     end
 
     def certified
       bounding_box [100, 650], width: 400 do
-        text "#{@certificate.trainee.full_name}", size: 25, style: :bold, align: :center
+        text "#{@certificate.trainee.full_name.upcase}", size: 25, style: :bold, align: :center
       end
     end
+    def certificate_number
+      text "#{@certificate.number}"
+    end
+
+    def issued_date
+      text "#{@certificate.date_issued.strftime("%b. %e, %Y")}"
+    end
+    def expiry_date
+      text "#{@certificate.expiry_date.strftime("%b. %e, %Y")}"
+    end
+
   end
 end

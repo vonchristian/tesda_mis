@@ -1,6 +1,10 @@
 class RegistriesController < ApplicationController
   def index
-    @registries = Registry.all
+    if params[:name].present?
+      @registries = Registry.search_by_name(params[:name])
+    else
+      @registries = Registry.all
+    end
   end
   def new
     @registry = Registry.new

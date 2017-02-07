@@ -4,4 +4,7 @@ class Assessor < ApplicationRecord
 
   validates :first_name, :middle_name, :last_name, presence: true
 
+  def full_name
+    "#{last_name}, #{first_name} #{middle_name.first}."
+  end
 end
