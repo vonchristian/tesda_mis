@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208035657) do
+ActiveRecord::Schema.define(version: 20170208052811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20170208035657) do
     t.index ["accredited_id"], name: "index_accreditations_on_accredited_id", using: :btree
     t.index ["accredited_type"], name: "index_accreditations_on_accredited_type", using: :btree
     t.index ["qualification_id"], name: "index_accreditations_on_qualification_id", using: :btree
+  end
+
+  create_table "assessment_centers", force: :cascade do |t|
+    t.integer  "institution_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["institution_id"], name: "index_assessment_centers_on_institution_id", using: :btree
   end
 
   create_table "assessments", force: :cascade do |t|
@@ -76,10 +83,14 @@ ActiveRecord::Schema.define(version: 20170208035657) do
     t.datetime "updated_at",             null: false
     t.integer  "certification_type_id"
     t.integer  "certification_level_id"
+    t.datetime "issue_date"
+    t.datetime "expiry_date"
+    t.string   "number"
     t.index ["certification_level_id"], name: "index_certifications_on_certification_level_id", using: :btree
     t.index ["certification_type_id"], name: "index_certifications_on_certification_type_id", using: :btree
     t.index ["certified_id"], name: "index_certifications_on_certified_id", using: :btree
     t.index ["certified_type"], name: "index_certifications_on_certified_type", using: :btree
+    t.index ["number"], name: "index_certifications_on_number", unique: true, using: :btree
   end
 
   create_table "client_types", force: :cascade do |t|
@@ -213,6 +224,13 @@ ActiveRecord::Schema.define(version: 20170208035657) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "training_centers", force: :cascade do |t|
+    t.integer  "institution_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["institution_id"], name: "index_training_centers_on_institution_id", using: :btree
+  end
+
   create_table "trainings", force: :cascade do |t|
     t.integer  "trainer_id"
     t.integer  "training_center_id"
@@ -234,6 +252,7 @@ ActiveRecord::Schema.define(version: 20170208035657) do
   end
 
   add_foreign_key "accreditations", "qualifications"
+  add_foreign_key "assessment_centers", "institutions"
   add_foreign_key "assessors", "clients"
   add_foreign_key "barangays", "municipality_or_cities"
   add_foreign_key "certifications", "certification_levels"
@@ -249,6 +268,7 @@ ActiveRecord::Schema.define(version: 20170208035657) do
   add_foreign_key "educations", "educational_attainments"
   add_foreign_key "municipality_or_cities", "provinces"
   add_foreign_key "provinces", "regions"
+  add_foreign_key "training_centers", "institutions"
   add_foreign_key "trainings", "competencies"
   add_foreign_key "trainings", "trainors"
   add_foreign_key "trainors", "clients"

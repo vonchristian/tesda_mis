@@ -1,6 +1,6 @@
 module Institutions
   class TrainingCenter < ApplicationRecord
     belongs_to :institution
-    has_one :accreditation, as: :accredited
+    has_many :accreditations, as: :accredited
   end
 end

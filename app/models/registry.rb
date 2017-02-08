@@ -41,16 +41,16 @@ class Registry < ApplicationRecord
 
       institution = Institution.find_or_create_by(name: row[24])
       training_center_accreditation = Accreditation.find_or_create_by(accredited: institution, qualification: qualification)
-      training_center = Institutions::TrainingCenter.find_or_create_by(institution: institution, accreditation: training_center_accreditation)
+      training_center = Institutions::TrainingCenter.find_or_create_by(institution: institution)
       # company = Company.find_or_create_by(name: row[15])
       client = Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].strip.downcase)
-      educational_attainment = Configurations::EducationalAttainment.find_or_create_by(title: row[12])
+      educational_attainment = Configurations::EducationalAttainment.find_or_create_by(name: row[12])
       Clients::Education.find_or_create_by(educational_attainment: educational_attainment, client: client)
 
       competency = Qualifications::Competency.find_or_create_by(qualification: qualification, unit_title: row[13])
-      # client_type = ClientType.find_or_create_by(name: row[8])
+      client_type = Configurations::ClientType.find_or_create_by(name: row[8])
       modality = Configurations::Modality.find_or_create_by(name: row[7])
-      training = Training.find_or_create_by(competency: competency, training_center: training_center)
+      training = Training.find_or_create_by(competency: competency, training_center_id: training_center.id)
       #tom implement adddress
       # address = row[9]
 
@@ -68,9 +68,9 @@ class Registry < ApplicationRecord
       assessment_center = Institutions::AssessmentCenter.find_or_create_by(institution: assessment_institution)
       assessment_center_accreditation = Accreditation.find_or_create_by(accredited: assessment_center, qualification: qualification)
 
-      assessment = Assessment.find_or_create_by(assessee: completed_training, assessor: assessorship, assessment_center: assessment_center, trainee_training: trainee_training, result: row[23].downcase.parameterize.gsub("-", "_"))
+      assessment = Assessment.find_or_create_by(assessee: completed_training, assessor: assessorship, assessment_center: assessment_center, result: row[23].downcase.parameterize.gsub("-", "_"))
       certification_type = Certifications::CertificationType.find_or_create_by(name: row[23])
-      certification = Certification.find_or_create_by( certified: assessment, date_issued: row[25], expiry_date: row[26], number: row[24].to_i, certification_type: certification_type)
+      certification = Certification.find_or_create_by( certified: assessment, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_type: certification_type)
     end
   end
   end
