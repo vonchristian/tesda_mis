@@ -12,6 +12,7 @@ describe Client do
     it { is_expected.to have_many :trainorships }
     it { is_expected.to have_many :conducted_assessments }
     it { is_expected.to have_many :conducted_trainings }
+    it { is_expected.to have_many :addresses }
   end
 
   describe "validations" do

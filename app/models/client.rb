@@ -13,6 +13,7 @@ class Client < ApplicationRecord
 
   has_many :conducted_assessments, through: :assessorships
   has_many :conducted_trainings, through: :trainorships
+  has_many :addresses, as: :addressable
 
 
 
