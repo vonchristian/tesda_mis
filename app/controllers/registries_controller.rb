@@ -1,18 +1,19 @@
 class RegistriesController < ApplicationController
   def index
-    if params[:name].present?
-      @registries = Registry.search_by_name(params[:name])
+    if params[:search].present?
+      @registries = Registry.text_search(params[:search])
     else
       @registries = Registry.all
     end
   end
+
   def new
     @registry = Registry.new
   end
   def create
-    @registry = Registry.new(registry_params)
-    if @registry.save!
-      redirect_to registries_url, notice: "uploaded successfully."
+    @registry = Registry.create(registry_params)
+    if @registry.save
+      redirect_to @registry, notice: "uploaded successfully."
     else
       render :new
     end
@@ -24,6 +25,6 @@ class RegistriesController < ApplicationController
 
   private
   def registry_params
-    params.require(:registry).permit(:sheet)
+    params.require(:registry).permit(:name, :spreadsheet)
   end
 end

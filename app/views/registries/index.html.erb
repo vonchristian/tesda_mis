@@ -7,42 +7,51 @@
             <h3 class="box-title"> RWAC Uploads </h3>
           </div>
           <div class="col-md-6">
-            <%=form_tag registries_path, method: :get, id: "search-form" do %>
-              <div class="input-group">
-                <%= text_field_tag :name, params[:name], class: "search-query form-control", placeholder: "Search RWAC File ", type: "search" %>
-                <span class="input-group-btn">
-                  <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
-                    <i class="fa fa-search"></i>
-                  <% end %>
-                </span>
-              </div>
-            <% end %>
+            <%=form_tag registries_path, method: :get, class: "search-form" do %>
+                        <div class="input-group">
+                          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'registry-search-form' %>
+                          <span class="input-group-btn">
+                            <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                              <i class="fa fa-search"></i>
+                            <% end %>
+                          </span>
+                        </div>
+                      <% end %>
           </div>
           <div class="col-md-3">
             <span class="pull-right">
-              <%=link_to "New Upload", new_registry_path, class: "btn btn-primary btn-flat pull-right" %>
+              <%=link_to "Upload Registry", new_registry_path, class: "btn btn-primary btn-flat pull-right" %>
             </span>
           </div>
         </div>
       </div>
       <div class="box-body">
-        <div class="table table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th> File </th>
-                <th> File Size </th>
-                <th> Date Uploaded </th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <% @registries.each do |registry| %>
+        <% if @registries.present? %>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
                 <tr>
-                <td><%= link_to registry.sheet_file_name, registry %></td>
-                <td><%= number_to_human_size registry.sheet_file_size %></td>
-                <td><%= registry.created_at.strftime("%B %e, %Y") %></td>
+                  <th> File </th>
+                  <th> File Size </th>
+                  <th> Date Uploaded </th>
+
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% @registries.each do |registry| %>
+                  <tr>
+                  <td><%= link_to registry.name, registry_path(registry) %></td>
+                  <td><%= number_to_human_size registry.spreadsheet_file_size %></td>
+                  <td><%= registry.created_at.strftime("%B %e, %Y") %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No registries found.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

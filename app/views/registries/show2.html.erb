@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header">
+        <%=@registry.sheet_file_name.titleize %>
+      </div>
+      <div class="box-body">
+
+        <div class="table table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th> Region </th>
+                <th> Province </th>
+                <th> Reference Number </th>
+                <th> Last Name </th>
+                <th> First Name </th>
+                <th> Middle Initial </th>
+                <th> Date of Birth </th>
+                <th> Modality </th>
+                <th> Client Type </th>
+                <th> Complete Address </th>
+                <th> Telephone Number </th>
+                <th> Sex </th>
+                <th> Educational Attainment </th>
+                <th> Training Completed </th>
+                <th> Institution/School </th>
+                <th> Company </th>
+                <th> Assessment Center </th>
+                <th> Competency Assessor </th>
+                <th> Assessor's Accreditation No. </th>
+                <th> Sector </th>
+                <th> Type of Certificate </th>
+                <th> NC Title </th>
+                <th> COC Title </th>
+                <th> Assessment Result </th>
+                <th> Certificate No. </th>
+                <th> Date of Certification </th>
+                <th> Expiration Date </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @registry.trainee_trainings.each do |trainee_training| %>
+                <tr>
+                  <td><%= trainee_training.region_name %></td>
+                  <td><%= trainee_training.province_name %></td>
+                  <td><%= trainee_training.reference_number %></td>
+                  <td><%= trainee_training.trainee_last_name %></td>
+                  <td><%= trainee_training.trainee_first_name %></td>
+                  <td><%= trainee_training.trainee_middle_name %></td>
+                  <td><%= trainee_training.trainee_date_of_birth %></td>
+                  <td><%= trainee_training.modality_name %></td>
+                  <td><%= trainee_training.client_type_name %></td>
+                  <td></td>
+                  <td></td>
+                  <td><%= trainee_training.trainee_sex %></td>
+                  <td></td>
+                  <td><%= trainee_training.training_name %></td>
+                  <td><%= trainee_training.training.training_center.name %> </td>
+                  <td><%= trainee_training.company %></td>
+                  <td><%= trainee_training.assessment %></td>
+                  <td><%= trainee_training.assessor_full_name %></td>
+                  <td><%= trainee_training.assessor_accreditation_number %></td>
+                  <td><%= trainee_training.sector_name %></td>
+                  <td><%= trainee_training.type_of_certificate %></td>
+                  <td></td>
+                  <td></td>
+                  <td><%= trainee_training.assessment.result.titleize %></td>
+                  <td><%= trainee_training.assessment.certificate_number %></td>
+                  <td><%= trainee_training.assessment.certificate_date_issued %></td>
+                  <td><%= trainee_training.assessment.certificate_expiry_date %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

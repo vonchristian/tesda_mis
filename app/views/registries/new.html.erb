@@ -9,8 +9,9 @@
 <%=simple_form_for @registry, multipart: true do |f| %>
   <%=f.error_notification %>
 
-  <%=f.input :sheet, as: :file, label: false %>
+  <%=f.input :spreadsheet, as: :file, label: "Upload Spreadsheet", input_html: { id: "registry-file" } %>
+  <%= f.input :name %>
   <div class="box-footer">
-  <%=f.submit "Upload RWAC", class: "btn btn-primary pull-right", data: {disable_with: "Uploading File..."} %>
+  <%=f.submit "Upload Registry", class: "btn btn-primary pull-right", data: {disable_with: "Uploading File..."} %>
 </div>
 <% end %>

@@ -1,0 +1,9 @@
+<%= simple_form_for @client do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :first_name %>
+  <%= f.input :middle_name %>
+  <%= f.input :last_name %>
+  <%= f.input :sex, collection: Client.sexes.keys.to_a.map{ |a| [a.titleize, a] }, as: :radio_buttons %>
+  <%= f.input :date_of_birth, as: :string, input_html: { class: 'datepicker' } %>
+  <%= f.submit "Save Client" %>
+<% end %>

@@ -1,2 +1,0 @@
-class CertificationLevel < ApplicationRecord
-end

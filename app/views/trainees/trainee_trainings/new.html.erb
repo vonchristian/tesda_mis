@@ -1,5 +1,0 @@
-<%=simple_form_for [@trainee, @training], url: :trainee_trainee_trainings do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :training_id, collection: Training.all.map{ |a| [a.name, a.id]} %>
-  <%= f.submit "Create Training" %>
-<% end %>

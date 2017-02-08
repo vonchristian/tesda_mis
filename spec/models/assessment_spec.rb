@@ -1,15 +1,13 @@
 require 'rails_helper'
 
 describe Assessment do
-  describe "associations" do
-    it { is_expected.to belong_to :trainee }
+  describe 'associations' do
     it { is_expected.to belong_to :assessor }
-    it { is_expected.to belong_to :trainee_training }
-    it { is_expected.to have_one :certificate }
+    it { is_expected.to belong_to :assessee }
+    it { is_expected.to belong_to :assessment_center }
+    it { is_expected.to have_one :certification }
   end
-  describe "validations" do
-    it { is_expected.to validate_presence_of :application_date }
-    it { is_expected.to validate_presence_of :assessment_date }
-
+  describe "enums" do
+    it { is_expected.to define_enum_for(:result).with([:competent, :not_yet_competent]) }
   end
 end
