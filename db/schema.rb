@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20170208053229) do
     t.integer  "barangay_id"
     t.integer  "addressable_id"
     t.integer  "addressable_type"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.boolean  "current",                 default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.index ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
     t.index ["addressable_type"], name: "index_addresses_on_addressable_type", using: :btree
     t.index ["barangay_id"], name: "index_addresses_on_barangay_id", using: :btree
@@ -105,7 +106,6 @@ ActiveRecord::Schema.define(version: 20170208053229) do
     t.index ["certification_type_id"], name: "index_certifications_on_certification_type_id", using: :btree
     t.index ["certified_id"], name: "index_certifications_on_certified_id", using: :btree
     t.index ["certified_type"], name: "index_certifications_on_certified_type", using: :btree
-    t.index ["number"], name: "index_certifications_on_number", unique: true, using: :btree
   end
 
   create_table "client_types", force: :cascade do |t|

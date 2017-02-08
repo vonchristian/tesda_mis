@@ -1,11 +1,13 @@
 class Registry < ApplicationRecord
   include PgSearch
-  pg_search_scope( :text_search,
-                    against: [:name, :spreadsheet_file_name],
-                    using: { tsearch: { prefix: true }} )
-  has_attached_file :spreadsheet,
-                  :path => ":rails_root/public/system/:attachment/:id/:filename"
+  pg_search_scope( :text_search, against: [:name, :spreadsheet_file_name], using: { tsearch: { prefix: true }} )
+  has_attached_file :spreadsheet, :path => ":rails_root/public/system/:attachment/:id/:filename"
 
+  has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true
+
+  validates :spreadsheet, presence: true
+  validates :name, presence: true, uniqueness: true
+  do_not_validate_attachment_file_type :spreadsheet
   # validates_attachment :spreadsheet, presence: true,
   #                    content_type: { content_type: [
   #                      "application/vnd.ms-excel",
@@ -14,11 +16,8 @@ class Registry < ApplicationRecord
   #                    },
   #                    message: ' Only EXCEL files are allowed.'
 
-  has_many :client_trainings, class_name: "Clients::CompletedTraining"
-  do_not_validate_attachment_file_type :spreadsheet
-  # after_commit :parse_for_records
-  validates :spreadsheet, presence: true
-  validates :name, presence: true, uniqueness: true
+  after_commit :parse_for_records
+
   def training_center
     trainee_trainings.last.training.training_center.name
   end
@@ -30,48 +29,143 @@ class Registry < ApplicationRecord
 
 
   def parse_for_records
-    book = Spreadsheet.open(self.spreadsheet.path)
+    book = Spreadsheet.open(spreadsheet.path)
     sheet = book.worksheet(0)
-    sheet.each 1 do |row|
-    if !row[0].nil?
-      region = Addresses::Region.find_or_create_by(name: row[0])
-      province = Addresses::Province.find_or_create_by(name: row[1])
-      sector = Sector.find_or_create_by(name: row[19])
-      qualification = Qualification.find_or_create_by(name: row[21], sector: sector)
-
-      institution = Institution.find_or_create_by(name: row[24])
-      training_center_accreditation = Accreditation.find_or_create_by(accredited: institution, qualification: qualification)
-      training_center = Institutions::TrainingCenter.find_or_create_by(institution: institution)
-      # company = Company.find_or_create_by(name: row[15])
-      client = Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].strip.downcase)
-      educational_attainment = Configurations::EducationalAttainment.find_or_create_by(name: row[12])
-      Clients::Education.find_or_create_by(educational_attainment: educational_attainment, client: client)
-
-      competency = Qualifications::Competency.find_or_create_by(qualification: qualification, unit_title: row[13])
-      client_type = Configurations::ClientType.find_or_create_by(name: row[8])
-      modality = Configurations::Modality.find_or_create_by(name: row[7])
-      training = Training.find_or_create_by(competency: competency, training_center_id: training_center.id)
-      #tom implement adddress
-      # address = row[9]
-
-      completed_training = Clients::CompletedTraining.find_or_create_by(region: region, province: province, reference_number: row[2], client: client, modality: modality, client_type: client_type, training: training, registry: self)
-
-      assessor_full_name = row[17]
-      assessor_last_name = assessor_full_name.split.first
-      assessor_middle_name = assessor_full_name.split.last
-      assessor_first_name = assessor_full_name.gsub(assessor_full_name.split.last, "").gsub(assessor_full_name.split.first, "").strip
-
-      assessor = Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name)
-      assessor_accreditation = Accreditation.find_or_create_by(accredited: assessor, qualification: qualification, number: row[18].to_i)
-      assessorship = Clients::Assessor.find_or_create_by(client: assessor)
-      assessment_institution = Institution.find_or_create_by(name: row[16])
-      assessment_center = Institutions::AssessmentCenter.find_or_create_by(institution: assessment_institution)
-      assessment_center_accreditation = Accreditation.find_or_create_by(accredited: assessment_center, qualification: qualification)
-
-      assessment = Assessment.find_or_create_by(assessee: completed_training, assessor: assessorship, assessment_center: assessment_center, result: row[23].downcase.parameterize.gsub("-", "_"))
-      certification_type = Certifications::CertificationType.find_or_create_by(name: row[23])
-      certification = Certification.find_or_create_by( certified: assessment, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_type: certification_type)
+    transaction do
+      sheet.each 1 do |row|
+        if !row[0].nil?
+          create_or_find_region(row)
+          create_or_find_province(row)
+          create_or_find_sector(row)
+          create_or_find_qualification(row)
+          create_or_find_training_institution(row)
+          create_or_find_training_center_accreditation(row)
+          create_or_find_training_center(row)
+          create_or_find_client(row)
+          create_or_find_educational_attainment(row)
+          create_or_find_education(row)
+          create_or_find_competency(row)
+          create_or_find_client_type(row)
+          create_or_find_modality(row)
+          create_or_find_training(row)
+          create_or_find_barangay(row)
+          create_or_find_municipality_or_city(row)
+          create_or_find_by_client_province(row)
+          create_or_find_client_address(row)
+          create_or_find_completed_training(row)
+          create_or_find_assessor(row)
+          create_or_find_assessor_accreditation(row)
+          create_or_find_assessorship(row)
+          create_or_find_assessment_institution(row)
+          create_or_find_assessment_center(row)
+          create_or_find_assessment_center_accreditation(row)
+          create_or_find_client_assessment(row)
+          create_or_find_certification_type(row)
+          create_or_find_certification(row)
+        end
+      end
     end
   end
+
+  private
+  def create_or_find_region(row)
+    Addresses::Region.find_or_create_by(name: row[0])
+  end
+  def create_or_find_province(row)
+    Addresses::Province.find_or_create_by(name: row[1])
+  end
+  def create_or_find_sector(row)
+    Sector.find_or_create_by(name: row[19])
+  end
+  def create_or_find_qualification(row)
+    Qualification.find_or_create_by(name: row[21], sector: create_or_find_sector(row))
+  end
+  def create_or_find_training_institution(row)
+    Institution.find_or_create_by(name: row[24])
+  end
+  def create_or_find_training_center_accreditation(row)
+    Accreditation.find_or_create_by(accredited: create_or_find_training_institution(row), qualification: create_or_find_qualification(row))
+  end
+  def create_or_find_training_center(row)
+    Institutions::TrainingCenter.find_or_create_by(institution: create_or_find_training_institution(row))
+  end
+
+  def create_or_find_client(row)
+    Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].strip.downcase)
+  end
+  def create_or_find_educational_attainment(row)
+    Configurations::EducationalAttainment.find_or_create_by(name: row[12])
+  end
+  def create_or_find_education(row)
+    Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: create_or_find_client(row))
+  end
+  def create_or_find_competency(row)
+    Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[13])
+  end
+  def create_or_find_client_type(row)
+    Configurations::ClientType.find_or_create_by(name: row[8])
+  end
+  def create_or_find_modality(row)
+    Configurations::Modality.find_or_create_by(name: row[7])
+  end
+  def create_or_find_training(row)
+    Training.find_or_create_by(competency: create_or_find_competency(row), training_center_id: create_or_find_training_center(row).id)
+  end
+  def create_or_find_barangay(row)
+    Addresses::Barangay.find_or_create_by(name: row[9].split(",").first.strip)
+  end
+  def create_or_find_municipality_or_city(row)
+    Addresses::MunicipalityOrCity.find_or_create_by(name: row[9].split(",").second.strip)
+  end
+  def create_or_find_by_client_province(row)
+    Addresses::Province.find_or_create_by(name: row[9].split(",").last.strip)
+  end
+
+  def create_or_find_client_address(row)
+    Address.find_or_create_by(addressable: create_or_find_client(row), barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_client_province(row))
+  end
+
+  def create_or_find_completed_training(row)
+    Clients::CompletedTraining.find_or_create_by(region: create_or_find_region(row), province: create_or_find_province(row), reference_number: row[2], client: create_or_find_client(row), modality: create_or_find_modality(row), client_type: create_or_find_client_type(row), training: create_or_find_training(row), registry: self)
+  end
+
+  def create_or_find_assessor(row)
+    assessor_full_name = row[17]
+    assessor_last_name = assessor_full_name.split.first
+    assessor_middle_name = assessor_full_name.split.last
+    assessor_first_name = assessor_full_name.gsub(assessor_full_name.split.last, "").gsub(assessor_full_name.split.first, "").strip
+    assessor = Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name)
+  end
+
+  def create_or_find_assessor_accreditation(row)
+    Accreditation.find_or_create_by(accredited: create_or_find_assessor(row), qualification: create_or_find_qualification(row), number: row[18].to_i)
+  end
+
+  def create_or_find_assessorship(row)
+    Clients::Assessor.find_or_create_by(client: create_or_find_assessor(row))
+  end
+
+  def create_or_find_assessment_institution(row)
+    Institution.find_or_create_by(name: row[16])
+  end
+
+  def create_or_find_assessment_center(row)
+    Institutions::AssessmentCenter.find_or_create_by(institution: create_or_find_assessment_institution(row))
+  end
+
+  def create_or_find_assessment_center_accreditation(row)
+    Accreditation.find_or_create_by(accredited: create_or_find_assessment_center(row), qualification: create_or_find_qualification(row))
+  end
+
+  def create_or_find_client_assessment(row)
+    Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: row[23].downcase.parameterize.gsub("-", "_"))
+  end
+
+  def create_or_find_certification_type(row)
+    Certifications::CertificationType.find_or_create_by(name: row[23])
+  end
+
+  def create_or_find_certification(row)
+    Certification.find_or_create_by!( certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_type: create_or_find_certification_type(row))
   end
 end

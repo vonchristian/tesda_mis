@@ -25,6 +25,6 @@ class RegistriesController < ApplicationController
 
   private
   def registry_params
-    params.require(:registry).permit(:name, :spreadsheet)
+    params.require(:registry).permit(:name, :spreadsheet, :date)
   end
 end
