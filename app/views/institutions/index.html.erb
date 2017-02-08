@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <div class="row">
+          <div class="col-md-3">
+            <h3 class="box-title"> Institutions </h3>
+          </div>
+          <div class="col-md-6">
+            <%=form_tag institutions_path, method: :get, class: "search-form" do %>
+                        <div class="input-group">
+                          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'institution-search-form' %>
+                          <span class="input-group-btn">
+                            <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                              <i class="fa fa-search"></i>
+                            <% end %>
+                          </span>
+                        </div>
+                      <% end %>
+          </div>
+          <div class="col-md-3">
+            <span class="pull-right">
+              <%#=link_to "Upload institution", new_institution_path, class: "btn btn-primary btn-flat pull-right" %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <% if @institutions.present? %>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <% @institutions.each do |institution| %>
+                  <tr>
+                  <td><%= link_to institution.name, institution_path(institution) %></td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No institution found.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
