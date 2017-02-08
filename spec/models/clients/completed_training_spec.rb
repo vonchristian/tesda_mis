@@ -10,7 +10,7 @@ module Clients
       it { is_expected.to belong_to :modality }
       it { is_expected.to belong_to :registry }
       it { is_expected.to belong_to :client_type }
-    
+
     end
   end
 end

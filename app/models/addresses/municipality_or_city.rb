@@ -4,6 +4,6 @@ module Addresses
     has_many :barangays, class_name: "Addresses::Barangay"
 
     validates :name, presence: true, uniqueness: true
-    
+
   end
 end
