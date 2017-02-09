@@ -25,24 +25,39 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-          <li><a href="/"><i class="icon-speedometer"></i> <span> &nbsp; &nbsp;  Dashboard</span></a></li>
+          <li><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i>
+            <span> Clients</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/trainors"><i class="fa fa-circle-o"></i> Trainors </a></li>
+            <li><a href="assessors"><i class="fa fa-circle-o"></i> Assessors</a></li>
+            <li><a href="/clients"><i class="fa fa-circle-o"></i> All Clients </a></li>
+          </ul>
+        </li>
 
-        <li><a href="/clients"><i class="icon-people"></i> <span> &nbsp; &nbsp; Clients</span></a></li>
-        <li><a href="/assessors"><i class="icon-people"></i> <span> &nbsp; &nbsp; Assessors</span></a></li>
-        <li><a href="/trainors"><i class="icon-people"></i> <span> &nbsp; &nbsp; Trainors</span></a></li>
-
-        <li><a href="/institutions"><i class="icon-home"></i> <span> &nbsp; &nbsp;  Institutions</span></a></li>
-        <li><a href="/training_centers"><i class="icon-home"></i> <span> &nbsp; &nbsp;  Training Centers</span></a></li>
-
-        <li><a href="/businesses"><i class="icon-folder"></i> <span> &nbsp; &nbsp;  Reports</span></a></li>
-          <li><a href="/registries"><i class="icon-folder"></i> <span> &nbsp; &nbsp;  RWACs</span></a></li>
-        <%# if current_user.health_officer? %>
-        <li><a href="/certifications"><i class="icon-docs"></i> <span> &nbsp; &nbsp;  Certifications</span></a></li>
-        <%# if current_user.bplo_officer? %>
-          <li><a href="/settings/accounts"><i class="icon-settings"></i> <span> &nbsp; &nbsp;  Setings</span></a></li>
-        <%# end %>
-          <%# end %>
-          <li><a href="/qualifications"><i class="icon-folder"></i> <span> &nbsp; &nbsp;  Qualifications</span></a></li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-building"></i>
+            <span> Institutions</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/training_centers"><i class="fa fa-circle-o"></i> Training Centers</a></li>
+            <li><a href="assessment_centers"><i class="fa fa-circle-o"></i> Assessment Centers</a></li>
+            <li><a href="/institutions"><i class="fa fa-circle-o"></i> All Institutions </a></li>
+          </ul>
+        </li>
+          <li><a href="/registries"><i class="fa fa-folder"></i> <span> RWACs</span></a></li>
+       
+        <li><a href="/certifications"><i class="fa fa-file-text-o"></i> <span>Certifications</span></a></li>
     </section>
     <!-- /.sidebar -->
   </aside>

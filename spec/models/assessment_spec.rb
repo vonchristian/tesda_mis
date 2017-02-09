@@ -13,5 +13,6 @@ describe Assessment do
   describe "delegations" do 
     it { is_expected.to delegate_method(:full_name).to(:assessee).with_prefix }
     it { is_expected.to delegate_method(:full_name).to(:assessor).with_prefix }
+    it { is_expected.to delegate_method(:client).to(:assessee) }
   end
 end

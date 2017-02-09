@@ -36,6 +36,9 @@
                 <% @certifications.each do |certification| %>
                   <tr>
                   <td><%= link_to certification.number, certification_path(certification) %></td>
+
+                  <td><%= certification.certified %></td>
+                  <td><%= certification.certification_type_name %></td>
                   </tr>
                 <% end %>
               </tbody>

@@ -3,8 +3,7 @@ class Registry < ApplicationRecord
   pg_search_scope( :text_search, against: [:name, :spreadsheet_file_name], using: { tsearch: { prefix: true }} )
   has_attached_file :spreadsheet, :path => ":rails_root/public/system/:attachment/:id/:filename"
 
-  has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true
-
+  has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true, dependent: :destroy
   validates :spreadsheet, presence: true
   validates :name, presence: true, uniqueness: true
   do_not_validate_attachment_file_type :spreadsheet
@@ -26,10 +25,8 @@ class Registry < ApplicationRecord
     trainee_trainings.last.assessment.assessment_center.name
   end
 
-
-
   def parse_for_records
-    book = Spreadsheet.open(spreadsheet.path)
+    book = Spreadsheet.open(self.spreadsheet.path)
     sheet = book.worksheet(0)
     transaction do
       sheet.each 1 do |row|
@@ -162,7 +159,7 @@ class Registry < ApplicationRecord
   end
 
   def create_or_find_certification_type(row)
-    Certifications::CertificationType.find_or_create_by(name: row[23])
+    Certifications::CertificationType.find_or_create_by(name: row[20])
   end
 
   def create_or_find_certification(row)
