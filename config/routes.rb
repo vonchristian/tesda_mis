@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :assessors, only: [:index, :show], module: :clients
   resources :trainors, only: [:index, :show], module: :clients
   resources :training_centers, only: [:index, :show], module: :institutions
+  resources :assessment_centers, only: [:index, :show], module: :institutions
 end

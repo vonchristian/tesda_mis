@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <div class="row">
+          <div class="col-md-3">
+            <h3 class="box-title"> assessment Centers </h3>
+          </div>
+          <div class="col-md-6">
+            <%=form_tag assessment_centers_path, method: :get, class: "search-form" do %>
+                        <div class="input-group">
+                          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'assessment-center-search-form' %>
+                          <span class="input-group-btn">
+                            <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                              <i class="fa fa-search"></i>
+                            <% end %>
+                          </span>
+                        </div>
+                      <% end %>
+          </div>
+          <div class="col-md-3">
+            <span class="pull-right">
+              <%#=link_to "Upload assessment_center", new_assessment_center_path, class: "btn btn-primary btn-flat pull-right" %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <% if @assessment_centers.present? %>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <% @assessment_centers.each do |assessment_center| %>
+                  <tr>
+                  <td><%= link_to assessment_center.name, assessment_center_path(assessment_center) %></td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No assessment centers found.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
