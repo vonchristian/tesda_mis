@@ -19,7 +19,6 @@ feature "certification index" do
       certification = create(:certification, number: "000")
       certification2 = create(:certification, number: "001")
 
-
       visit certifications_path
       fill_in 'certification-search-form', with: certification.number
       click_button 'search-btn'
