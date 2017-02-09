@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :registries, only: [:index, :show, :new, :create]
   resources :institutions, only: [:index, :show]
   resources :certifications, only: [:index, :show]
+  resources :national_certificates, only: [:index, :show], module: :certifications
   resources :assessors, only: [:index, :show], module: :clients
   resources :trainors, only: [:index, :show], module: :clients
   resources :training_centers, only: [:index, :show], module: :institutions
