@@ -7,5 +7,9 @@ module Institutions
         @training_centers = Institutions::TrainingCenter.all 
       end 
     end 
+
+    def show 
+      @training_center = Institutions::TrainingCenter.find(params[:id])
+    end
   end 
 end 
