@@ -8,4 +8,5 @@
 Conducted Trainings 
 <% @training_center.conducted_trainings.each do |training| %>
   <%=training.name %>
+  <%=training.client_trainings.count %>
 <% end %>

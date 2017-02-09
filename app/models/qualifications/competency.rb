@@ -7,5 +7,8 @@ module Qualifications
 
 
     delegate :name, to: :qualification, prefix: true
+    def name 
+      unit_title
+    end
   end
 end
