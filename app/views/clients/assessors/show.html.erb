@@ -1,0 +1,13 @@
+<%= @assessor.full_name %>
+<p class="text-muted"> Assessor in: </p>
+<% @assessor.accreditations.each do |accreditation| %>
+  <div class="row">
+    <div class="col-md-8">
+      <%= accreditation.qualification_name %>
+    </div>
+    <div class="col-md-4">
+      <span class="pull-right"><%= accreditation.number %></span>
+    </div>
+  </div>
+  <hr />
+<% end %>

@@ -21,9 +21,7 @@ class Client < ApplicationRecord
   validates :first_name, :middle_name, :last_name, presence: true
 
   enum sex: [:male, :female]
-  def self.assessors
-    all.select{|a| a.assessorships.present?}
-  end
+ 
 #   has_many :educations, class_name: "Trainees::Education"
 #   has_many :educational_attainments, through: :educations
 #   has_many :trainee_trainings, class_name: "Trainees::TraineeTraining"

@@ -12,7 +12,7 @@
 
 <% if @assessors.present? %>
 <% @assessors.each do |assessor| %>
-  <%= link_to assessor.full_name, client_path(assessor) %>
+  <%= link_to assessor.full_name, assessor_path(assessor) %>
 <% end %>
 <% else %>
 No assessors found.

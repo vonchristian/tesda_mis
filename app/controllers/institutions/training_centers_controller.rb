@@ -1,0 +1,11 @@
+module Institutions 
+  class TrainingCentersController < ApplicationController
+    def index 
+      if params[:search].present?
+        @training_centers = Institution.text_search(params[:search])
+      else 
+        @training_centers = Institutions::TrainingCenter.all 
+      end 
+    end 
+  end 
+end 

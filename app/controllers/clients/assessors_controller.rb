@@ -8,7 +8,7 @@ module Clients
       end
     end
     def show
-      @assessor = Client.find(params[:id])
+      @assessor = Clients::Assessor.find(params[:id])
     end
   end
 end

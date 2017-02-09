@@ -4,4 +4,5 @@ class Accreditation < ApplicationRecord
 
   validates :accredited, presence: true
   validates :qualification, presence: true
+  delegate :name, to: :qualification, prefix: true
 end

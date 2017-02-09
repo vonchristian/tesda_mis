@@ -9,4 +9,7 @@ describe Accreditation do
     it { is_expected.to validate_presence_of :qualification }
     it { is_expected.to validate_presence_of :accredited }
   end
+  describe "delegations" do 
+    it { is_expected.to delegate_method(:name).to(:qualification).with_prefix }
+  end
 end

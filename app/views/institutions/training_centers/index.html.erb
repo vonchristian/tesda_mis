@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <div class="row">
+          <div class="col-md-3">
+            <h3 class="box-title"> Training Centers </h3>
+          </div>
+          <div class="col-md-6">
+            <%=form_tag training_centers_path, method: :get, class: "search-form" do %>
+                        <div class="input-group">
+                          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'training_center-search-form' %>
+                          <span class="input-group-btn">
+                            <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                              <i class="fa fa-search"></i>
+                            <% end %>
+                          </span>
+                        </div>
+                      <% end %>
+          </div>
+          <div class="col-md-3">
+            <span class="pull-right">
+              <%#=link_to "Upload training_center", new_training_center_path, class: "btn btn-primary btn-flat pull-right" %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <% if @training_centers.present? %>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <% @training_centers.each do |training_center| %>
+                  <tr>
+                  <td><%= link_to training_center.name, training_center_path(training_center) %></td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No training centers found.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
