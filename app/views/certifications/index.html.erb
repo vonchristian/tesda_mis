@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <div class="row">
+          <div class="col-md-3">
+            <h3 class="box-title"> Certifications </h3>
+          </div>
+          <div class="col-md-6">
+            <%=form_tag certifications_path, method: :get, class: "search-form" do %>
+                        <div class="input-group">
+                          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'certification-search-form' %>
+                          <span class="input-group-btn">
+                            <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                              <i class="fa fa-search"></i>
+                            <% end %>
+                          </span>
+                        </div>
+                      <% end %>
+          </div>
+          <div class="col-md-3">
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <% if @certifications.present? %>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th> Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @certifications.each do |certification| %>
+                  <tr>
+                  <td><%= link_to certification.number, certification_path(certification) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No certifications found.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

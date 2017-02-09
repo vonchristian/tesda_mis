@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :registries, only: [:index, :show, :new, :create]
   resources :institutions, only: [:index, :show]
+  resources :certifications, only: [:index, :show]
   # # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # resources :assessment_centers, except: [:destroy]
   # resources :trainings, only: [:index, :new, :create]
