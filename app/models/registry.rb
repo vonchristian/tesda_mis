@@ -57,7 +57,7 @@ class Registry < ApplicationRecord
           create_or_find_assessment_center(row)
           create_or_find_assessment_center_accreditation(row)
           create_or_find_client_assessment(row)
-          create_or_find_certification_type(row)
+          create_or_find_certification_level(row)
           create_or_find_certification(row)
         end
       end
@@ -158,9 +158,15 @@ class Registry < ApplicationRecord
     Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: row[23].downcase.parameterize.gsub("-", "_"))
   end
 
-  def create_or_find_certification_type(row)
-    Certifications::CertificationType.find_or_create_by(name: row[20])
+  def level(row)
+    row[21].split.last 
   end
+
+  def create_or_find_certification_level(row)
+    Configurations::CertificationLevel.find_or_create_by(level: level(row))
+  end
+
+
   def type(row)
     cert_type = row[20]
     if cert_type == "NC" 
@@ -171,6 +177,6 @@ class Registry < ApplicationRecord
     type  
   end
   def create_or_find_certification(row)   
-    Certification.find_or_create_by!(type: type(row), certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_type: create_or_find_certification_type(row))
+    Certification.find_or_create_by!(type: type(row), certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
   end
 end

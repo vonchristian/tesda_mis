@@ -9,6 +9,7 @@ module Clients
     belongs_to :registry
 
     delegate :full_name, to: :client
+    delegate :qualification, to: :training
     def name 
       training.name 
     end

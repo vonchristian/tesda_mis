@@ -6,4 +6,9 @@ class Certification < ApplicationRecord
   belongs_to :certification_level, class_name: "Configurations::CertificationLevel"
   delegate :client, to: :certified
   delegate :full_name, to: :client, prefix: true
+
+  delegate :qualification, to: :certified
+  delegate :level, to: :certification_level, prefix: true
+  delegate :assessor, to: :certified
+  delegate :full_name, to: :assessor, prefix: true
 end

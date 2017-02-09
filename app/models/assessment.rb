@@ -8,4 +8,5 @@ class Assessment < ApplicationRecord
   delegate :full_name, to: :assessor, prefix: true
   delegate :name, to: :assessee
   delegate :client, to: :assessee
+  delegate :qualification, to: :assessee
 end
