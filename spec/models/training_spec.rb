@@ -10,5 +10,7 @@ describe Training do
   end
   describe 'delegations' do
     it { is_expected.to delegate_method(:qualification).to(:competency) }
+    it { is_expected.to delegate_method(:name).to(:competency) }
+
   end
 end 

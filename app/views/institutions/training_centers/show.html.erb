@@ -1,1 +1,11 @@
 <%= @training_center.name %>
+
+<% @training_center.training_qualifications.each do |training_qualification| %>
+  <%=training_qualification.name %>
+  <%=training_qualification.number %>
+<% end %>
+
+Conducted Trainings 
+<% @training_center.conducted_trainings.each do |training| %>
+  <%=training.name %>
+<% end %>
