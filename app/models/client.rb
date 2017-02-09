@@ -9,6 +9,7 @@ class Client < ApplicationRecord
   has_many :assessments, as: :assessee
   has_many :certifications, through: :assessments
   has_many :assessorships, class_name: "Clients::Assessor"
+  has_many :assessorship_accreditations, through: :assessorships, class_name: "Accreditation", source: :accreditations
   has_many :trainorships, class_name: "Clients::Trainor"
 
   has_many :conducted_assessments, through: :assessorships
@@ -17,10 +18,12 @@ class Client < ApplicationRecord
 
 
 
-  validates :first_name, :middle_name, :last_name, :sex, :date_of_birth, presence: true
+  validates :first_name, :middle_name, :last_name, presence: true
 
   enum sex: [:male, :female]
-
+  def self.assessors
+    all.select{|a| a.assessorships.present?}
+  end
 #   has_many :educations, class_name: "Trainees::Education"
 #   has_many :educational_attainments, through: :educations
 #   has_many :trainee_trainings, class_name: "Trainees::TraineeTraining"
@@ -40,7 +43,9 @@ class Client < ApplicationRecord
 #
 # validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 #
-#
+  def last_and_first_name
+    "#{last_name}, #{first_name} #{middle_name.first}."
+  end
   def full_name
     "#{first_name} #{middle_name.first}. #{last_name}"
   end

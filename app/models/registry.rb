@@ -54,8 +54,8 @@ class Registry < ApplicationRecord
           create_or_find_client_address(row)
           create_or_find_completed_training(row)
           create_or_find_assessor(row)
-          create_or_find_assessor_accreditation(row)
           create_or_find_assessorship(row)
+          create_or_find_assessor_accreditation(row)
           create_or_find_assessment_institution(row)
           create_or_find_assessment_center(row)
           create_or_find_assessment_center_accreditation(row)
@@ -131,18 +131,18 @@ class Registry < ApplicationRecord
 
   def create_or_find_assessor(row)
     assessor_full_name = row[17]
-    assessor_last_name = assessor_full_name.split.first
+    assessor_last_name = assessor_full_name.split.first.gsub(",", "")
     assessor_middle_name = assessor_full_name.split.last
     assessor_first_name = assessor_full_name.gsub(assessor_full_name.split.last, "").gsub(assessor_full_name.split.first, "").strip
-    assessor = Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name)
-  end
-
-  def create_or_find_assessor_accreditation(row)
-    Accreditation.find_or_create_by(accredited: create_or_find_assessor(row), qualification: create_or_find_qualification(row), number: row[18].to_i)
+    Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name)
   end
 
   def create_or_find_assessorship(row)
     Clients::Assessor.find_or_create_by(client: create_or_find_assessor(row))
+  end
+
+  def create_or_find_assessor_accreditation(row)
+    Accreditation.find_or_create_by(accredited: create_or_find_assessorship(row), qualification: create_or_find_qualification(row), number: row[18].to_i)
   end
 
   def create_or_find_assessment_institution(row)

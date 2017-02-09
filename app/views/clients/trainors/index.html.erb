@@ -1,0 +1,20 @@
+index.html.erb
+
+<%=form_tag trainors_path, method: :get, class: "search-form" do %>
+            <div class="input-group">
+              <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'trainor-search-form' %>
+              <span class="input-group-btn">
+                <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                  <i class="fa fa-search"></i>
+                <% end %>
+              </span>
+            </div>
+          <% end %>
+
+<% if @trainors.present? %>
+<% @trainors.each do |trainor| %>
+  <%= link_to trainor.full_name, client_path(trainor) %>
+<% end %>
+<% else %>
+No trainors found.
+<% end %>

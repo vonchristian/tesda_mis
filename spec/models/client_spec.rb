@@ -19,8 +19,6 @@ describe Client do
     it { is_expected.to validate_presence_of :first_name }
     it { is_expected.to validate_presence_of :middle_name }
     it { is_expected.to validate_presence_of :last_name }
-    it { is_expected.to validate_presence_of :sex }
-    it { is_expected.to validate_presence_of :date_of_birth }
   end
 
   it '.text_search' do
@@ -32,11 +30,16 @@ describe Client do
     expect(result).to_not include(client2)
   end
 
-
   it '#full_name' do
     client = build(:client, first_name: "Von", middle_name: 'Pinosan', last_name: 'Halip')
 
     expect(client.full_name).to eql('Von P. Halip')
+  end
+
+  it '#last_and_first_name' do
+    client = build(:client, first_name: "Von", middle_name: 'Pinosan', last_name: 'Halip')
+
+    expect(client.last_and_first_name).to eql('Halip, Von P.')
   end
 
   describe "enums" do
