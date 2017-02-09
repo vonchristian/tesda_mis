@@ -10,4 +10,8 @@ describe Assessment do
   describe "enums" do
     it { is_expected.to define_enum_for(:result).with([:competent, :not_yet_competent]) }
   end
+  describe "delegations" do 
+    it { is_expected.to delegate_method(:full_name).to(:assessee).with_prefix }
+    it { is_expected.to delegate_method(:full_name).to(:assessor).with_prefix }
+  end
 end

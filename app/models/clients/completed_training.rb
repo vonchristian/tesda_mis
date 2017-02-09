@@ -7,5 +7,10 @@ module Clients
     belongs_to :modality, class_name: "Configurations::Modality"
     belongs_to :client_type, class_name: "Configurations::ClientType"
     belongs_to :registry
+
+    delegate :full_name, to: :client
+    def name 
+      training.name 
+    end
   end
 end

@@ -1,1 +1,11 @@
 <%= @assessment_center.name %>
+<%  @assessment_center.assessors.each do |assessor| %>
+  <%= assessor.full_name %>
+<% end %>
+
+Assessments Conducted:
+<% @assessment_center.conducted_assessments.each do |assessment| %>
+  <h4><%= assessment.name %></h4>
+  <p><%= assessment.assessee_full_name %>   <%= assessment.result %> </p>
+  <p><%= assessment.assessor_full_name %></p>
+<% end %>
