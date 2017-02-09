@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209060309) do
+ActiveRecord::Schema.define(version: 20170209070831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,15 +99,15 @@ ActiveRecord::Schema.define(version: 20170209060309) do
     t.string   "certified_type"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "certification_type_id"
     t.integer  "certification_level_id"
     t.datetime "issue_date"
     t.datetime "expiry_date"
     t.string   "number"
+    t.string   "type"
     t.index ["certification_level_id"], name: "index_certifications_on_certification_level_id", using: :btree
-    t.index ["certification_type_id"], name: "index_certifications_on_certification_type_id", using: :btree
     t.index ["certified_id"], name: "index_certifications_on_certified_id", using: :btree
     t.index ["certified_type"], name: "index_certifications_on_certified_type", using: :btree
+    t.index ["type"], name: "index_certifications_on_type", using: :btree
   end
 
   create_table "client_types", force: :cascade do |t|
@@ -277,7 +277,6 @@ ActiveRecord::Schema.define(version: 20170209060309) do
   add_foreign_key "assessors", "clients"
   add_foreign_key "barangays", "municipality_or_cities"
   add_foreign_key "certifications", "certification_levels"
-  add_foreign_key "certifications", "certification_types"
   add_foreign_key "competencies", "qualifications"
   add_foreign_key "completed_trainings", "clients"
   add_foreign_key "completed_trainings", "modalities"
