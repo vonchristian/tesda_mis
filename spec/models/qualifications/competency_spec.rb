@@ -16,5 +16,11 @@ module Qualifications
     describe "delegations" do
       it { is_expected.to delegate_method(:name).to(:qualification).with_prefix }
     end
+
+    it "#name" do 
+      competency = build(:competency, unit_title: "CHS")
+
+      expect(competency.name).to eql("CHS")
+    end
   end
 end
