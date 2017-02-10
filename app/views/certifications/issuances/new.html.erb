@@ -1,0 +1,6 @@
+<%= simple_form_for [@certification, @issuance], url: :certification_issuances do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :reference_number %>
+  <%= f.input :issue_date, as: :string, input_html: { class: "datepicker" } %>
+  <%= f.submit "Issue Certificate", class: "btn btn-primary" %>
+<% end %>
