@@ -16,4 +16,8 @@ class Certification < ApplicationRecord
   delegate :name, to: :qualification, prefix: true
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
+
+  def self.types
+    ["Certifications::NationalCertificate", "Certifications::CertificateOfCompetency"]
+  end
 end

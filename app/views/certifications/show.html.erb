@@ -1,1 +1,26 @@
-<%= @certification.number %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <h3 class="box-title"> <%=@certification.number %> 
+        
+          <span class="pull-right">
+            <%=link_to certification_path(@certification, format: 'pdf') do %>
+              <span class="btn btn-default"><i class="fa fa-file-pdf-o"></i> View (PDF) </span>
+            <% end %>
+          </span>
+        </h3>
+      </div>
+      <div class="box-body">
+      <%=link_to "New Issuance", new_certification_issuance_path(@certification), class: "btn btn-default btn-sm" %>
+        <%= @certification.client_full_name %>
+        <%= @certification.qualification_name %>
+        <%= @certification.issue_date.strftime("%B %e, %Y") %>
+        <%= @certification.expiry_date.strftime("%B %e, %Y") %>
+        <%= @certification.number %>
+        <p class="text-muted"> Assessor: </p>
+        <%= @certification.assessor_full_name %>
+      </div>
+    </div>
+  </div>
+</div>
