@@ -6,8 +6,12 @@ FactoryGirl.define do
     issue_date Date.today
     expiry_date Date.today.next_year(5)
 
-    factory :national_certificate, class: "Certifications::NationalCertificate" do 
+    factory :national_certificate do 
       type "Certifications::NationalCertificate"
+    end
+
+    factory :certificate_of_competency do 
+      type "Certifications::CertificateOfCompetency"
     end
   end
 end

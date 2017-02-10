@@ -3,7 +3,10 @@ require 'rails_helper'
 feature "certification index" do
   feature 'when logged in' do
     scenario "with certifications" do
-      certification = create(:certification, number: "00001")
+     client = create(:client)
+    assessee = create(:completed_training, client: client)
+    assessment = create(:assessment, assessee: assessee)
+    certification = create(:national_certificate, number: "000", certified: assessment)
       visit certifications_path
 
       expect(page).to have_content(certification.number)
@@ -16,9 +19,12 @@ feature "certification index" do
     end
 
     scenario "with search results" do
-      certification = create(:certification, number: "000")
-      certification2 = create(:certification, number: "001")
-
+      client = create(:client)
+    assessee = create(:completed_training, client: client)
+    assessment = create(:assessment, assessee: assessee)
+    
+    certification = create(:national_certificate, number: "000", certified: assessment)
+    certification_2 = create(:national_certificate, number: "001", certified: assessment)
       visit certifications_path
       fill_in 'certification-search-form', with: certification.number
       click_button 'search-btn'

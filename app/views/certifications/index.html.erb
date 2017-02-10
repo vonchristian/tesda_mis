@@ -29,7 +29,8 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th> Number</th>
+                  <th> Certificate No.</th>
+                  <th> Client </th>
                 </tr>
               </thead>
               <tbody>
@@ -37,7 +38,8 @@
                   <tr>
                   <td><%= link_to certification.number, certification_path(certification) %></td>
 
-                  <td><%= certification.certified %></td>
+                  <td><%= certification.try(:client_full_name) %></td>
+                  <td><%= certification.try(:qualification_name) %></td>
                   <td></td>
                   </tr>
                 <% end %>
