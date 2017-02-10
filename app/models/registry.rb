@@ -15,7 +15,7 @@ class Registry < ApplicationRecord
   #                    },
   #                    message: ' Only EXCEL files are allowed.'
 
-  # after_commit :parse_for_records
+  after_commit :parse_for_records
 
   def training_center
     trainee_trainings.last.training.training_center.name

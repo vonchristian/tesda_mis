@@ -4,6 +4,7 @@ class Certification < ApplicationRecord
   pg_search_scope :text_search, :against => [:number]
   belongs_to :certified, polymorphic: true
   belongs_to :certification_level, class_name: "Configurations::CertificationLevel"
+  has_many :issuances, as: :issuable
   delegate :client, to: :certified
   delegate :full_name, to: :client, prefix: true
 
@@ -11,4 +12,7 @@ class Certification < ApplicationRecord
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified
   delegate :full_name, to: :assessor, prefix: true
+  delegate :name, to: :qualification, prefix: true
+  delegate :assessee, to: :certified
+  delegate :full_name, to: :assessee, prefix: true
 end

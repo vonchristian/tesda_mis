@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209064521) do
+ActiveRecord::Schema.define(version: 20170209141029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,19 @@ ActiveRecord::Schema.define(version: 20170209064521) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "issuances", force: :cascade do |t|
+    t.string   "type"
+    t.string   "reference_number"
+    t.integer  "issuable_id"
+    t.string   "issuable_type"
+    t.datetime "issue_date"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["issuable_id"], name: "index_issuances_on_issuable_id", using: :btree
+    t.index ["issuable_type"], name: "index_issuances_on_issuable_type", using: :btree
+    t.index ["type"], name: "index_issuances_on_type", using: :btree
   end
 
   create_table "modalities", force: :cascade do |t|
