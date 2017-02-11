@@ -15,7 +15,7 @@ class Registry < ApplicationRecord
   #                    },
   #                    message: ' Only EXCEL files are allowed.'
 
-  after_commit :parse_for_records
+  # after_commit :parse_for_records
 
   def training_center
     trainee_trainings.last.training.training_center.name
@@ -176,7 +176,16 @@ class Registry < ApplicationRecord
     end
     type  
   end
-  def create_or_find_certification(row)   
-    Certification.find_or_create_by!(type: type(row), certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
+  def create_or_find_certification(row) 
+    if  type(row) == "Certifications::NationalCertificate"
+      Certifications::NationalCertificate.find_or_create_by!(type: type(row), certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
+    elsif type(row) == "Certifications::CertificateOfCompetency"
+      create_or_find_competencies_certification(row)
+    end
+  end
+
+  def create_or_find_competencies_certification(row)
+    row[22].split()
+    Certifications::CertificateOfCompetency.find_or_create_by()
   end
 end

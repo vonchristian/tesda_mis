@@ -10,6 +10,8 @@ module Clients
 
     delegate :full_name, to: :client
     delegate :qualification, to: :training
+    delegate :competency, to: :training
+
     def name 
       training.name 
     end

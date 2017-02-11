@@ -10,14 +10,25 @@ class Certification < ApplicationRecord
   delegate :client, to: :certified
   delegate :full_name, to: :client, prefix: true
   delegate :qualification, to: :certified
+  delegate :competency, to: :certified
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified, allow_nil: true
   delegate :full_name, to: :assessor, prefix: true
   delegate :name, to: :qualification, prefix: true
+  delegate :name, to: :competency, prefix: true
+
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
 
   def self.types
     ["Certifications::NationalCertificate", "Certifications::CertificateOfCompetency"]
+  end
+
+  def national_certificate?
+    self.type == "Certifications::NationalCertificate"
+  end
+
+  def certificate_of_competency?
+    self.type == "Certifications::CertificateOfCompetency"
   end
 end
