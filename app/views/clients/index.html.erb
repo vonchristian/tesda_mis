@@ -1,19 +1,55 @@
-<%=link_to "New Client", new_client_path %>
-<%=form_tag clients_path, method: :get, class: "search-form" do %>
-            <div class="input-group">
-              <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'client-search-form' %>
-              <span class="input-group-btn">
-                <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
-                  <i class="fa fa-search"></i>
-                <% end %>
-              </span>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-3">
+            <h4 class="box-title"> Clients </h4>
+          </div>
+          <div class="col-md-6">
+            <%=form_tag clients_path, method: :get, class: "search-form" do %>
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by last name, first name, middle name ...", id: 'client-search-form' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-3">
+            <%=link_to new_client_path do %>
+              <span class="btn btn-primary pull-right"><i class="fa fa-user-plus"></i> New Client </span>
+            <% end %>
+          </div>
+        </div>
+        <div class="box-body">
+          <% if @clients.present? %>
+            <div class="table table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th> Name </th>
+                    <th> Address </th>
+                    <th> Contact No </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @clients.each do |client| %>
+                    <tr>
+                      <td><%=image_tag(client.avatar.url(:small), width: 35, height: 35,  class: "img-square") %> &nbsp; <%= link_to client.full_name, client_path(client), class: "timeline-header" %></td>
+                      <td><%= client.current_address %></td>
+                      <td></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
             </div>
+          <% else %>
+            No clients found.
           <% end %>
-
-<% if @clients.present? %>
-<% @clients.each do |client| %>
-  <%= link_to client.full_name, client_path(client) %>
-<% end %>
-<% else %>
-No clients found.
-<% end %>
+        </div>
+      </div>
+    </div>
+  </div>

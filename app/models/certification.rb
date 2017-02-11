@@ -8,11 +8,11 @@ class Certification < ApplicationRecord
   
   belongs_to :certified, polymorphic: true
   belongs_to :qualification
+  belongs_to :client
   belongs_to :competency, class_name: "Qualifications::Competency"
   belongs_to :certification_level, class_name: "Configurations::CertificationLevel"
   has_many :issuances, as: :issuable
   
-  delegate :client, to: :certified
   delegate :full_name, to: :client, prefix: true
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified, allow_nil: true
@@ -37,4 +37,18 @@ class Certification < ApplicationRecord
   def qualification_name_without_cert_level
     qualification_name.gsub("NC", "").gsub("I", "").gsub("II", "").gsub("III", "").gsub("IV", "")
   end
+  def name 
+    if national_certificate?
+      qualification_name
+    elsif certificate_of_competency?
+      competency_name 
+    end 
+  end 
+  def type_name 
+    if national_certificate?
+      "National Certificate"
+    elsif certificate_of_competency?
+      "Certificate Of Competency"
+    end 
+  end 
 end

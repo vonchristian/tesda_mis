@@ -184,7 +184,7 @@ class Registry < ApplicationRecord
   def create_or_find_certification(row)
     if result(row) == "competent" 
       if type(row) == "Certifications::NationalCertificate"
-        Certifications::NationalCertificate.find_or_create_by!(certified: create_or_find_client_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
+        Certifications::NationalCertificate.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_client_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
       elsif type(row) == "Certifications::CertificateOfCompetency"
         create_or_find_competency_certification(row)
       end
@@ -192,6 +192,6 @@ class Registry < ApplicationRecord
   end
 
   def create_or_find_competency_certification(row)
-    Certifications::CertificateOfCompetency.find_or_create_by(certified: create_or_find_client_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i)
+    Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_client_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i)
   end
 end

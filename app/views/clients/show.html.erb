@@ -7,17 +7,14 @@
               <%= image_tag(@client.avatar.url(:thumb), class: "profile-user-img img-responsive img-circle", alt: "Assessment center logo") %>
               <h3 class="profile-username text-center"><%= @client.full_name %></h3>
 
-              <p class="text-muted text-center"><%#= @client.address_details %></p>
+              <p class="text-muted text-center"><%= @client.current_address %></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Assessed</b> <a class="pull-right">1,322</a>
+                  <b>NC</b> <a class="pull-right">1,322</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Trained</b> <a class="pull-right">543</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Certified</b> <a class="pull-right">13,287</a>
+                  <b>COC</b> <a class="pull-right">543</a>
                 </li>
               </ul>
 
@@ -30,21 +27,23 @@
           <!-- About Me Box -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">About Me</h3>
+              <h3 class="box-title">About <%= @client.first_name %></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
 
               <p class="text-muted">
-                B.S. in Computer Science from the University of Tennessee at Knoxville
+                <% @client.educations.each do |education| %>
+                  <p class="text-muted"> <%=education.educational_attainment.name %>
+                <% end %>
               </p>
 
               <hr>
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
-              <p class="text-muted">Malibu, California</p>
+              <p class="text-muted"><%= @client.current_address %></p>
 
               <hr>
 
@@ -73,13 +72,14 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+              <li><a href="#certifications" data-toggle="tab">Certifications</a></li>
               <li><a href="#trainings" data-toggle="tab">Trainings</a></li>
               <li><a href="#assessments" data-toggle="tab">Assessments</a></li>
               <li><a href="#settings" data-toggle="tab">Settings</a></li>
 
             </ul>
             <div class="tab-content">
-              <%#= render 'clients/partials/assessments' %>
+              <%= render 'clients/partials/certifications' %>
               <div class="active tab-pane" id="activity">
                 <h4 class="text-muted">Assessors: </h4>
        
