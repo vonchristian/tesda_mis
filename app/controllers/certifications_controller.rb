@@ -10,7 +10,7 @@ class CertificationsController < ApplicationController
   end
 
   def show
-    @certification = type_class.find(params[:id])
+    @certification = type_class.friendly.find(params[:id])
     respond_to do |format|
       format.html 
       format.pdf do 
@@ -36,7 +36,7 @@ class CertificationsController < ApplicationController
     type.constantize
   end
   def set_certification 
-    @certification = type_class.find(params[:id])
+    @certification = type_class.friendly.find(params[:id])
   end
 
 end 

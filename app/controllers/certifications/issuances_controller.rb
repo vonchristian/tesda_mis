@@ -1,11 +1,11 @@
 module Certifications 
   class IssuancesController < ApplicationController 
     def new 
-      @certification = Certification.find(params[:certification_id])
+      @certification = Certification.friendly.find(params[:certification_id])
       @issuance = @certification.issuances.build 
     end 
     def create 
-      @certification = Certification.find(params[:certification_id])
+      @certification = Certification.friendly.find(params[:certification_id])
       @issuance = @certification.issuances.create(issuance_params)
       if @issuance.save 
         redirect_to @issuance, notice: "issued successfully."

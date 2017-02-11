@@ -20,7 +20,7 @@ module Certifications
 
     def qualification
       bounding_box [100, 750], width: 400 do
-        text "#{@certification.qualification.name.upcase}", size: 25, style: :bold, align: :center
+        text "#{@certification.qualification_name_without_cert_level.upcase}", size: 25, style: :bold, align: :center
       end
     end
 

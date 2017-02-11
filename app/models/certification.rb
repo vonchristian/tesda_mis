@@ -1,5 +1,8 @@
 class Certification < ApplicationRecord
   include PgSearch
+  extend FriendlyId
+  friendly_id :number, use: :slugged
+
   # multisearchable :against => [:last_name]
   pg_search_scope :text_search, :against => [:number]
   
@@ -30,5 +33,8 @@ class Certification < ApplicationRecord
 
   def certificate_of_competency?
     self.type == "Certifications::CertificateOfCompetency"
+  end
+  def qualification_name_without_cert_level
+    qualification_name.gsub("NC", "").gsub("I", "").gsub("II", "").gsub("III", "").gsub("IV", "")
   end
 end
