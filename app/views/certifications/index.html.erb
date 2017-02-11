@@ -32,6 +32,7 @@
                   <th> Certificate No.</th>
                   <th> Client </th>
                   <th> Qualification/Competency </th>
+                  <th> Type </th>
                   <th> Expiry Date </th>
                 </tr>
               </thead>
@@ -44,9 +45,10 @@
                   <td><% if certification.national_certificate? %>
                         <%= certification.try(:qualification_name) %>
                       <% else %>
-                        <%= certification.try(:competency_name) %>
+                        <%= certification.try(:competency_name)%>
                       <% end %>
                     </td>
+                    <td><%= certification.type.gsub("Certifications::", "").titleize %></td>
                   <td><%= certification.expiry_date.strftime("%B %e, %Y") %> </td>
 
                   </tr>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211013225) do
+ActiveRecord::Schema.define(version: 20170211024937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,9 +99,13 @@ ActiveRecord::Schema.define(version: 20170211013225) do
     t.datetime "expiry_date"
     t.string   "number"
     t.string   "type"
+    t.integer  "competency_id"
+    t.integer  "qualification_id"
     t.index ["certification_level_id"], name: "index_certifications_on_certification_level_id", using: :btree
     t.index ["certified_id"], name: "index_certifications_on_certified_id", using: :btree
     t.index ["certified_type"], name: "index_certifications_on_certified_type", using: :btree
+    t.index ["competency_id"], name: "index_certifications_on_competency_id", using: :btree
+    t.index ["qualification_id"], name: "index_certifications_on_qualification_id", using: :btree
     t.index ["type"], name: "index_certifications_on_type", using: :btree
   end
 
@@ -302,6 +306,8 @@ ActiveRecord::Schema.define(version: 20170211013225) do
   add_foreign_key "assessors", "clients"
   add_foreign_key "barangays", "municipality_or_cities"
   add_foreign_key "certifications", "certification_levels"
+  add_foreign_key "certifications", "competencies"
+  add_foreign_key "certifications", "qualifications"
   add_foreign_key "competencies", "qualifications"
   add_foreign_key "completed_trainings", "clients"
   add_foreign_key "completed_trainings", "modalities"

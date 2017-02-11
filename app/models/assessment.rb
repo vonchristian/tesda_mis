@@ -10,5 +10,4 @@ class Assessment < ApplicationRecord
   delegate :client, to: :assessee
   delegate :qualification, to: :assessee
   delegate :competency, to: :assessee
-
 end

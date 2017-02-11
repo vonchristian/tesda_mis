@@ -97,7 +97,7 @@ class Registry < ApplicationRecord
     Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: create_or_find_client(row))
   end
   def create_or_find_competency(row)
-    Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[13])
+    Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[22])
   end
   def create_or_find_client_type(row)
     Configurations::ClientType.find_or_create_by(name: row[8])
@@ -154,8 +154,12 @@ class Registry < ApplicationRecord
     Accreditation.find_or_create_by(accredited: create_or_find_assessment_center(row), qualification: create_or_find_qualification(row))
   end
 
+  def result(row)
+    row[23].downcase.parameterize.gsub("-", "_")
+  end
+
   def create_or_find_client_assessment(row)
-    Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: row[23].downcase.parameterize.gsub("-", "_"))
+    Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: result(row))
   end
 
   def level(row)
@@ -176,15 +180,18 @@ class Registry < ApplicationRecord
     end
     type  
   end
-  def create_or_find_certification(row) 
-    if  type(row) == "Certifications::NationalCertificate"
-      Certifications::NationalCertificate.find_or_create_by!(type: type(row), certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
-    elsif type(row) == "Certifications::CertificateOfCompetency"
-      create_or_find_competencies_certification(row)
+  
+  def create_or_find_certification(row)
+    if result(row) == "competent" 
+      if type(row) == "Certifications::NationalCertificate"
+        Certifications::NationalCertificate.find_or_create_by!(certified: create_or_find_client_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
+      elsif type(row) == "Certifications::CertificateOfCompetency"
+        create_or_find_competency_certification(row)
+      end
     end
   end
 
-  def create_or_find_competencycertification(row)
-    Certifications::CertificateOfCompetency.find_or_create_by(unit_title: row[22], certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: [row26], number: row[24].to_i)
+  def create_or_find_competency_certification(row)
+    Certifications::CertificateOfCompetency.find_or_create_by(certified: create_or_find_client_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i)
   end
 end
