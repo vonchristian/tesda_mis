@@ -15,6 +15,9 @@ class Institution < ApplicationRecord
   pg_search_scope :text_search, :against => [:name]
   has_many :accreditations, as: :accredited
   has_many :accredited_services, through: :accreditations, class_name: "InstitutionType", foreign_key: 'institution_type_id'
+  has_many :assessment_center_services, class_name: "Institutions::AssessmentCenter"
+  has_many :assessors, through: :assessment_center_services, class_name: "Clients::Assessor"
+  has_many :conducted_assessments, through: :assessment_center_services
 
   validates :name, presence: true
   def address_details 

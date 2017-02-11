@@ -1,0 +1,6 @@
+<div class="tab-pane" id="assessments">  
+  <h4 class="box-title"> Assessments Conducted: </h4>
+  <% @institution.conducted_assessments.each do |assessment| %>
+    <p class="text-muted"><%=link_to assessment.name, assessment %></p>
+  <% end %>
+</div>

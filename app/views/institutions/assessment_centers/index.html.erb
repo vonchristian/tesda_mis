@@ -38,7 +38,7 @@
               <tbody>
                 <% @assessment_centers.each do |assessment_center| %>
                   <tr>
-                    <td><%= link_to assessment_center.name, assessment_center_path(assessment_center) %></td>
+                    <td><%= link_to assessment_center.name, institution_path(assessment_center.institution) %></td>
                   </tr>
                 <% end %>
               </tbody>

@@ -39,7 +39,7 @@
               <tbody>
                 <% @training_centers.each do |training_center| %>
                   <tr>
-                  <td><%= link_to training_center.name, training_center_path(training_center) %></td>
+                  <td><%= link_to training_center.name, institution_path(training_center.institution) %></td>
 
                   </tr>
                 <% end %>
