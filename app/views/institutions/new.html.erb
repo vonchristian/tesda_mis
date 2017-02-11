@@ -1,0 +1,6 @@
+<%=simple_form_for @institution, multipart: true do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+  <%= f.input :logo, label: "Upload Logo", as: :file %>
+  <%= f.submit "Save Institution", class: "btn btn-primary" %>
+<% end %>

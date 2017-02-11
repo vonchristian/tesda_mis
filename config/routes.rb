@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :clients
   resources :registries, only: [:index, :show, :new, :create]
-  resources :institutions, only: [:index, :show]
+  resources :institutions, only: [:index, :show, :new, :create]
   resources :certifications, only: [:index, :show] do 
     resources :issuances, only: [:new, :create], module: :certifications
   end

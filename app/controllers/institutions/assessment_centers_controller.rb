@@ -9,7 +9,7 @@ module Institutions
     end 
 
     def show 
-      @assessment_center = Institutions::AssessmentCenter.find(params[:id])
+      @assessment_center = Institutions::AssessmentCenter.friendly.find(params[:id])
     end
   end 
 end 
