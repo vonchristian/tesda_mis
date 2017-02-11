@@ -31,7 +31,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th></th>
+                  <th> Certified </th>
                   <th> File </th>
                   <th> File Size </th>
                   <th> Date Uploaded </th>
@@ -44,7 +44,7 @@
                     <td><%= registry.client_trainings.count %></td>
                   <td><%= link_to registry.name, registry_path(registry) %></td>
                   <td><%= number_to_human_size registry.spreadsheet_file_size %></td>
-                  <td><%= registry.created_at.strftime("%B %e, %Y") %></td>
+                  <td><%= registry.date.strftime("%B %e, %Y") %></td>
                   </tr>
                 <% end %>
               </tbody>

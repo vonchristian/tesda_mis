@@ -1,4 +1,14 @@
-<%= link_to "New Assessment Center", new_assessment_center_path, class: "btn btn-primary btn-flat" %>
-<% @assessment_centers.each do |center| %>
-  <%=center.name %>
-<% end %>
+<div class="row">>
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header">
+        <%= link_to "New Assessment Center", new_assessment_center_path, class: "btn btn-primary btn-flat" %>
+      </div>
+      <div class="box-body">
+        <% @assessment_centers.each do |center| %>
+          <%=center.name %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -184,8 +184,7 @@ class Registry < ApplicationRecord
     end
   end
 
-  def create_or_find_competencies_certification(row)
-    row[22].split()
-    Certifications::CertificateOfCompetency.find_or_create_by()
+  def create_or_find_competencycertification(row)
+    Certifications::CertificateOfCompetency.find_or_create_by(unit_title: row[22], certified: create_or_find_client_assessment(row), issue_date: row[25], expiry_date: [row26], number: row[24].to_i)
   end
 end
