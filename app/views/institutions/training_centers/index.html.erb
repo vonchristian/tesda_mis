@@ -37,12 +37,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @training_centers.each do |training_center| %>
-                  <tr>
-                  <td><%= link_to training_center.name, institution_path(training_center.institution) %></td>
-
-                  </tr>
-                <% end %>
+                <%= render 'institutions/index', institutions: @training_centers %>
               </tbody>
             </table>
           </div>

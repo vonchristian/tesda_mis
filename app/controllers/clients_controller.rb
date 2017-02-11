@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
     end
   end
   def show
-    @client = Client.find(params[:id])
+    @client = Client.friendly.find(params[:id])
   end
 
   private

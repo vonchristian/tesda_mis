@@ -1,5 +1,8 @@
 module Institutions
   class TrainingCenter < ApplicationRecord
+    extend FriendlyId
+    friendly_id :name, use: :slugged
+    
     belongs_to :institution
     has_many :accreditations, as: :accredited
     has_many :training_qualifications, through: :accreditations, source: :qualification

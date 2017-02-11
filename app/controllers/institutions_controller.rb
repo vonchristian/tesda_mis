@@ -18,7 +18,7 @@ class InstitutionsController < ApplicationController
     end 
   end 
   def show
-    @institution = Institution.find(params[:id])
+    @institution = Institution.friendly.find(params[:id])
   end
 
   private 

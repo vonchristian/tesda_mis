@@ -78,7 +78,7 @@ class Registry < ApplicationRecord
     Qualification.find_or_create_by(name: row[21], sector: create_or_find_sector(row))
   end
   def create_or_find_training_institution(row)
-    Institution.find_or_create_by(name: row[16])
+    Institution.find_or_create_by(name: row[14])
   end
   def create_or_find_training_center_accreditation(row)
     Accreditation.find_or_create_by(accredited: create_or_find_training_institution(row), qualification: create_or_find_qualification(row))

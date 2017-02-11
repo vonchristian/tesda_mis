@@ -36,11 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @assessment_centers.each do |assessment_center| %>
-                  <tr>
-                    <td><%= link_to assessment_center.name, institution_path(assessment_center.institution) %></td>
-                  </tr>
-                <% end %>
+                <%=render 'institutions/index', institutions: @assessment_centers %>
               </tbody>
             </table>
           </div>

@@ -1,5 +1,8 @@
 class Institution < ApplicationRecord
   include PgSearch
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   has_attached_file :logo,
   styles: { large: "120x120>",
             medium: "70x70>",
