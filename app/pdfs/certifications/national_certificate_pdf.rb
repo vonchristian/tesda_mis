@@ -14,19 +14,23 @@ module Certifications
     end
     def level
       bounding_box [420, 850], width: 100 do
-        text "#{@certification.certification_level_level}", size: 25, style: :bold
-      end
+          text "#{@certification.certification_level_level}", size: 20
+    end
     end
 
     def qualification
-      bounding_box [100, 750], width: 400 do
-        text "#{@certification.qualification_name_without_cert_level.upcase}", size: 25, style: :bold, align: :center
+      bounding_box [90, 750], width: 400 do
+        font("#{Rails.root.to_s}/app/assets/fonts/BookAntiqua.ttf") do
+        text "#{@certification.qualification_name_without_cert_level.upcase}", size: 20, align: :center
       end
+    end
     end
 
     def certified
       bounding_box [100, 650], width: 400 do
-        text "#{@certification.client.full_name.upcase}", size: 25, style: :bold, align: :center
+        font("#{Rails.root.to_s}/app/assets/fonts/BookAntiqua.ttf") do
+        text "#{@certification.client.full_name.upcase}", size: 22, align: :center
+      end
       end
     end
     def certification_number

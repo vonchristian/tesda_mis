@@ -9,7 +9,6 @@ describe Certification, type: :model do
   end
 
   describe "delegations" do 
-    it { is_expected.to delegate_method(:client).to(:certified) }
     it { is_expected.to delegate_method(:full_name).to(:client).with_prefix }
     it { is_expected.to delegate_method(:name).to(:qualification).with_prefix }
     it { is_expected.to delegate_method(:level).to(:certification_level).with_prefix }

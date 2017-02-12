@@ -9,23 +9,23 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
-gem 'jbuilder', '~> 2.0'
-gem 'redis', '~> 3.0'
+gem 'jbuilder'
+gem 'redis'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem "animate-rails"
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id'
 gem 'kaminari'
 gem 'pg_search'
 gem 'devise'
-gem "paperclip", "~> 5.0.0"
+gem "paperclip"
 gem 'bootstrap-datepicker-rails'
 gem "simple-line-icons-rails"
 gem 'pundit'
@@ -45,17 +45,19 @@ gem 'delayed_job_active_record'
 gem "spreadsheet"
 
 group :production do
-  gem 'pg', '~> 0.18',  group: :development
+  gem 'pg',  group: :development
   gem 'rails_12factor'
   gem 'puma', group: :development
 end
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem "rspec-rails", "3.5.0"
+  gem "rspec-rails"
   gem 'rspec-its'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'faker'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do
@@ -63,12 +65,12 @@ group :development do
   gem 'meta_request'
   # gem 'listen', '~> 3.0.5'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
   gem 'guard-rspec', require: false
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers'
   gem 'database_cleaner'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

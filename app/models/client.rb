@@ -34,7 +34,9 @@ class Client < ApplicationRecord
 
   enum sex: [:male, :female]
   def current_address
+    if addresses.present?
     Address.last.details 
+  end
   end
 
   def last_and_first_name
