@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-warning">
+      <div class="box-body">
+          <div class="row">
+            <div class="col-md-8">
+             <h4 class="text-muted"> Expired Certificates </h4>
+              <span class="text-muted"> Generate reports for expired certificates as of <%=Time.zone.now.strftime("%B %e, %Y") %>.</span>
+            </div>
+            <div class="col-md-4">
+            <br>
+              <%=link_to "Generate Report", expired_certifications_path(format: "pdf"), class: "btn btn-warning btn-sm btn-flat" %>
+            </div>
+          </div>
+          <hr />

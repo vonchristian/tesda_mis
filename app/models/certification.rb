@@ -22,9 +22,13 @@ class Certification < ApplicationRecord
 
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
-
+ 
   def self.types
     ["Certifications::NationalCertificate", "Certifications::CertificateOfCompetency"]
+  end
+
+  def self.expired
+    all.select{|a| a.expired? }
   end
 
   def national_certificate?

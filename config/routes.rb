@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :registries, only: [:index, :show, :new, :create]
   resources :institutions, only: [:index, :show, :new, :create]
   resources :certifications, only: [:index, :show] do 
+    match "/expired" => "certifications/expired_certifications#index",  via: [:get], on: :collection
+
     resources :issuances, only: [:new, :create], module: :certifications
   end
   resources :national_certificates, only: [:index, :show], controller: "certifications", type: "Certifications::NationalCertificate"
@@ -14,4 +16,7 @@ Rails.application.routes.draw do
   resources :training_centers, only: [:index, :show], module: :institutions
   resources :assessment_centers, only: [:index, :show], module: :institutions
   resources :assessments, only: [:show], module: :services
+  namespace :reports do 
+    resources :certifications, only: [:index]
+  end
 end
