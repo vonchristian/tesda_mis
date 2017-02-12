@@ -2,9 +2,11 @@ module Certifications
   class ExpiredCertificationsPdf < Prawn::Document
     TABLE_WIDTHS = [200,230,100]
 
-    def initialize(certifications, view_context)
+    def initialize(certifications, from_date, to_date, view_context)
       super(margin: 40, page_size: [612, 1008], page_layout: :portrait)
       @certifications = certifications
+      @from_date = from_date
+      @to_date = to_date
       @view_context = view_context
       logo
       heading
@@ -26,8 +28,12 @@ module Certifications
     end
     def certificates_heading
       move_down 50
-      text "LIST OF EXPIRED CERTIFICATES", align: :center, size: 12, style: :bold
-      text "(As of #{Time.zone.now.strftime("%B %e, %Y")})", align: :center, style: :bold, size: 10
+      text "LIST OF EXPIRED CERTIFICATES", align: :center, size: 14, style: :bold
+      if @from_date.present? && @to_date.present?
+        text "(From #{@from_date.strftime("%B %e, %Y")} To #{@to_date.strftime("%B %e, %Y")})", align: :center, style: :bold, size: 10
+      else
+        text "(As of #{Time.zone.now.strftime("%B %e, %Y")})", align: :center, style: :bold, size: 10
+      end
       move_down 3
        stroke_horizontal_rule
     end 
@@ -47,7 +53,7 @@ module Certifications
     def table_data
       move_down 5
       [["CLIENT", "Qualification/Competency", "Expiry Date"]] +
-      @table_data ||= @certifications.map { |e| [e.client_full_name, e.name, e.expiry_date.strftime('%b %e, %Y')]}
+      @table_data ||= @certifications.map { |e| [e.client_full_name.try(:titleize), e.name, e.expiry_date.strftime('%b %e, %Y')]}
     end
   end
 end
