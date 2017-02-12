@@ -33,4 +33,10 @@ describe Certification, type: :model do
     expect(national_certificate.certificate_of_competency?).to be false
     expect(certificate_of_competency.certificate_of_competency?).to be true 
   end
+  it "#expired?" do 
+    certification = create(:certification, issue_date: Date.today, expiry_date: Date.today.next_year(5))
+    travel_to(Date.today.next_year(5) + 1.day)
+
+    expect(certification.expired?).to be true
+  end
 end

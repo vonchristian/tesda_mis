@@ -51,4 +51,7 @@ class Certification < ApplicationRecord
       "Certificate Of Competency"
     end 
   end 
+  def expired?
+   expiry_date < Time.zone.now
+  end
 end
