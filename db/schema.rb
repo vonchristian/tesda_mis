@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213025558) do
+ActiveRecord::Schema.define(version: 20170213033518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20170213025558) do
     t.integer  "accredited_id"
     t.string   "accredited_type"
     t.string   "number"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "accreditation_date"
+    t.datetime "expiry_date"
     t.index ["accredited_id"], name: "index_accreditations_on_accredited_id", using: :btree
     t.index ["accredited_type"], name: "index_accreditations_on_accredited_type", using: :btree
     t.index ["qualification_id"], name: "index_accreditations_on_qualification_id", using: :btree

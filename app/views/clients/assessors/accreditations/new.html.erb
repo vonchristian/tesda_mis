@@ -1,0 +1,8 @@
+<%=simple_form_for [@assessor, @accreditation], url: :assessor_accreditations do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :qualification_id, collection: Qualification.all.map{|a| [a.name, a.id] } %>
+  <%= f.input :number %>
+  <%= f.input :accreditation_date, as: :string, input_html: { class: "datepicker" } %>
+  <%= f.input :expiry_date, as: :string, input_html: { class: "datepicker" } %>
+  <%= f.submit "Save Accreditation" %>
+<% end %>
