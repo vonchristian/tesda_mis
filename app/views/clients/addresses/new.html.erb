@@ -1,0 +1,10 @@
+<%= simple_form_for [@assessor, @address], url: :assessor_addresses do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :region_id, collection: Addresses::Region.all.map{|a| [a.name, a.id] } %>
+  <%= f.input :province_id, collection: Addresses::Province.all.map{ |a| [a.name, a.id] } %>
+  <%= f.input :municipality_or_city_id, collection: Addresses::MunicipalityOrCity.all.map{ |a| [a.name, a.id] }, label: "Municipality/City" %>
+  <%= f.input :barangay_id, collection: Addresses::Barangay.all.map{ |a| [a.name, a.id] } %>
+  <%= f.input :street %>
+  <%= f.input :current, input_html: { checked: true }, as: :hidden %>
+  <%= f.submit "Save Address", class: 'btn btn-primary btn-primary' %>
+<% end %>

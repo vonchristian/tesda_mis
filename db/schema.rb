@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211050816) do
+ActiveRecord::Schema.define(version: 20170213025558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,15 +32,18 @@ ActiveRecord::Schema.define(version: 20170211050816) do
     t.integer  "municipality_or_city_id"
     t.integer  "barangay_id"
     t.integer  "addressable_id"
-    t.integer  "addressable_type"
     t.boolean  "current",                 default: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
+    t.string   "addressable_type"
+    t.integer  "region_id"
+    t.string   "street"
     t.index ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
     t.index ["addressable_type"], name: "index_addresses_on_addressable_type", using: :btree
     t.index ["barangay_id"], name: "index_addresses_on_barangay_id", using: :btree
     t.index ["municipality_or_city_id"], name: "index_addresses_on_municipality_or_city_id", using: :btree
     t.index ["province_id"], name: "index_addresses_on_province_id", using: :btree
+    t.index ["region_id"], name: "index_addresses_on_region_id", using: :btree
   end
 
   create_table "assessment_centers", force: :cascade do |t|
@@ -63,6 +66,11 @@ ActiveRecord::Schema.define(version: 20170211050816) do
     t.index ["assessee_id"], name: "index_assessments_on_assessee_id", using: :btree
     t.index ["assessee_type"], name: "index_assessments_on_assessee_type", using: :btree
     t.index ["assessor_id"], name: "index_assessments_on_assessor_id", using: :btree
+  end
+
+  create_table "assessor_registries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "assessors", force: :cascade do |t|
@@ -136,6 +144,12 @@ ActiveRecord::Schema.define(version: 20170211050816) do
     t.index ["slug"], name: "index_clients_on_slug", unique: true, using: :btree
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "competencies", force: :cascade do |t|
     t.integer  "qualification_id"
     t.string   "unit_code"
@@ -166,6 +180,16 @@ ActiveRecord::Schema.define(version: 20170211050816) do
     t.index ["training_id"], name: "index_completed_trainings_on_training_id", using: :btree
   end
 
+  create_table "designations", force: :cascade do |t|
+    t.integer  "designatable_id"
+    t.string   "designatable_type"
+    t.string   "title"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["designatable_id"], name: "index_designations_on_designatable_id", using: :btree
+    t.index ["designatable_type"], name: "index_designations_on_designatable_type", using: :btree
+  end
+
   create_table "educational_attainments", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -177,8 +201,22 @@ ActiveRecord::Schema.define(version: 20170211050816) do
     t.integer  "educational_attainment_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "educationship_id"
+    t.string   "educationship_type"
     t.index ["client_id"], name: "index_educations_on_client_id", using: :btree
     t.index ["educational_attainment_id"], name: "index_educations_on_educational_attainment_id", using: :btree
+    t.index ["educationship_id"], name: "index_educations_on_educationship_id", using: :btree
+    t.index ["educationship_type"], name: "index_educations_on_educationship_type", using: :btree
+  end
+
+  create_table "employments", force: :cascade do |t|
+    t.string   "designation"
+    t.integer  "company_id"
+    t.integer  "assessor_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["assessor_id"], name: "index_employments_on_assessor_id", using: :btree
+    t.index ["company_id"], name: "index_employments_on_company_id", using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -313,6 +351,7 @@ ActiveRecord::Schema.define(version: 20170211050816) do
   add_foreign_key "addresses", "barangays"
   add_foreign_key "addresses", "municipality_or_cities"
   add_foreign_key "addresses", "provinces"
+  add_foreign_key "addresses", "regions"
   add_foreign_key "assessment_centers", "institutions"
   add_foreign_key "assessors", "assessment_centers"
   add_foreign_key "assessors", "clients"
@@ -330,6 +369,8 @@ ActiveRecord::Schema.define(version: 20170211050816) do
   add_foreign_key "completed_trainings", "trainings"
   add_foreign_key "educations", "clients"
   add_foreign_key "educations", "educational_attainments"
+  add_foreign_key "employments", "assessors"
+  add_foreign_key "employments", "companies"
   add_foreign_key "municipality_or_cities", "provinces"
   add_foreign_key "provinces", "regions"
   add_foreign_key "training_centers", "institutions"

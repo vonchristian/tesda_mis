@@ -1,3 +1,98 @@
+<div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <%= image_tag(@assessor.avatar.url(:thumb), class: "profile-user-img img-responsive img-circle", alt: "Assessment center logo") %>
+              <h3 class="profile-username text-center"><%= @assessor.full_name %></h3>
+
+              <p class="text-muted text-center"><%= @assessor.current_address %></p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>NC</b> <a class="pull-right">1,322</a>
+                </li>
+                <li class="list-group-item">
+                  <b>COC</b> <a class="pull-right">543</a>
+                </li>
+              </ul>
+
+              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">About <%= @assessor.first_name %></h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
+              <p class="text-muted">
+                <% @assessor.educations.each do |education| %>
+                  <p class="text-muted"> <%=education.educational_attainment.name %>
+                <% end %>
+              </p>
+
+              <hr>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+                <%=link_to "Add Address", new_assessor_address_path(@assessor)%>
+              <p class="text-muted"><%= @assessor.current_address %></p>
+
+              <hr>
+
+              <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
+              <p>
+                <span class="label label-danger">UI Design</span>
+                <span class="label label-success">Coding</span>
+                <span class="label label-info">Javascript</span>
+                <span class="label label-warning">PHP</span>
+                <span class="label label-primary">Node.js</span>
+              </p>
+
+              <hr>
+
+              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+              <li><a href="#certifications" data-toggle="tab">Certifications</a></li>
+              <li><a href="#trainings" data-toggle="tab">Trainings</a></li>
+              <li><a href="#assessments" data-toggle="tab">Assessments</a></li>
+              <li><a href="#settings" data-toggle="tab">Settings</a></li>
+
+            </ul>
+            <div class="tab-content">
+              <%#= render 'assessors/partials/certifications' %>
+              <div class="active tab-pane" id="activity">
+                <h4 class="text-muted">Assessors: </h4>
+       
+          <hr />
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
 <%= @assessor.full_name %>
 <p class="text-muted"> Assessor in: </p>
 <% @assessor.accreditations.each do |accreditation| %>

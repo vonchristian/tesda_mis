@@ -8,6 +8,9 @@ class Address < ApplicationRecord
   delegate :name, to: :municipality_or_city, prefix: true
   delegate :name, to: :province, prefix: true
 
+  validates :municipality_or_city, presence: true
+  validates :street, presence: true
+
   def details
     "#{barangay_name}, #{municipality_or_city_name}, #{province_name}"
   end

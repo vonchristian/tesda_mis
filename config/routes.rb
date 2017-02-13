@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   resources :certificate_of_competencies, only: [:index, :show], controller: "certifications", type: "Certifications::CertificateOfCompetency"
 
   resources :issuances, only: [:show], module: :certifications
-  resources :assessors, only: [:index, :show], module: :clients
+  resources :assessors, only: [:index, :show], module: :clients do 
+    resources :addresses, only: [:new, :create], type: "Clients::Assessor", controller: "addresses"
+  end
   resources :trainors, only: [:index, :show], module: :clients
   resources :training_centers, only: [:index, :show], module: :institutions
   resources :assessment_centers, only: [:index, :show], module: :institutions
@@ -19,4 +21,5 @@ Rails.application.routes.draw do
   namespace :reports do 
     resources :certifications, only: [:index]
   end
+  resources :addresses, only: [:new, :create]
 end
