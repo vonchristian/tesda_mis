@@ -5,5 +5,6 @@ FactoryGirl.define do
     barangay nil
     addressable_id 1
     addressable_type 1
+    street { Faker::Address.street }
   end
 end

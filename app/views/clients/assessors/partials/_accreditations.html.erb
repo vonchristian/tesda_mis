@@ -1,5 +1,8 @@
 <div class="tab-pane" id="accreditations"> 
 Accreditations 
   <%=link_to "New Accreditation", new_assessor_accreditation_path(@assessor) %>
-  
+  <%= @assessor.accredited_qualifications.count %>
+  <% @assessor.accredited_qualifications.each do |qualification| %>
+  <%= qualification.name %>
+  <% end %>
 </div>

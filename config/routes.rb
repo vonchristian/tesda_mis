@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :clients
   resources :registries, only: [:index, :show, :new, :create]
+  resources :assessor_registries, only: [:index, :show, :new, :create], module: :registries
   resources :institutions, only: [:index, :show, :new, :create]
   resources :certifications, only: [:index, :show] do 
     match "/expired" => "certifications/expired_certifications#index",  via: [:get], on: :collection
