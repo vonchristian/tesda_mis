@@ -1,0 +1,5 @@
+<%= simple_form_for [@assessor, @employment], url: :assessor_employments do |f| %>
+  <%= f.input :designation %>
+  <%= f.input :company_id, collection: Company.all.map{ |a| [a.name, a.id] } %>
+  <%= f.submit "Save Employment" %>
+<% end %>
