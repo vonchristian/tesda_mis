@@ -34,6 +34,7 @@
               <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
 
               <p class="text-muted">
+                <%=link_to "Add Education", new_assessor_education_path(@assessor) %>
                 <% @assessor.educations.each do |education| %>
                   <p class="text-muted"> <%=education.educational_attainment.name %>
                 <% end %>

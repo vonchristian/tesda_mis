@@ -16,7 +16,7 @@ module Clients
 
     private 
     def address_params 
-      params.require(:address).permit(:region_id, :province_id, :municipality_or_city_id, :street, :addressable_id, :addressable_type, :current)
+      params.require(:address).permit(:region_id, :province_id, :municipality_or_city_id, :street, :current)
     end 
   end 
 end

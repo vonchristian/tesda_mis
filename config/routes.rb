@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :issuances, only: [:show], module: :certifications
   resources :assessors, only: [:index, :show], module: :clients do 
     resources :addresses, only: [:new, :create], type: "Clients::Assessor", controller: "addresses"
+    resources :educations, only: [:new, :create], type: "Clients::Assessor", controller: "educations"
+
   end
   resources :trainors, only: [:index, :show], module: :clients
   resources :training_centers, only: [:index, :show], module: :institutions

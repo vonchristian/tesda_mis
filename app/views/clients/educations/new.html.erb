@@ -1,0 +1,4 @@
+<%= simple_form_for [@assessor, @education], url: :assessor_educations do |f| %>
+  <%= f.input :educational_attainment_id, collection: Configurations::EducationalAttainment.all.map{ |a| [a.name, a.id] }, as: :radio_buttons %>
+  <%= f.submit "Save Education" %>
+<% end %>
