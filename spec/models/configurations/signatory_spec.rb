@@ -13,6 +13,11 @@ module Configurations
       it { is_expected.to validate_presence_of :term_end_date }
     end
 
+    describe "signature_attachment" do
+      it { should have_attached_file(:signature) }
+      it { should validate_attachment_content_type(:signature).allowing('image/png', 'image/gif').rejecting('text/plain', 'text/xml') }
+    end
+
     it ".set(certification" do 
       certification = create(:certification, issue_date: Date.today.years_ago(2))
       signatory = create(:signatory, term_start_date: Date.today.years_ago(5), term_end_date: Date.today)

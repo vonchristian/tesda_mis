@@ -3,9 +3,11 @@ module Settings
     def index 
       @signatories = Configurations::Signatory.all.order(:term_start_date).reverse
     end 
+    
     def new 
       @signatory = Configurations::Signatory.new 
-    end 
+    end
+
     def create 
       @signatory = Configurations::Signatory.create(signatory_params)
       if @signatory.save 
@@ -17,7 +19,7 @@ module Settings
 
     private 
     def signatory_params 
-      params.require(:configurations_signatory).permit(:first_name, :middle_name, :last_name, :term_start_date, :term_end_date, :designation)
+      params.require(:configurations_signatory).permit(:first_name, :middle_name, :last_name, :term_start_date, :term_end_date, :designation, :signature)
     end 
   end 
 end 

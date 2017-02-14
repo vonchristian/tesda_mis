@@ -13,6 +13,7 @@ feature "signatory creation" do
     fill_in "Designation", with: "Director General"
     fill_in "Term start date", with: Date.today.years_ago(2)
     fill_in "Term end date", with: Date.today
+    attach_file("Upload Signature Specimen", Rails.root + "spec/support/signatures/default_signature.png")
 
     click_button "Save Signatory"
 

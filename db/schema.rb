@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215136734) do
+ActiveRecord::Schema.define(version: 20170215136735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,8 +344,12 @@ ActiveRecord::Schema.define(version: 20170215136734) do
     t.datetime "term_start_date"
     t.datetime "term_end_date"
     t.string   "designation"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "signature_file_name"
+    t.string   "signature_content_type"
+    t.integer  "signature_file_size"
+    t.datetime "signature_updated_at"
   end
 
   create_table "training_centers", force: :cascade do |t|

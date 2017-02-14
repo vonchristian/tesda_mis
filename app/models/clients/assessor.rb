@@ -14,6 +14,7 @@ module Clients
 
     delegate :full_name, :last_name, :first_name, to: :client, allow_nil: true
     delegate :avatar, to: :client
+    delegate :name, to: :assessment_center, prefix: true, allow_nil: true
     def current_address
     end
   end

@@ -1,0 +1,72 @@
+<div class="active tab-pane" id="overview">
+  <div class="row">
+    <div class="col-md-5">
+      <p class="text-muted">Assessors: </p><p></p>
+      <% if @qualification.accredited_assessors.present? %>
+        <% @qualification.accredited_assessors.each do |assessor| %>
+
+          <%=link_to assessor_path(assessor) do %>
+            <div class="row">
+              <div class="col-md-3">
+                <%=image_tag(assessor.avatar.url(:small), width: 40, height: 40,  class: "img-circle") %>
+              </div>
+              <div class="col-md-8">
+                <b><%= assessor.full_name %></b>
+                <small><%=assessor.assessment_center_name %></small>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <center classs="text-muted">No assessors found for this qualification.</center><br><br><br>
+      <% end %>
+      <hr />
+     <p class="text-muted">Trainors: </p><p></p>
+     <hr />
+     <p class="text-muted">Assessment Centers: </p><p></p>
+     <hr />
+     <p class="text-muted">Training Centers: </p><p></p>
+     <hr />
+    </div>
+    <div class="col-md-6 col-md-offset-1">
+      <%=link_to new_qualification_competency_path(@qualification) do %>
+        <span class="btn btn-default btn-sm pull-right" title="New Competency" data-toggle="tooltip"><i class="fa fa-plus-circle"></i> </span>
+      <% end %>
+      <p class="text-muted"> Basic Competencies </p>
+      <% @qualification.competencies.basic.each do |competency| %>
+        <div class="row">
+          <div class="col-md-3">
+            <%=competency.unit_code %>
+          </div>
+          <div class="col-md-9">
+            <%= competency.unit_title %>
+          </div>
+        </div>
+      <% end %>
+      <hr />
+      <p class="text-muted">Common Competencies </p>
+      <% @qualification.competencies.common.each do |competency| %>
+        <div class="row">
+          <div class="col-md-3">
+            <%=competency.unit_code %>
+          </div>
+          <div class="col-md-9">
+            <%= competency.unit_title %>
+          </div>
+        </div>
+      <% end %>
+      <hr />
+      <p class="text-muted">Core Competencies </p>
+      <% @qualification.competencies.core.each do |competency| %>
+        <div class="row">
+          <div class="col-md-3">
+            <%=competency.unit_code %>
+          </div>
+          <div class="col-md-9">
+            <%= competency.unit_title %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

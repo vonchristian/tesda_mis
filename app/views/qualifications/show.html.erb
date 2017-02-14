@@ -1,36 +1,92 @@
-<%=link_to "New Competency", new_qualification_competency_path(@qualification), class: "btn btn-primary btn-flat" %>
+<div class="row">
+        <div class="col-md-3">
 
-<div class="table table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Unit Code</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @qualification.competencies.basic.each do |competency| %>
-        <tr>
-          <td> <%= competency.unit_code %></td>
-          <td> <%= competency.unit_title %></td>
-          <td> <%= competency.competency_type %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div class="table table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Unit Code</th>
-      </tr>
-    </thead>
-      <tbody>
-      <% @qualification.competencies.common.each do |competency| %>
-        <tr>
-          <td> <%= competency.unit_code %></td>
-          <td> <%= competency.unit_title %></td>
-          <td> <%= competency.competency_type %></td>
-        </tr>
-      <% end %>
-    </tbody>
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <%#= image_tag(@qualification.avatar.url(:thumb), class: "profile-user-img img-responsive img-circle", alt: "Assessment center logo") %>
+              <h3 class="profile-username text-center"><%= @qualification.name %></h3>
+
+              <p class="text-muted text-center"><%#= @qualification.current_address %></p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>NC</b> <a class="pull-right"><%=@qualification.nc_certifieds.count %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>COC</b> <a class="pull-right"><%= @qualification.coc_certifieds.count %> </a>
+                </li>
+              </ul>
+
+              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">About Qualification </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
+              <p class="text-muted">
+               
+              </p>
+
+              <hr>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+              <p class="text-muted"><%#= @qualification.current_address %></p>
+
+              <hr>
+
+              <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
+              <p>
+                <span class="label label-danger">UI Design</span>
+                <span class="label label-success">Coding</span>
+                <span class="label label-info">Javascript</span>
+                <span class="label label-warning">PHP</span>
+                <span class="label label-primary">Node.js</span>
+              </p>
+
+              <hr>
+
+              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+              <li><a href="#nc-certified" data-toggle="tab">Certified (NC)</a></li>
+              <li><a href="#coc-certified" data-toggle="tab">Certified (COC)</a></li>
+              <li><a href="#settings" data-toggle="tab">Settings</a></li>
+
+            </ul>
+            <div class="tab-content">
+              <%= render 'qualifications/partials/overview'%>
+              <%= render 'qualifications/partials/nc_certifieds'%>
+              <%= render 'qualifications/partials/coc_certifieds'%>
+
+
+            </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>

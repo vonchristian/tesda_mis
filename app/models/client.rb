@@ -29,7 +29,7 @@ class Client < ApplicationRecord
   has_many :addresses, as: :addressable
 
 
-
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   validates :first_name, :middle_name, :last_name, presence: true
 
   enum sex: [:male, :female]

@@ -14,7 +14,7 @@ class Institution < ApplicationRecord
   :url => "/system/:attachment/:id/:style/:filename"
 
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
-  # multisearchable :against => [:last_name]
+  multisearchable :against => [:name]
   pg_search_scope :text_search, :against => [:name]
   has_many :accreditations, as: :accredited
   has_many :accredited_services, through: :accreditations, class_name: "InstitutionType", foreign_key: 'institution_type_id'

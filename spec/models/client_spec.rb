@@ -21,6 +21,11 @@ describe Client do
     it { is_expected.to validate_presence_of :last_name }
   end
 
+  describe "photo_attachment" do
+    it { should have_attached_file(:avatar) }
+    it { should validate_attachment_content_type(:avatar).allowing('image/png', 'image/gif').rejecting('text/plain', 'text/xml') }
+  end
+
   it '.text_search' do
     client = create(:client, last_name: "Halip")
     client2 = create(:client, last_name: "Dulnuan")
