@@ -20,12 +20,12 @@ class Certification < ApplicationRecord
   delegate :full_name, to: :assessor, prefix: true, allow_nil: true
   delegate :name, to: :qualification, prefix: true, allow_nil: true
   delegate :name, to: :competency, prefix: true, allow_nil: true
+  delegate :qualification_name, to: :competency, prefix: true, allow_nil: true
 
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
   delegate :full_name, :designation, to: :signatory, prefix: true, allow_nil: true
 
-  after_commit :set_signatory
   def self.expires_on(hash={})
       if hash[:from_date] && hash[:to_date]
         from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : Time.parse(hash[:from_date].strftime('%Y-%m-%d 12:00:00'))
@@ -71,8 +71,7 @@ class Certification < ApplicationRecord
    expiry_date < Time.zone.now
   end
 
-  private 
   def set_signatory
-    self.signatory = Configurations::Signatory.set(self)
+    Configurations::Signatory.set(self)
   end
 end

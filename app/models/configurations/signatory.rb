@@ -1,7 +1,11 @@
 module Configurations
   class Signatory < ApplicationRecord
     def self.set(certification)
-      all.select{ |a| certification.issue_date.between?(a.term_start_date, a.term_end_date) }.first
+      signatory = all.select{ |a| certification.issue_date.between?(a.term_start_date, a.term_end_date) }.first
+      if signatory.present?
+        certification.signatory = signatory
+        certification.save
+      end
     end
     def term
       term_start_date..term_end_date
