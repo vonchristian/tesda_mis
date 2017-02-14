@@ -7,12 +7,9 @@ module Configurations
         certification.save
       end
     end
-    def term
-      term_start_date..term_end_date
-    end
 
     def full_name
-    "#{first_name} #{middle_name.try(:first)}. #{last_name}"
-  end
+      "#{first_name} #{middle_name.try(:first)}. #{last_name}"
+    end
   end
 end

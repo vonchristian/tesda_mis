@@ -7,7 +7,7 @@
             <h3 class="box-title"> Qualifications </h3>
           </div>
           <div class="col-md-6">
-          <%=form_tag qualifications_path, method: :get, class: "search-form" do %>
+          <%=form_tag qualifications_path, method: :get, class: "qualification-search-form" do %>
               <div class="input-group">
                 <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Qualification...", id: 'qualification-search-form' %>
                 <span class="input-group-btn">

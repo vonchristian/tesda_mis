@@ -20,5 +20,5 @@ class Qualification < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  delegate :name, to: :sector, prefix: true
+  delegate :name, to: :sector, prefix: true, allow_nil: true
 end
