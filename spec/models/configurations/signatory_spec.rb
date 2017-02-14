@@ -6,5 +6,20 @@ module Configurations
 
     describe "validations" do 
     end
+
+    it ".set(certification" do 
+      certification = create(:certification, issue_date: Date.today.years_ago(2))
+      signatory = create(:signatory, term_start_date: Date.today.years_ago(5), term_end_date: Date.today)
+
+      Configurations::Signatory.set(certification)
+
+      expect(certification.signatory).to eql(signatory)
+    end
+
+    it '#full_name' do
+      signatory = build(:signatory, first_name: "Von", middle_name: 'Pinosan', last_name: 'Halip')
+
+      expect(signatory.full_name).to eql('Von P. Halip')
+    end
   end
 end
