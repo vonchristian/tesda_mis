@@ -10,7 +10,10 @@
         <%= simple_form_for @qualification do |f| %>
           <%=f.error_notification %>
           <%=f.input :name %>
-          <%=f.input :description, as: :text, input_html: { rows: 6 } %>
+          <%=f.input :sector_id, collection: Sector.all.map{|a| [a.name, a.id] } %>
+          
+
+          <%#=f.input :description, as: :text, input_html: { rows: 6 } %>
           <div class="box-footer">
             <%=f.submit "Create Qualification", class: "btn btn-primary btn-flat pull-right" %>
           </div>

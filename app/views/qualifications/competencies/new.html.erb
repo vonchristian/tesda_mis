@@ -1,6 +1,7 @@
 <%=simple_form_for [@qualification, @competency], url: :qualification_competencies do |f| %>
-  <%=f.error_notification %>
-  <%=f.input :unit_code %>
-  <%=f.input :unit_title %>
+  <%= f.error_notification %>
+  <%= f.input :unit_code %>
+  <%= f.input :unit_title %>
+  <%= f.input :competency_type, collection: Qualifications::Competency.competency_types.keys.to_a.map{ |a| [a.titleize, a] }, as: :radio_buttons %>
   <%= f.submit "Create Competency" %>
 <% end %>

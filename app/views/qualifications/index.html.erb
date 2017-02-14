@@ -32,14 +32,26 @@
               <thead>
                 <tr>
                   <th>Qualification</th>
+                  <th>Certified (NC)</th>
+                  <th> Certified (COC) </th>
+                  <th> Centers (Assessment) </th>
+                  <th> Centers (Training) </th>
+
                 </tr>
               </thead>
               <tbody>
                 <% @qualifications.each do |qualification| %>
                   <tr>
                     <td><%= link_to qualification.name, qualification%><br />
-                      <small class="text-muted"> &nbsp; &nbsp; <%#= qualification.description %></small>
+                      <small class="text-muted"><%= qualification.sector_name %></small>
                     </td>
+                    <td><%= qualification.nc_certifieds.count %></td>
+                    <td><%= qualification.coc_certifieds.count %></td>
+                    <td><%= qualification.accredited_assessment_centers.count %></td>
+                    <td><%= qualification.accredited_training_centers.count %></td>
+
+
+
                   </tr>
                 <% end %>
               </tbody>

@@ -7,8 +7,15 @@ class Qualification < ApplicationRecord
   belongs_to :sector
   has_many :competencies, class_name: 'Qualifications::Competency'
   has_many :accreditations, foreign_key: "qualification_id"
-  has_many :accredited_clients, through: :accreditations, source: :accredited, source_type: "Client"
-  has_many :accredited_institutions, through: :accreditations, source: :accredited, source_type: "Institution"
+  has_many :nc_certifieds, class_name: "Certifications::NationalCertificate", foreign_key: 'qualification_id'
+  has_many :coc_certifieds, class_name: "Certifications::CertificateOfCompetency", foreign_key: 'qualification_id'
+
+  has_many :accredited_assessors, through: :accreditations, source: :accredited, source_type: "Clients::Assessor"
+  has_many :accredited_trainors, through: :accreditations, source: :accredited, source_type: "Clients::Trainor"
+
+  has_many :accredited_assessment_centers, through: :accreditations, source: :accredited, source_type: "Institutions::AssessmentCenter"
+  has_many :accredited_training_centers, through: :accreditations, source: :accredited, source_type: "Institutions::TrainingCenter"
+
 
 
   validates :name, presence: true, uniqueness: true

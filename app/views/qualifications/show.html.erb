@@ -1,1 +1,36 @@
 <%=link_to "New Competency", new_qualification_competency_path(@qualification), class: "btn btn-primary btn-flat" %>
+
+<div class="table table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Unit Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @qualification.competencies.basic.each do |competency| %>
+        <tr>
+          <td> <%= competency.unit_code %></td>
+          <td> <%= competency.unit_title %></td>
+          <td> <%= competency.competency_type %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="table table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Unit Code</th>
+      </tr>
+    </thead>
+      <tbody>
+      <% @qualification.competencies.common.each do |competency| %>
+        <tr>
+          <td> <%= competency.unit_code %></td>
+          <td> <%= competency.unit_title %></td>
+          <td> <%= competency.competency_type %></td>
+        </tr>
+      <% end %>
+    </tbody>

@@ -22,5 +22,8 @@ module Qualifications
 
       expect(competency.name).to eql("CHS")
     end
+    describe "enums" do 
+      it { is_expected.to define_enum_for(:competency_type).with([:basic, :common, :core]) }
+    end
   end
 end
