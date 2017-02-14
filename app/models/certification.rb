@@ -11,6 +11,7 @@ class Certification < ApplicationRecord
   belongs_to :client
   belongs_to :competency, class_name: "Qualifications::Competency"
   belongs_to :certification_level, class_name: "Configurations::CertificationLevel"
+  belongs_to :signatory, class_name: "Configurations::Signatory"
   has_many :issuances, as: :issuable
   
   delegate :full_name, to: :client, prefix: true, allow_nil: true
@@ -22,6 +23,9 @@ class Certification < ApplicationRecord
 
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
+  delegate :full_name, :designation, to: :signatory, prefix: true, allow_nil: true
+
+  after_commit :set_signatory
   def self.expires_on(hash={})
       if hash[:from_date] && hash[:to_date]
         from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : Time.parse(hash[:from_date].strftime('%Y-%m-%d 12:00:00'))
@@ -65,5 +69,10 @@ class Certification < ApplicationRecord
   end 
   def expired?
    expiry_date < Time.zone.now
+  end
+
+  private 
+  def set_signatory
+    self.signatory = Configurations::Signatory.set(self)
   end
 end

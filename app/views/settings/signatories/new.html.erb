@@ -1,0 +1,13 @@
+<%= simple_form_for @signatory, url: :settings_signatories do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :first_name %>
+  <%= f.input :middle_name %>
+  <%= f.input :last_name %>
+  <%= f.input :designation %>
+  <%= f.input :term_start_date, as: :string, input_html: { class: "datepicker" } %>
+  <%= f.input :term_end_date, as: :string, input_html: { class: "datepicker" } %>
+
+  <%= f.submit "Save Signatory", class: "btn btn-primary btn-flat" %>
+<% end %>
+
+

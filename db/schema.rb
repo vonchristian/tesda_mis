@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215136727) do
+ActiveRecord::Schema.define(version: 20170215136729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,12 +120,14 @@ ActiveRecord::Schema.define(version: 20170215136727) do
     t.integer  "qualification_id"
     t.string   "slug"
     t.integer  "client_id"
+    t.integer  "signatory_id"
     t.index ["certification_level_id"], name: "index_certifications_on_certification_level_id", using: :btree
     t.index ["certified_id"], name: "index_certifications_on_certified_id", using: :btree
     t.index ["certified_type"], name: "index_certifications_on_certified_type", using: :btree
     t.index ["client_id"], name: "index_certifications_on_client_id", using: :btree
     t.index ["competency_id"], name: "index_certifications_on_competency_id", using: :btree
     t.index ["qualification_id"], name: "index_certifications_on_qualification_id", using: :btree
+    t.index ["signatory_id"], name: "index_certifications_on_signatory_id", using: :btree
     t.index ["slug"], name: "index_certifications_on_slug", unique: true, using: :btree
     t.index ["type"], name: "index_certifications_on_type", using: :btree
   end
@@ -328,6 +330,17 @@ ActiveRecord::Schema.define(version: 20170215136727) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "signatories", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.datetime "term_start_date"
+    t.datetime "term_end_date"
+    t.string   "designation"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "training_centers", force: :cascade do |t|
     t.integer  "institution_id"
     t.datetime "created_at",     null: false
@@ -381,6 +394,7 @@ ActiveRecord::Schema.define(version: 20170215136727) do
   add_foreign_key "certifications", "clients"
   add_foreign_key "certifications", "competencies"
   add_foreign_key "certifications", "qualifications"
+  add_foreign_key "certifications", "signatories"
   add_foreign_key "competencies", "qualifications"
   add_foreign_key "completed_trainings", "clients"
   add_foreign_key "completed_trainings", "modalities"

@@ -5,24 +5,25 @@ module Certifications
       super(margin: 20, page_size: [612, 1008], page_layout: :portrait)
       @certification = certification
       @view_context = view_context
+      certified_candidate
       competency
-      certified
       certification_number
       issued_date
       expiry_date
     end
 
-    def competency
-      bounding_box [100, 750], width: 400 do
-        font("#{Rails.root.to_s}/app/assets/fonts/BookAntiqua.ttf") do
-          text "#{@certification.competency_name.upcase}", size: 25,  align: :center
+    def certified_candidate
+      bounding_box [100, 650], width: 400 do
+        font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
+          text "#{@certification.client.full_name.upcase}", size: 22,  align: :center
         end
       end
     end
-
-    def certified
-      bounding_box [100, 650], width: 400 do
-        text "#{@certification.client.full_name.upcase}", size: 25, style: :bold, align: :center
+    def competency
+      bounding_box [100, 750], width: 400 do
+        font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
+          text "#{@certification.competency_name}", size: 8,  align: :center
+        end
       end
     end
     def certification_number

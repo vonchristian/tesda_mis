@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   end
   resources :addresses, only: [:new, :create]
   resources :qualifications, only: [:index]
+  namespace :settings do 
+    resources :signatories, except:[:destroy]
+  end
 end
