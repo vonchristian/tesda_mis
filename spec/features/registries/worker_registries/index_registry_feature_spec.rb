@@ -4,13 +4,13 @@ feature "Registry index" do
   feature 'when logged in' do
     scenario "with registries" do
       registry = create(:registry, name: "RWAC")
-      visit registries_path
+      visit worker_registries_path
 
       expect(page).to have_content(registry.name)
     end
 
     scenario "without registries" do
-      visit registries_path
+      visit worker_registries_path
 
       expect(page).to have_content("No registries found")
     end
@@ -20,7 +20,7 @@ feature "Registry index" do
       registry2 = create(:registry, name: "TEST")
 
 
-      visit registries_path
+      visit worker_registries_path
       fill_in 'registry-search-form', with: registry.name
       click_button 'search-btn'
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Create registry' do
   before(:each) do
-    visit registries_path
+    visit worker_registries_path
     click_link "Upload Registry"
   end
 

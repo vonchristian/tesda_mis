@@ -6,7 +6,7 @@
       </div>
       <div class="box-body">
         <i class="fa fa-file-excel-o"></i>
-<%=simple_form_for @registry, multipart: true do |f| %>
+<%=simple_form_for @registry, multipart: true, url: :worker_registries do |f| %>
   <%=f.error_notification %>
 
   <%=f.input :spreadsheet, as: :file, label: "Upload Spreadsheet", input_html: { id: "registry-file" } %>

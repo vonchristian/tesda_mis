@@ -4,10 +4,10 @@
       <div class="box-header with-border">
         <div class="row">
           <div class="col-md-3">
-            <h3 class="box-title"> RWAC Uploads </h3>
+            <h3 class="box-title"> Worker Registry </h3>
           </div>
           <div class="col-md-6">
-            <%=form_tag registries_path, method: :get, class: "search-form" do %>
+            <%=form_tag worker_registries_path, method: :get, class: "search-form" do %>
                         <div class="input-group">
                           <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search name, file name...", id: 'registry-search-form' %>
                           <span class="input-group-btn">
@@ -19,7 +19,7 @@
                       <% end %>
           </div>
           <div class="col-md-3">
-            <%= link_to new_registry_path do %>
+            <%= link_to new_worker_registry_path do %>
               <span class="btn btn-primary btn-flat pull-right"><i class="fa fa-plus-circle"></i> Upload Registry </span>
             <% end %>   
           </div>
@@ -42,7 +42,7 @@
                 <% @registries.each do |registry| %>
                   <tr>
                     <td><%= registry.client_trainings.count %></td>
-                  <td><%= link_to registry.name, registry_path(registry) %></td>
+                  <td><%= link_to registry.name, worker_registry_path(registry) %></td>
                   <td><%= number_to_human_size registry.spreadsheet_file_size %></td>
                   <td><%= registry.date.strftime("%B %e, %Y") %></td>
                   </tr>
