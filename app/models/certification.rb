@@ -27,14 +27,14 @@ class Certification < ApplicationRecord
   delegate :full_name, :designation, to: :signatory, prefix: true, allow_nil: true
 
   def self.expires_on(hash={})
-      if hash[:from_date] && hash[:to_date]
-        from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : Time.parse(hash[:from_date].strftime('%Y-%m-%d 12:00:00'))
-        to_date = hash[:to_date].kind_of?(Time) ? hash[:to_date] : Time.parse(hash[:to_date].strftime('%Y-%m-%d 12:59:59'))
-        where('certifications.expiry_date' => from_date..to_date)
-      else
-        expired
-      end
+    if hash[:from_date] && hash[:to_date]
+      from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : Time.parse(hash[:from_date].strftime('%Y-%m-%d 12:00:00'))
+      to_date = hash[:to_date].kind_of?(Time) ? hash[:to_date] : Time.parse(hash[:to_date].strftime('%Y-%m-%d 12:59:59'))
+      where('certifications.expiry_date' => from_date..to_date)
+    else
+      expired
     end
+  end
   def self.types
     ["Certifications::NationalCertificate", "Certifications::CertificateOfCompetency"]
   end

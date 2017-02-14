@@ -1,7 +1,7 @@
 module Settings 
   class SignatoriesController < ApplicationController
     def index 
-      @signatories = Configurations::Signatory.all 
+      @signatories = Configurations::Signatory.all.order(:term_start_date).reverse
     end 
     def new 
       @signatory = Configurations::Signatory.new 

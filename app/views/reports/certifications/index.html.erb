@@ -4,44 +4,64 @@
       <div class="box-body">
           <div class="row">
             <div class="col-md-8">
-             <h4 class="text-muted"> Expired Certificates </h4>
+              <h4 class="text-muted"> Expired Certificates </h4>
               <span class="text-muted"> Generate reports for expired certificates as of <%=Time.zone.now.strftime("%B %e, %Y") %>.</span><br />
               <br>
-               <%=link_to "Generate Report", expired_certifications_path(format: "pdf"), class: "btn btn-default btn-sm btn-flat" %><br><br>
-
-            <p class="text-muted"> Or scope your search: </p>
-            <div class="row">
-            <div class="col-md-4">
-            <%=link_to expired_certifications_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
-              <span class="label labe-default bg-gray">This Month </span>
-            <% end %> &nbsp; 
-             <%=link_to expired_certifications_path(from_date: Time.zone.now.beginning_of_week.beginning_of_day, to_date: Time.zone.now.end_of_week.end_of_day, format: 'pdf') do %>
-             <span class="label labe-default bg-gray">This Week </span>
-            <% end %><p></p>
-                        <%=link_to expired_certifications_path(from_date: Time.zone.now.beginning_of_week.beginning_of_day, to_date: Time.zone.now.end_of_week.end_of_day, format: 'pdf') do %>
-             <span class="label labe-default bg-gray">This Day </span>
-            <% end %>
-            </div>
-              <%= form_tag({:action => "index", controller: "certifications/expired_certifications", format: 'pdf'}, {:method => :get})  do %>
-              
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control input-sm border-input', :placeholder => "From " %>
+                <div class="row">
+                  <div class="col-md-4">
+                    <%=link_to expired_certifications_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
+                      <span class="label labe-default bg-gray">This Month </span>
+                    <% end %> &nbsp; 
+                    <%=link_to expired_certifications_path(from_date: Time.zone.now.beginning_of_week.beginning_of_day, to_date: Time.zone.now.end_of_week.end_of_day, format: 'pdf') do %>
+                      <span class="label labe-default bg-gray">This Week </span>
+                    <% end %><p></p>
+                    <%=link_to expired_certifications_path(from_date: Time.zone.now.beginning_of_week.beginning_of_day, to_date: Time.zone.now.end_of_week.end_of_day, format: 'pdf') do %>
+                      <span class="label labe-default bg-gray">This Day </span>
+                    <% end %>
                   </div>
+                  <%= form_tag({:action => "index", controller: "certifications/expired_certifications", format: 'pdf'}, {:method => :get})  do %>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control input-sm border-input', :placeholder => "From " %>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <%= text_field_tag :to_date, @to_date, :class => 'form-control input-sm border-input datepicker', :placeholder => "To " %>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="submit" class="btn btn-default btn-sm btn-flat"> Go </button>
+                    </div>
+                  <% end %>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <%= text_field_tag :to_date, @to_date, :class => 'form-control input-sm border-input datepicker', :placeholder => "To " %>
-                  </div>
-                </div>
-                <div class="col-md-1">
-                  <button type="submit" class="btn btn-default btn-sm btn-flat"> Go </button>
-                </div>
+              <div class="col-md-4">
               </div>
-            <% end %>
-            </div>
-            <div class="col-md-4">
-            
             </div>
           </div>
           <hr />
+          <h4>Issued Certificates</h4>
+          <span class="help-block">
+            Generate report for issued certificates
+          </span>
+          <br>
+
+           <%= form_tag({:action => "index", controller: "certifications/issuances", format: 'pdf'}, {:method => :get})  do %>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control input-sm border-input', :placeholder => "From " %>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <%= text_field_tag :to_date, @to_date, :class => 'form-control input-sm border-input datepicker', :placeholder => "To " %>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="submit" class="btn btn-default btn-sm btn-flat"> Go </button>
+                    </div>
+                  <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
