@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature "Training centers index" do
+   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+  end
   feature 'when logged in' do
     scenario "with training_centers" do
       institution = create(:institution, name: "TESDA")

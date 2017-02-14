@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature "Issue certificate" do
   before(:each) do 
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+    
     client = create(:client)
     assessee = create(:completed_training, client: client)
     assessment = create(:assessment, assessee: assessee)

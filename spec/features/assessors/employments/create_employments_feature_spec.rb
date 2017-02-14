@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Create employment' do
   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+    
     assessor = create(:assessor)
     company = create(:company, name: "TESDA")
     visit assessors_path

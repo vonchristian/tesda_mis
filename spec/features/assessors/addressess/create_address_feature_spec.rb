@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Create address' do
   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+
     assessor = create(:assessor)
     region = create(:region, name: "CAR")
     province = create(:province, name: "Ifugao")

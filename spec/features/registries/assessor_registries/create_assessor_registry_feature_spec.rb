@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Create registry' do
   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+  
     visit assessor_registries_path
     click_link "Upload Registry"
   end

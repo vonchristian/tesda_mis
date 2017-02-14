@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature "Show certification" do
+   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+  end
   scenario 'show certification' do
     client = create(:client)
     assessee = create(:completed_training, client: client)

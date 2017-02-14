@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature "Institution creation" do 
+   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+  end
   scenario 'with valid attributes' do 
     visit institutions_path 
     click_link "New Institution"

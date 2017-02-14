@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Create education' do
   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+  
     assessor = create(:assessor)
     educational_attainment = create(:educational_attainment, name: "High School Graduate")
     visit assessors_path

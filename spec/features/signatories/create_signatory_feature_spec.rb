@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature "signatory creation" do 
   before(:each) do 
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+    
     visit settings_signatories_path 
     click_link "New Signatory"
   end

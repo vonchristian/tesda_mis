@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature "employees creation" do 
   before(:each) do 
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+    
     visit settings_employees_path 
     click_link "New Employee"
   end

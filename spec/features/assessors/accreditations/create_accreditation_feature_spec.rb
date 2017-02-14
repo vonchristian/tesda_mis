@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Create accreditation' do
   before(:each) do
+    user = FactoryGirl.create(:user)
+    login_as(user, :scope => :user)
+
     assessor = create(:assessor)
     qualification = create(:qualification, name: "CHS")
     visit assessors_path
