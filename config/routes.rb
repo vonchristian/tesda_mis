@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :certifications, only: [:index]
   end
   resources :addresses, only: [:new, :create]
-  resources :qualifications, only: [:index]
+  resources :qualifications, only: [:index, :new, :show]
   namespace :settings do 
     resources :signatories, except:[:destroy]
   end

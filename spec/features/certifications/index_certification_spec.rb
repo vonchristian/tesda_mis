@@ -27,7 +27,7 @@ feature "certification index" do
     certification_2 = create(:national_certificate, number: "001", certified: assessment)
       visit certifications_path
       fill_in 'certification-search-form', with: certification.number
-      click_button 'search-btn'
+      click_button 'certification-search-btn'
 
       expect(page).to have_content("000")
       expect(page).to_not have_content("001")

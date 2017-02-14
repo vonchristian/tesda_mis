@@ -25,7 +25,7 @@ feature "assessment centers index" do
 
       visit assessment_centers_path
       fill_in 'assessment-center-search-form', with: assessment_center.name
-      click_button 'search-btn'
+      click_button 'assessment-center-search-btn'
 
       expect(page).to have_content("TESDA")
       expect(page).to_not have_content("RPASI")

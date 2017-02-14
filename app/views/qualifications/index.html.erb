@@ -1,12 +1,22 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="box box-solid">
+    <div class="box box-default">
       <div class="box-header">
         <div class="row">
           <div class="col-md-3">
             <h3 class="box-title"> Qualifications </h3>
           </div>
           <div class="col-md-6">
+          <%=form_tag qualifications_path, method: :get, class: "search-form" do %>
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Qualification...", id: 'qualification-search-form' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', id: "qualification-search-btn", class: "btn btn-flat") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
           </div>
           <div class="col-md-3">
             <span class="pull-right">
@@ -16,24 +26,28 @@
         </div>
       </div>
       <div class="box-body">
-        <div class="table table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Qualification</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @qualifications.each do |qualification| %>
+        <% if @qualifications.present? %>
+          <div class="table table-responsive">
+            <table class="table table-hover">
+              <thead>
                 <tr>
-                  <td><%= link_to qualification.name.try(:upcase), qualification%><br />
-                    <small class="text-muted"> &nbsp; &nbsp; <%= qualification.description %></small>
-                  </td>
+                  <th>Qualification</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <% @qualifications.each do |qualification| %>
+                  <tr>
+                    <td><%= link_to qualification.name, qualification%><br />
+                      <small class="text-muted"> &nbsp; &nbsp; <%#= qualification.description %></small>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No qualifications found.
+        <% end %>
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@ feature "Index page" do
       client_2 = create(:client, last_name: "Halip")
       visit clients_path
       fill_in 'client-search-form', with: client_2.last_name
-      click_button 'search-btn'
+      click_button 'client-search-btn'
 
 
       expect(page).to have_content("Halip")

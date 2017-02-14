@@ -26,7 +26,7 @@ feature "Index page" do
       assessor_2 = create(:assessor, client: client_2)
       visit assessors_path
       fill_in 'assessor-search-form', with: assessor_2.last_name
-      click_button 'search-btn'
+      click_button 'assessor-search-btn'
 
       expect(page).to have_content("Halip")
       expect(page).to_not have_content("Dulnuan")

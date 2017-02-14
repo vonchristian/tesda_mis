@@ -22,7 +22,7 @@ feature "Registry index" do
 
       visit worker_registries_path
       fill_in 'registry-search-form', with: registry.name
-      click_button 'search-btn'
+      click_button 'worker-search-btn'
 
       expect(page).to have_content("RWAC")
       expect(page).to_not have_content("TEST")

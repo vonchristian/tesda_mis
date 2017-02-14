@@ -26,7 +26,7 @@ feature "Index page" do
       trainor_2 = create(:trainor, client: client_2)
       visit trainors_path
       fill_in 'trainor-search-form', with: trainor_2.last_name
-      click_button 'search-btn'
+      click_button 'trainor-search-btn'
 
       expect(page).to have_content("Halip")
       expect(page).to_not have_content("Dulnuan")

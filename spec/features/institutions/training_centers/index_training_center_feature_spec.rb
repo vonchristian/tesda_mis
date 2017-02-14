@@ -25,7 +25,7 @@ feature "Training centers index" do
 
       visit training_centers_path
       fill_in 'training_center-search-form', with: training_center.name
-      click_button 'search-btn'
+      click_button 'training-center-search-btn'
 
       expect(page).to have_content("TESDA")
       expect(page).to_not have_content("RPASI")

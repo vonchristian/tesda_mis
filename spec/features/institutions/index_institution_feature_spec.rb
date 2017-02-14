@@ -21,7 +21,7 @@ feature "Institutions index" do
 
       visit institutions_path
       fill_in 'institution-search-form', with: institution.name
-      click_button 'search-btn'
+      click_button 'institution-search-btn'
 
       expect(page).to have_content("TESDA")
       expect(page).to_not have_content("TEST")
