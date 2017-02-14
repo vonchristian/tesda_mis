@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-2">
+            <h3 class="box-title"> Employees </h3>
+          </div>
+          <div class="col-md-8">
+          </div>
+          <div class="col-md-2">
+            <%=link_to "New Employee", new_settings_employee_path, class: "btn btn-primary btn-flat pull-right" %>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <% @employees.each do |employee| %>
+          <%= link_to employee.email, settings_employee_path(employee) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

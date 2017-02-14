@@ -1,0 +1,16 @@
+<%= simple_form_for @employee, url: :settings_employees, multipart: true do |f| %>
+  <%= f.error_notification %>
+  <center>
+    <%= image_tag @employee.avatar.url(:thumb), class: "img-circle" %>
+    <%= f.input :avatar, as: :file, label: "Upload Photo" %>
+  </center>
+  <%= f.input :first_name %>
+  <%= f.input :middle_name %>
+  <%= f.input :last_name %>
+  <%= f.input :designation, collection: User.designations.keys.to_a.map{ |a| [a.titleize.upcase, a] }, as: :radio_buttons %>
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.submit "Save Employee", class: "btn btn-primary btn-flat", data: { disable_with: "Saving Employee..." } %>
+<% end %>
+  

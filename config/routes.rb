@@ -1,6 +1,8 @@
-Rails.application.routes.draw do
+Rails.application.routes.draw do  
   get 'result/index' => "result#index"
+  root to: "result#index"
   resources :dashboard, only: [:index]
+  devise_for :users, controllers: { sessions: 'users/sessions' , registrations: "settings/employees"}
   resources :clients
   resources :worker_registries, only: [:index, :show, :new, :create], module: :registries
   resources :assessor_registries, only: [:index, :show, :new, :create], module: :registries
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
     resources :competencies, only: [:new, :create], module: :qualifications
   end
   namespace :settings do 
+    resources :employees, except:[:destroy]
     resources :signatories, except:[:destroy]
   end
 end
