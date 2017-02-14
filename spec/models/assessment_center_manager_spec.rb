@@ -1,5 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe AssessmentCenterManager, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe AssessmentCenterManager do
+  describe "associations" do 
+    it { is_expected.to belong_to :client }
+    it { is_expected.to have_many :assessment_centers }
+  end
 end

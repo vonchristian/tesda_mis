@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215136733) do
+ActiveRecord::Schema.define(version: 20170215136734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,9 +57,11 @@ ActiveRecord::Schema.define(version: 20170215136733) do
 
   create_table "assessment_centers", force: :cascade do |t|
     t.integer  "institution_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "slug"
+    t.integer  "assessment_center_manager_id"
+    t.index ["assessment_center_manager_id"], name: "index_assessment_centers_on_assessment_center_manager_id", using: :btree
     t.index ["institution_id"], name: "index_assessment_centers_on_institution_id", using: :btree
   end
 
@@ -391,6 +393,7 @@ ActiveRecord::Schema.define(version: 20170215136733) do
   add_foreign_key "addresses", "provinces"
   add_foreign_key "addresses", "regions"
   add_foreign_key "assessment_center_managers", "clients"
+  add_foreign_key "assessment_centers", "assessment_center_managers"
   add_foreign_key "assessment_centers", "institutions"
   add_foreign_key "assessors", "assessment_centers"
   add_foreign_key "assessors", "clients"
