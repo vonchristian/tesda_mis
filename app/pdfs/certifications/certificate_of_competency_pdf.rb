@@ -35,6 +35,7 @@ module Certifications
         end
       end
     end
+    
     def certification_number
       bounding_box [150, 207], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Arial_Bold.ttf") do
