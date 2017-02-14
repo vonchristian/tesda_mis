@@ -48,5 +48,4 @@ class Client < ApplicationRecord
   def full_name
     "#{first_name} #{middle_name.try(:first)}. #{last_name}"
   end
-
 end

@@ -16,7 +16,7 @@ module Settings
     end 
 
     def show 
-      @employee = User.find(params[:id])
+      @employee = User.friendly.find(params[:id])
     end
 
     private 

@@ -14,9 +14,26 @@
         </div>
       </div>
       <div class="box-body">
-        <% @employees.each do |employee| %>
-          <%= link_to employee.email, settings_employee_path(employee) %>
-        <% end %>
+        <div class="table table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Email</th>
+                <th>Designation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employees.each do |employee| %>
+                <tr>
+                  <td><%=image_tag(employee.avatar.url(:small), class: "img-circle", height: 40, width: 40) %> &nbsp; <%= link_to employee.first_name_and_last_name, settings_employee_path(employee) %></td>
+                  <td><%= link_to employee.email, settings_employee_path(employee) %></td>
+                  <td> <%= employee.designation.titleize.upcase %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
