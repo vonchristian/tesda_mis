@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'result/index' => "result#index"
   resources :clients
   resources :worker_registries, only: [:index, :show, :new, :create], module: :registries
   resources :assessor_registries, only: [:index, :show, :new, :create], module: :registries

@@ -3,7 +3,7 @@ class Certification < ApplicationRecord
   extend FriendlyId
   friendly_id :number, use: :slugged
 
-  # multisearchable :against => [:last_name]
+  multisearchable :against => [:number]
   pg_search_scope :text_search, :against => [:number]
   
   belongs_to :certified, polymorphic: true

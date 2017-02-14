@@ -12,7 +12,7 @@ class Client < ApplicationRecord
   :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
   :url => "/system/:attachment/:id/:style/:filename"
 
-  # multisearchable :against => [:last_name]
+  multisearchable :against => [:last_name, :middle_name, :first_name], :order_within_rank => "clients.created_at DESC"
   pg_search_scope :text_search, :against => [:last_name, :first_name]
   has_many :completed_trainings, class_name: "Clients::CompletedTraining"
   has_many :trainings, through: :completed_trainings
@@ -33,6 +33,9 @@ class Client < ApplicationRecord
   validates :first_name, :middle_name, :last_name, presence: true
 
   enum sex: [:male, :female]
+  def name 
+    full_name
+  end
   def current_address
     if addresses.present?
    addresses.last.details 

@@ -7,8 +7,9 @@ module Certifications
     def create 
       @certification = Certification.friendly.find(params[:certification_id])
       @issuance = @certification.issuances.create(issuance_params)
+      @issuance.issuable = @certification
       if @issuance.save 
-        redirect_to @issuance, notice: "issued successfully."
+        redirect_to certification_url(@issuance.issuable), notice: "issued successfully."
       else 
         render :new 
       end 

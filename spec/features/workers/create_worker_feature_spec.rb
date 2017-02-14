@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Create Client' do
   before(:each) do
-    visit clients_path
-    click_link "New Client"
+    visit workers_path
+    click_link "New Worker"
   end
 
   scenario 'with valid attributes' do
@@ -13,13 +13,13 @@ feature 'Create Client' do
     choose 'Male'
     fill_in 'Date of birth', with: '02/12/1990'
 
-    click_button "Save Client"
+    click_button "Save Worker"
 
     expect(page).to have_content('saved successfully')
   end
 
   scenario 'with invalid attributes' do
-    click_button "Save Client"
+    click_button "Save Worker"
 
     expect(page).to have_content("can't be blank")
   end

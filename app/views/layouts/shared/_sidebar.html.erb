@@ -12,16 +12,16 @@
         </div>
       </div>
       <!-- search form -->
-      <%#=form_tag searches_path, method: :get, class: "sidebar-form" do %>
+      <%=form_tag result_index_path, method: :get, class: "sidebar-form" do %>
       <div class="input-group">
-        <%#= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search..." %>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search..." %>
         <span class="input-group-btn">
-          <%#= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+          <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
             <i class="fa fa-search"></i>
-          <%# end %>
+          <% end %>
         </span>
       </div>
-    <%# end %>
+    <% end %>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">

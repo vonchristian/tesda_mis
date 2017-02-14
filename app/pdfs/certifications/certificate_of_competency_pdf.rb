@@ -15,7 +15,7 @@ module Certifications
     def competency
       bounding_box [100, 750], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/BookAntiqua.ttf") do
-          text "#{@certification.competency_name.upcase}", size: 25, style: :bold, align: :center
+          text "#{@certification.competency_name.upcase}", size: 25,  align: :center
         end
       end
     end
