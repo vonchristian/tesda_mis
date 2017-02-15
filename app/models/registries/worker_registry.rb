@@ -15,16 +15,17 @@ module Registries
             create_or_find_training_center_accreditation(row)
             create_or_find_training_center(row)
             create_or_find_client(row)
+            create_or_find_worker(row)
             create_or_find_educational_attainment(row)
             create_or_find_education(row)
             create_or_find_competency(row)
-            create_or_find_client_type(row)
+            create_or_find_worker_type(row)
             create_or_find_modality(row)
             create_or_find_training(row)
             create_or_find_barangay(row)
             create_or_find_municipality_or_city(row)
-            create_or_find_by_client_province(row)
-            create_or_find_client_address(row)
+            create_or_find_by_worker_province(row)
+            create_or_find_worker_address(row)
             create_or_find_completed_training(row)
             create_or_find_assessor(row)
             create_or_find_assessorship(row)
@@ -32,7 +33,7 @@ module Registries
             create_or_find_assessment_institution(row)
             create_or_find_assessment_center(row)
             create_or_find_assessment_center_accreditation(row)
-            create_or_find_client_assessment(row)
+            create_or_find_worker_assessment(row)
             create_or_find_certification_level(row)
             create_or_find_certification(row)
           end
@@ -66,6 +67,9 @@ module Registries
     def create_or_find_client(row)
       Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].strip.downcase)
     end
+    def create_or_find_worker(row)
+      Clients::Worker.find_or_create_by(client: create_or_find_client(row))
+    end
     def create_or_find_educational_attainment(row)
       Configurations::EducationalAttainment.find_or_create_by(name: row[12])
     end
@@ -75,7 +79,7 @@ module Registries
     def create_or_find_competency(row)
       Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[22])
     end
-    def create_or_find_client_type(row)
+    def create_or_find_worker_type(row)
       Configurations::ClientType.find_or_create_by(name: row[8])
     end
     def create_or_find_modality(row)
@@ -90,16 +94,16 @@ module Registries
     def create_or_find_municipality_or_city(row)
       Addresses::MunicipalityOrCity.find_or_create_by(name: row[9].split(",").second.strip)
     end
-    def create_or_find_by_client_province(row)
+    def create_or_find_by_worker_province(row)
       Addresses::Province.find_or_create_by(name: row[9].split(",").last.strip)
     end
 
-    def create_or_find_client_address(row)
-      Address.find_or_create_by(addressable: create_or_find_client(row), barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_client_province(row))
+    def create_or_find_worker_address(row)
+      Address.find_or_create_by(addressable: create_or_find_client(row), barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_worker_province(row))
     end
 
     def create_or_find_completed_training(row)
-      Clients::CompletedTraining.find_or_create_by(region: create_or_find_region(row), province: create_or_find_province(row), reference_number: row[2], client: create_or_find_client(row), modality: create_or_find_modality(row), client_type: create_or_find_client_type(row), training: create_or_find_training(row), registry: self)
+      Clients::CompletedTraining.find_or_create_by(region: create_or_find_region(row), province: create_or_find_province(row), reference_number: row[2], client: create_or_find_client(row), modality: create_or_find_modality(row), client_type: create_or_find_worker_type(row), training: create_or_find_training(row), registry: self)
     end
 
     def create_or_find_assessor(row)
@@ -134,7 +138,7 @@ module Registries
       row[23].downcase.parameterize.gsub("-", "_")
     end
 
-    def create_or_find_client_assessment(row)
+    def create_or_find_worker_assessment(row)
       Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: result(row))
     end
 
@@ -160,7 +164,7 @@ module Registries
     def create_or_find_certification(row)
       if result(row) == "competent" 
         if type(row) == "Certifications::NationalCertificate"
-          Certifications::NationalCertificate.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_client_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
+          Certifications::NationalCertificate.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
         elsif type(row) == "Certifications::CertificateOfCompetency"
           create_or_find_competency_certification(row)
         end
@@ -168,7 +172,7 @@ module Registries
     end
 
     def create_or_find_competency_certification(row)
-      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_client_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i)
+      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i)
     end
   end
 end
