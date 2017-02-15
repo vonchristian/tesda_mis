@@ -26,4 +26,5 @@ Rails.application.routes.draw do
     resources :certifications, only: [:index]
   end
   resources :addresses, only: [:new, :create]
+  resources :qualifications, only: [:index]
 end

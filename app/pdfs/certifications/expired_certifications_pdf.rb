@@ -1,6 +1,6 @@
 module Certifications 
   class ExpiredCertificationsPdf < Prawn::Document
-    TABLE_WIDTHS = [200,230,100]
+    TABLE_WIDTHS = [130, 150, 150,100]
 
     def initialize(certifications, from_date, to_date, view_context)
       super(margin: 40, page_size: [612, 1008], page_layout: :portrait)
@@ -52,8 +52,8 @@ module Certifications
 
     def table_data
       move_down 5
-      [["CLIENT", "Qualification/Competency", "Expiry Date"]] +
-      @table_data ||= @certifications.map { |e| [e.client_full_name.try(:titleize), e.name, e.expiry_date.strftime('%b %e, %Y')]}
+      [["CLIENT", "QUALIFICATION/COMPETENCY", "TYPE", "EXPIRY DATE"]] +
+      @table_data ||= @certifications.map { |e| [e.client_full_name.try(:titleize), e.name, e.type_name, e.expiry_date.strftime('%b %e, %Y')]}
     end
   end
 end
