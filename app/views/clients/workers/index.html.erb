@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-3">
+            <h4 class="box-title"> workers </h4>
+          </div>
+          <div class="col-md-6">
+            <%=form_tag workers_path, method: :get, class: "search-form" do %>
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by last name, first name, middle name ...", id: 'worker-search-form' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-3">
+            <%=link_to new_worker_path do %>
+              <span class="btn btn-primary pull-right"><i class="fa fa-user-plus"></i> New worker </span>
+            <% end %>
+          </div>
+        </div>
+        <div class="box-body">
+          <% if @workers.present? %>
+            <div class="table table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th> Name </th>
+                    <th> Address </th>
+                    <th> Contact No </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @workers.each do |worker| %>
+                    <tr>
+                      <td><%=image_tag(worker.avatar.url(:small), width: 40, height: 40,  class: "img-circle") %> &nbsp; <b><%= link_to worker.full_name, worker_path(worker), class: "timeline-header" %></b></td>
+                      <td><%= worker.current_address %></td>
+                      <td><%= worker.contact_number %></td>
+                      <td></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            No workers found.
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>

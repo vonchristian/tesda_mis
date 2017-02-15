@@ -99,7 +99,7 @@ module Registries
     end
 
     def create_or_find_worker_address(row)
-      Address.find_or_create_by(addressable: create_or_find_client(row), barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_worker_province(row))
+      Address.find_or_create_by(addressable: create_or_find_client(row), street: row[9].split(",").first.strip, barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_worker_province(row))
     end
 
     def create_or_find_completed_training(row)

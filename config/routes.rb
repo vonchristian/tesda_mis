@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :employments, only: [:new, :create]
   end
   resources :trainors, only: [:index, :show], module: :clients
+  resources :workers, only: [:index, :show, :new, :create], module: :clients
   resources :training_centers, only: [:index, :show], module: :institutions
   resources :assessment_centers, only: [:index, :show], module: :institutions
   resources :assessments, only: [:show], module: :services

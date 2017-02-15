@@ -9,7 +9,7 @@ module Certifications
       qualification
       certified
       certification_number
-      issued_date
+      issued_on
       expiry_date
     end
     def level
@@ -34,14 +34,26 @@ module Certifications
       end
     end
     def certification_number
-      text "<b>#{@certification.number}</b>"
+      bounding_box [100, 380], width: 400 do
+        font("#{Rails.root.to_s}/app/assets/fonts/Arial.ttf") do
+          text "#{@certification.number}", size: 11
+        end
+      end
     end
 
-    def issued_date
-      text "#{@certification.issue_date.strftime("%b. %e, %Y")}"
+    def issued_on
+      bounding_box [400, 350], width: 400 do
+        font("#{Rails.root.to_s}/app/assets/fonts/Arial.ttf") do
+          text "#{@certification.issue_date.strftime("%b. %e, %Y")}", size: 11
+        end
+      end
     end
     def expiry_date
-      text "#{@certification.expiry_date.strftime("%b. %e, %Y")}"
+      bounding_box [400, 330], width: 400 do
+        font("#{Rails.root.to_s}/app/assets/fonts/Arial.ttf") do
+          text "#{@certification.expiry_date.strftime("%b. %e, %Y")}", size: 11
+        end
+      end
     end
 
   end
