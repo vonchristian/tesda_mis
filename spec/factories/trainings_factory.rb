@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :training do 
     trainor 
     training_center 
-    competency 
+    qualification
   end 
 end

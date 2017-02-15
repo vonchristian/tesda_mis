@@ -86,7 +86,7 @@ module Registries
       Configurations::Modality.find_or_create_by(name: row[7])
     end
     def create_or_find_training(row)
-      Training.find_or_create_by(competency: create_or_find_competency(row), training_center_id: create_or_find_training_center(row).id)
+      Training.find_or_create_by(name: row[13], qualification: create_or_find_qualification(row), training_center_id: create_or_find_training_center(row).id)
     end
     def create_or_find_barangay(row)
       Addresses::Barangay.find_or_create_by(name: row[9].split(",").first.strip)

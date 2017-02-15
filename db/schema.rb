@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215115104) do
+ActiveRecord::Schema.define(version: 20170215123530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,11 +331,12 @@ ActiveRecord::Schema.define(version: 20170215115104) do
   create_table "trainings", force: :cascade do |t|
     t.integer  "trainer_id"
     t.integer  "training_center_id"
-    t.integer  "competency_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "trainor_id"
-    t.index ["competency_id"], name: "index_trainings_on_competency_id", using: :btree
+    t.integer  "qualification_id"
+    t.string   "name"
+    t.index ["qualification_id"], name: "index_trainings_on_qualification_id", using: :btree
     t.index ["trainer_id"], name: "index_trainings_on_trainer_id", using: :btree
     t.index ["training_center_id"], name: "index_trainings_on_training_center_id", using: :btree
     t.index ["trainor_id"], name: "index_trainings_on_trainor_id", using: :btree
@@ -383,7 +384,7 @@ ActiveRecord::Schema.define(version: 20170215115104) do
   add_foreign_key "municipality_or_cities", "provinces"
   add_foreign_key "provinces", "regions"
   add_foreign_key "training_centers", "institutions"
-  add_foreign_key "trainings", "competencies"
+  add_foreign_key "trainings", "qualifications"
   add_foreign_key "trainings", "trainors"
   add_foreign_key "trainors", "clients"
   add_foreign_key "workers", "clients"
