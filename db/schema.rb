@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213124656) do
+ActiveRecord::Schema.define(version: 20170214095405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 20170213124656) do
     t.index ["municipality_or_city_id"], name: "index_addresses_on_municipality_or_city_id", using: :btree
     t.index ["province_id"], name: "index_addresses_on_province_id", using: :btree
     t.index ["region_id"], name: "index_addresses_on_region_id", using: :btree
+  end
+
+  create_table "assessment_center_managers", force: :cascade do |t|
+    t.integer  "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_assessment_center_managers_on_client_id", using: :btree
   end
 
   create_table "assessment_centers", force: :cascade do |t|
@@ -346,6 +353,7 @@ ActiveRecord::Schema.define(version: 20170213124656) do
   add_foreign_key "addresses", "municipality_or_cities"
   add_foreign_key "addresses", "provinces"
   add_foreign_key "addresses", "regions"
+  add_foreign_key "assessment_center_managers", "clients"
   add_foreign_key "assessment_centers", "institutions"
   add_foreign_key "assessors", "assessment_centers"
   add_foreign_key "assessors", "clients"

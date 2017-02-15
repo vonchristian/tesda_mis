@@ -3,7 +3,7 @@ require 'rails_helper'
 feature "Registry index" do
   feature 'when logged in' do
     scenario "with registries" do
-      registry = create(:registry, name: "RWAC")
+      registry = create(:worker_registry, name: "RWAC")
       visit worker_registries_path
 
       expect(page).to have_content(registry.name)
@@ -16,8 +16,8 @@ feature "Registry index" do
     end
 
     scenario "with search results" do
-      registry = create(:registry, name: "RWAC")
-      registry2 = create(:registry, name: "TEST")
+      registry = create(:worker_registry, name: "RWAC")
+      registry2 = create(:worker_registry, name: "TEST")
 
 
       visit worker_registries_path
