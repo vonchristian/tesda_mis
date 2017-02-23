@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: tesda_mis_production
-  username: tesda_mis
+  username: deploy
   password: <%= ENV['TESDA_MIS_DATABASE_PASSWORD'] %>
