@@ -1,6 +1,7 @@
 module Registries 
   class WorkerRegistry < Registry 
-
+    after_commit :parse_for_records
+  
     def parse_for_records
       book = Spreadsheet.open(self.spreadsheet.path)
       sheet = book.worksheet(0)

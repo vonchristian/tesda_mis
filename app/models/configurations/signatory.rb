@@ -16,7 +16,6 @@ module Configurations
       signatory = all.select{ |a| certification.issue_date.between?(a.term_start_date, a.term_end_date) }.first
       if signatory.present?
         certification.signatory = signatory
-        certification.save
       end
     end
 
