@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
     if params[:search].present?
       @clients = Client.text_search(params[:search])
     else
-      @clients = Client.all
+      @clients = Client.all.order(:last_name).page(params[:page]).per(10)
     end
   end
   def new

@@ -1,19 +1,19 @@
-<div class="tab-pane" id="certifications">
-<br />
+<div class="tab-pane active" id="certifications">
   <% client.certifications.each do |certification| %>
     <%=link_to certification_path(certification) do %>
       <div class="row">
-        <div class="col-md-3">
-          <h4><%=certification.number %></h4>
-        </div>
         <div class="col-md-6">
-          <p class="text-muted"> <%= certification.name %></p>
-          <small title="Expiry Date" data-toggle="tooltip" data-palcement="bottom"><i class="fa fa-calendar-times-o text-danger"></i> &nbsp; <%= certification.expiry_date.strftime("%B %e, %Y") %></small>
-        </div>
-        <div class="col-md-3">
+          <h4> <%= certification.name %></h4>
           <p class="text-muted"> <%= certification.type_name %></p>
+          <p class="text-muted">Certificate Number: <%= certification.number %></p>
+          <p class="text-muted">Issue Date: <%= certification.issue_date.strftime("%B %e, %Y") %></p>
+          <p class="text-muted">Expiry Date: <%= certification.expiry_date.strftime("%B %e, %Y") %></p>
+        </div>
+        <div class="col-md-5">
+        <br>
         </div>
       </div>
     <% end %>
+    <hr>
   <% end %>
 </div>

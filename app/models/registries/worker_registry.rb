@@ -109,10 +109,42 @@ module Registries
 
     def create_or_find_assessor(row)
       assessor_full_name = row[19]
-      assessor_last_name = assessor_full_name.split.first.gsub(",", "")
-      assessor_middle_name = assessor_full_name.split.last
-      assessor_first_name = assessor_full_name.gsub(assessor_full_name.split.last, "").gsub(assessor_full_name.split.first, "").strip
-      Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name)
+      if assessor_full_name.split.count == 2
+        assessor_first_name = assessor_full_name.split.first
+        assessor_last_name = assessor_full_name.split.last
+      elsif assessor_full_name.split.count == 3
+        assessor_last_name = assessor_full_name.split.first
+        assessor_middle_name = assessor_full_name.split.second
+        assessor_last_name = assessor_full_name.split.last
+      elsif assessor_full_name.split.count == 4
+        if assessor_full_name.split.first(2).join.include?(".")
+          assessor_first_name = assessor_full_name.split.first
+          assessor_middle_name = assessor_full_name.split.second 
+          assessor_last_name = assessor_full_name.split.last(2).join.titleize
+        elsif assessor_full_name.split.last(2).join.include?(".")
+          assessor_first_name = assessor_full_name.split.first(2).join.titleize
+          assessor_middle_name = assessor_full_name.split.third
+          assessor_last_name = assessor_full_name.split.last
+        end
+      elsif assessor_full_name.split.count >= 5
+        if assessor_full_name.split.first(2).join.include?(".")
+          assessor_first_name = assessor_full_name.split.first
+          assessor_middle_name = assessor_full_name.split.second
+          assessor_last_name = assessor_full_name.split.last(3).join.titleize
+        elsif assessor_full_name.split.first(3).join.include?(".")
+          assessor_first_name = assessor_full_name.split.first(2).join.titleize
+          assessor_middle_name = assessor_full_name.split.third
+          assessor_last_name = assessor_full_name.split.last(2).join.titleize
+        elsif assessor_full_name.split.last(2).join.include?(".")
+          assessor_first_name = assessor_full_name.split.first(3).join.titleize
+          assessor_middle_name = assessor_full_name.split.fourth
+          assessor_last_name = assessor_full_name.split.last
+        end
+        assessor_first_name
+        assessor_middle_name
+        assessor_last_name
+      end
+      Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name, full_name: row[19])
     end
 
     def create_or_find_assessorship(row)
@@ -120,7 +152,7 @@ module Registries
     end
 
     def create_or_find_assessor_accreditation(row)
-      Accreditation.find_or_create_by(accredited: create_or_find_assessorship(row), qualification: create_or_find_qualification(row), number: row[20].to_i)
+      Accreditation.create(accredited: create_or_find_assessorship(row), qualification: create_or_find_qualification(row), number: row[20])
     end
 
     def create_or_find_assessment_institution(row)
@@ -144,7 +176,7 @@ module Registries
     end
 
     def level(row)
-      row[21].split.last 
+      row[23].try(:split).try(:last)
     end
 
     def create_or_find_certification_level(row)

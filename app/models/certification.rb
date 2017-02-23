@@ -3,8 +3,8 @@ class Certification < ApplicationRecord
   extend FriendlyId
   friendly_id :number, use: :slugged
 
-  multisearchable :against => [:number]
-  pg_search_scope :text_search, :against => [:number]
+  multisearchable :against => [:number, :client_full_name, :client_last_name, :client_first_name]
+  pg_search_scope :text_search, :against => [:number], :associated_against => {:client => [:last_name, :first_name]}
   
   belongs_to :certified, polymorphic: true
   belongs_to :qualification
@@ -14,7 +14,7 @@ class Certification < ApplicationRecord
   belongs_to :signatory, class_name: "Configurations::Signatory"
   has_many :issuances, as: :issuable
   
-  delegate :full_name, to: :client, prefix: true, allow_nil: true
+  delegate :full_name, :first_name, :last_name, to: :client, prefix: true, allow_nil: true
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified, allow_nil: true
   delegate :full_name, to: :assessor, prefix: true, allow_nil: true

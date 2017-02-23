@@ -12,7 +12,7 @@ class Client < ApplicationRecord
   :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
   :url => "/system/:attachment/:id/:style/:filename"
 
-  multisearchable :against => [:last_name, :middle_name, :first_name], :order_within_rank => "clients.created_at DESC"
+  multisearchable :against => [:last_name, :middle_name, :first_name, :full_name], :order_within_rank => "clients.created_at DESC"
   pg_search_scope :text_search, :against => [:last_name, :first_name]
   has_many :completed_trainings, class_name: "Clients::CompletedTraining"
   has_many :trainings, through: :completed_trainings
@@ -20,6 +20,9 @@ class Client < ApplicationRecord
   has_many :educational_attainments, through: :educations, class_name: 'Configurations::EducationalAttainment'
   has_many :assessments, as: :assessee
   has_many :certifications
+  has_many :national_certificates, class_name: "Certifications::NationalCertificate"
+  has_many :certificate_of_competencies, class_name: "Certifications::CertificateOfCompetency"
+
   has_many :assessorships, class_name: "Clients::Assessor"
   has_many :assessorship_accreditations, through: :assessorships, class_name: "Accreditation", source: :accreditations
   has_many :trainorships, class_name: "Clients::Trainor"
@@ -33,19 +36,26 @@ class Client < ApplicationRecord
   validates :first_name, :middle_name, :last_name, presence: true
 
   enum sex: [:male, :female]
+  before_save :set_full_name
   def name 
     full_name
   end
   def current_address
     if addresses.present?
-   addresses.last.details 
-  end
+      addresses.last.details 
+    end
   end
 
   def last_and_first_name
     "#{last_name}, #{first_name} #{middle_name.first}."
   end
-  def full_name
+
+  def fullname
     "#{first_name} #{middle_name.try(:first)}. #{last_name}"
+  end
+
+  private 
+  def set_full_name
+    self.full_name ||= self.fullname
   end
 end

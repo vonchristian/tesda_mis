@@ -11,14 +11,13 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>NC</b> <a class="pull-right">1,322</a>
+                  <b>NC</b> <a class="pull-right"><%= @worker.national_certificates.count %></a>
                 </li>
                 <li class="list-group-item">
-                  <b>COC</b> <a class="pull-right">543</a>
+                  <b>COC</b> <a class="pull-right"><%= @worker.certificate_of_competencies.count %></a>
                 </li>
               </ul>
-
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <%=link_to "Update Info", edit_client_path(@worker), class: "btn btn-primary btn-block btn-flat" %>
             </div>
             <!-- /.box-body -->
           </div>
@@ -47,21 +46,12 @@
 
               <hr>
 
-              <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+              <strong><i class="fa fa-phone margin-r-5"></i> Contact Number</strong>
 
-              <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
-              </p>
-
+              <p class="text-muted"><%= @worker.contact_number %></p>
+             
               <hr>
 
-              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
             </div>
             <!-- /.box-body -->
           </div>
@@ -71,8 +61,7 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-              <li><a href="#certifications" data-toggle="tab">Certifications</a></li>
+              <li class="active"><a href="#certifications" data-toggle="tab">Certifications</a></li>
               <li><a href="#trainings" data-toggle="tab">Trainings</a></li>
               <li><a href="#assessments" data-toggle="tab">Assessments</a></li>
               <li><a href="#settings" data-toggle="tab">Settings</a></li>
@@ -80,10 +69,6 @@
             </ul>
             <div class="tab-content">
               <%= render 'clients/partials/certifications', client: @worker %>
-              <div class="active tab-pane" id="activity">
-                <h4 class="text-muted">Assessors: </h4>
-       
-          <hr />
               </div>
               <!-- /.tab-pane -->
             </div>

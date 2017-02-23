@@ -13,6 +13,8 @@ describe Client do
     it { is_expected.to have_many :conducted_assessments }
     it { is_expected.to have_many :conducted_trainings }
     it { is_expected.to have_many :addresses }
+    it { is_expected.to have_many :national_certificates }
+    it { is_expected.to have_many :certificate_of_competencies }
   end
 
   describe "validations" do
@@ -35,8 +37,8 @@ describe Client do
     expect(result).to_not include(client2)
   end
 
-  it '#full_name' do
-    client = build(:client, first_name: "Von", middle_name: 'Pinosan', last_name: 'Halip')
+  it '#fullname' do
+    client = create(:client, first_name: "Von", middle_name: 'Pinosan', last_name: 'Halip')
 
     expect(client.full_name).to eql('Von P. Halip')
   end

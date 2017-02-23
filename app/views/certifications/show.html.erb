@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-md-12">
-    <div class="box box-default">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="box box-success">
       <div class="box-header">
         
           <div class="box-tools pull-right">
             <%=link_to certification_path(@certification, format: 'pdf') do %>
-              <span class="btn btn-default"><i class="fa fa-print"></i> </span>
+              <span class="btn btn-default" title="Print Preview" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-print"></i> </span>
             <% end %>
           </div>
      
@@ -14,10 +14,10 @@
         <center><%=image_tag(@certification.client.avatar.url(:thumb), class: "img-circle") %></center><br />
         <h4><b><center><%= @certification.client_full_name %></center></b></h4> <hr>
         <div class="row">
-          <div class="col-md-5">
-            <h4>Certification Details</h4><br />
+          <div class="col-md-12">
+           
             <%= @certification.type_name %>
-              <p class="text-muted">Type</p>
+              <p class="text-muted">Certificate Type</p>
               <br>
                     <h4><%=@certification.number %></h4>
                     <p class="help-block">Certificate Number </p><br>
@@ -36,8 +36,12 @@
                <%= @certification.expiry_date.strftime("%B %e, %Y") %>
               <p class="text-muted">Expiry Date</p>
           </div>
-          <div class="col-md-6 col-md-offset-1">
-            <h4> Issuance History
+          </div>
+          <hr>
+          <br>
+          <div class="row">
+          <div class="col-md-12">
+            <h4> Issuance <span class="badge"><%= @certification.issuances.count %></span>
             <span class="pull-right">
             <%=link_to "New Issue", new_certification_issuance_path(@certification), class: "btn btn-primary btn-sm btn-flat" %>
             </span>

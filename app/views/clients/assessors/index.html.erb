@@ -21,12 +21,25 @@
       </div>
       <div class="box-body">
         <% if @assessors.present? %>
-          <% @assessors.each do |assessor| %>
-  <%= link_to assessor.full_name, assessor_path(assessor) %>
-<% end %>
-<% else %>
-No assessors found.
-<% end %>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th> Assessor </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @assessors.each do |assessor| %>
+                  <tr>
+                    <td><%= link_to assessor.full_name, assessor_path(assessor) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          No assessors found.
+        <% end %>
       </div>
     </div>
   </div>
