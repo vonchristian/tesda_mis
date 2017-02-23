@@ -50,10 +50,10 @@ module Registries
       Addresses::Province.find_or_create_by(name: row[1])
     end
     def create_or_find_sector(row)
-      Sector.find_or_create_by(name: row[19])
+      Sector.find_or_create_by(name: row[21])
     end
     def create_or_find_qualification(row)
-      Qualification.find_or_create_by(name: row[21], sector: create_or_find_sector(row))
+      Qualification.find_or_create_by(name: row[23], sector: create_or_find_sector(row))
     end
     def create_or_find_training_institution(row)
       Institution.find_or_create_by(name: row[14])
@@ -78,7 +78,7 @@ module Registries
       Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: create_or_find_client(row))
     end
     def create_or_find_competency(row)
-      Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[22])
+      Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[24])
     end
     def create_or_find_worker_type(row)
       Configurations::ClientType.find_or_create_by(name: row[8])
@@ -108,7 +108,7 @@ module Registries
     end
 
     def create_or_find_assessor(row)
-      assessor_full_name = row[17]
+      assessor_full_name = row[19]
       assessor_last_name = assessor_full_name.split.first.gsub(",", "")
       assessor_middle_name = assessor_full_name.split.last
       assessor_first_name = assessor_full_name.gsub(assessor_full_name.split.last, "").gsub(assessor_full_name.split.first, "").strip
@@ -120,11 +120,11 @@ module Registries
     end
 
     def create_or_find_assessor_accreditation(row)
-      Accreditation.find_or_create_by(accredited: create_or_find_assessorship(row), qualification: create_or_find_qualification(row), number: row[18].to_i)
+      Accreditation.find_or_create_by(accredited: create_or_find_assessorship(row), qualification: create_or_find_qualification(row), number: row[20].to_i)
     end
 
     def create_or_find_assessment_institution(row)
-      Institution.find_or_create_by(name: row[16])
+      Institution.find_or_create_by(name: row[18])
     end
 
     def create_or_find_assessment_center(row)
@@ -136,11 +136,11 @@ module Registries
     end
 
     def result(row)
-      row[23].downcase.parameterize.gsub("-", "_")
+      row[25].downcase.parameterize.gsub("-", "_")
     end
 
     def create_or_find_worker_assessment(row)
-      Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: result(row))
+      Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: create_or_find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: result(row), application_date: row[16], assessment_date: row[17])
     end
 
     def level(row)
@@ -153,7 +153,7 @@ module Registries
 
 
     def type(row)
-      cert_type = row[20]
+      cert_type = row[22]
       if cert_type == "NC" 
         type = "Certifications::NationalCertificate"
       elsif cert_type == "COC"
@@ -165,7 +165,7 @@ module Registries
     def create_or_find_certification(row)
       if result(row) == "competent" 
         if type(row) == "Certifications::NationalCertificate"
-          Certifications::NationalCertificate.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i, certification_level: create_or_find_certification_level(row))
+          Certifications::NationalCertificate.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i, certification_level: create_or_find_certification_level(row))
         elsif type(row) == "Certifications::CertificateOfCompetency"
           create_or_find_competency_certification(row)
         end
@@ -173,7 +173,7 @@ module Registries
     end
 
     def create_or_find_competency_certification(row)
-      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[25], expiry_date: row[26], number: row[24].to_i)
+      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i)
     end
   end
 end
