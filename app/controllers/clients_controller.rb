@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   def index
     if params[:search].present?
-      @clients = Client.text_search(params[:search])
+      @clients = Client.text_search(params[:search]).page(params[:page]).per(10)
     else
       @clients = Client.all.order(:last_name).page(params[:page]).per(10)
     end
