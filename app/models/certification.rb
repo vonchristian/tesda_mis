@@ -72,14 +72,14 @@ class Certification < ApplicationRecord
   def expired?
    expiry_date < Time.zone.now
   end
+   def link_color
+    if expired?
+      "danger"
+    end
+  end
   private 
   def set_signatory
     Configurations::Signatory.set(self)
     self.save
-  end
-  def link_color
-    if expired?
-      "danger"
-    end
   end
 end
