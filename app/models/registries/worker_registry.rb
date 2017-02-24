@@ -109,42 +109,44 @@ module Registries
 
     def create_or_find_assessor(row)
       assessor_full_name = row[19]
-      if assessor_full_name.split.count == 2
-        assessor_first_name = assessor_full_name.split.first
-        assessor_last_name = assessor_full_name.split.last
-      elsif assessor_full_name.split.count == 3
-        assessor_last_name = assessor_full_name.split.first
-        assessor_middle_name = assessor_full_name.split.second
-        assessor_last_name = assessor_full_name.split.last
-      elsif assessor_full_name.split.count == 4
-        if assessor_full_name.split.first(2).join.include?(".")
+      if assessor_full_name.present?
+        if assessor_full_name.split.count == 2
           assessor_first_name = assessor_full_name.split.first
-          assessor_middle_name = assessor_full_name.split.second 
-          assessor_last_name = assessor_full_name.split.last(2).join.titleize
-        elsif assessor_full_name.split.last(2).join.include?(".")
-          assessor_first_name = assessor_full_name.split.first(2).join.titleize
-          assessor_middle_name = assessor_full_name.split.third
           assessor_last_name = assessor_full_name.split.last
-        end
-      elsif assessor_full_name.split.count >= 5
-        if assessor_full_name.split.first(2).join.include?(".")
-          assessor_first_name = assessor_full_name.split.first
+        elsif assessor_full_name.split.count == 3
+          assessor_last_name = assessor_full_name.split.first
           assessor_middle_name = assessor_full_name.split.second
-          assessor_last_name = assessor_full_name.split.last(3).join.titleize
-        elsif assessor_full_name.split.first(3).join.include?(".")
-          assessor_first_name = assessor_full_name.split.first(2).join.titleize
-          assessor_middle_name = assessor_full_name.split.third
-          assessor_last_name = assessor_full_name.split.last(2).join.titleize
-        elsif assessor_full_name.split.last(2).join.include?(".")
-          assessor_first_name = assessor_full_name.split.first(3).join.titleize
-          assessor_middle_name = assessor_full_name.split.fourth
           assessor_last_name = assessor_full_name.split.last
+        elsif assessor_full_name.split.count == 4
+          if assessor_full_name.split.first(2).join.include?(".")
+            assessor_first_name = assessor_full_name.split.first
+            assessor_middle_name = assessor_full_name.split.second 
+            assessor_last_name = assessor_full_name.split.last(2).join.titleize
+          elsif assessor_full_name.split.last(2).join.include?(".")
+            assessor_first_name = assessor_full_name.split.first(2).join.titleize
+            assessor_middle_name = assessor_full_name.split.third
+            assessor_last_name = assessor_full_name.split.last
+          end
+        elsif assessor_full_name.split.count >= 5
+          if assessor_full_name.split.first(2).join.include?(".")
+            assessor_first_name = assessor_full_name.split.first
+            assessor_middle_name = assessor_full_name.split.second
+            assessor_last_name = assessor_full_name.split.last(3).join.titleize
+          elsif assessor_full_name.split.first(3).join.include?(".")
+            assessor_first_name = assessor_full_name.split.first(2).join.titleize
+            assessor_middle_name = assessor_full_name.split.third
+            assessor_last_name = assessor_full_name.split.last(2).join.titleize
+          elsif assessor_full_name.split.last(2).join.include?(".")
+            assessor_first_name = assessor_full_name.split.first(3).join.titleize
+            assessor_middle_name = assessor_full_name.split.fourth
+            assessor_last_name = assessor_full_name.split.last
+          end
+          assessor_first_name
+          assessor_middle_name
+          assessor_last_name
         end
-        assessor_first_name
-        assessor_middle_name
-        assessor_last_name
+        Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name, full_name: row[19])
       end
-      Client.find_or_create_by(first_name: assessor_first_name, middle_name: assessor_middle_name, last_name: assessor_last_name, full_name: row[19])
     end
 
     def create_or_find_assessorship(row)
