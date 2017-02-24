@@ -3,7 +3,7 @@
     <%=link_to certification_path(certification) do %>
       <div class="row">
         <div class="col-md-6">
-          <h4> <%= certification.name %></h4>
+          <h4 class="text-<%=certification.link_color %>"> <%= certification.name %></h4>
           <p class="text-muted"> <%= certification.type_name %></p>
           <p class="text-muted">Certificate Number: <%= certification.number %></p>
           <p class="text-muted">Issue Date: <%= certification.issue_date.strftime("%B %e, %Y") %></p>

@@ -21,10 +21,10 @@ class Certification < ApplicationRecord
   delegate :name, to: :qualification, prefix: true, allow_nil: true
   delegate :name, to: :competency, prefix: true, allow_nil: true
   delegate :qualification_name, to: :competency, prefix: true, allow_nil: true
-
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
   delegate :full_name, :designation, to: :signatory, prefix: true, allow_nil: true
+  
   before_commit :set_signatory
 
   def self.expires_on(hash={})
@@ -36,12 +36,13 @@ class Certification < ApplicationRecord
       expired
     end
   end
+
   def self.types
     ["Certifications::NationalCertificate", "Certifications::CertificateOfCompetency"]
   end
 
   def self.expired
-    all.select{|a| a.expired? }
+    all.select {|a| a.expired? }
   end
 
   def national_certificate?
@@ -75,5 +76,10 @@ class Certification < ApplicationRecord
   def set_signatory
     Configurations::Signatory.set(self)
     self.save
+  end
+  def link_color
+    if expired?
+      "danger"
+    end
   end
 end

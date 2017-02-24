@@ -33,24 +33,25 @@
                   <th> Client </th>
                   <th> Qualification/Competency </th>
                   <th> Type </th>
+                  <th> Issue Date </th>
                   <th> Expiry Date </th>
                 </tr>
               </thead>
               <tbody>
                 <% @certifications.each do |certification| %>
                   <tr>
-                  <td><%= link_to certification.number, certification_path(certification) %></td>
-
-                  <td><%= certification.try(:client_full_name) %></td>
-                  <td><% if certification.national_certificate? %>
+                    <td><%= link_to certification.number, certification_path(certification) %></td>
+                    <td><%= certification.try(:client_full_name) %></td>
+                    <td>
+                      <% if certification.national_certificate? %>
                         <%= certification.try(:qualification_name) %>
                       <% else %>
                         <%= certification.try(:competency_name)%>
                       <% end %>
                     </td>
                     <td><%= certification.type.gsub("Certifications::", "").titleize %></td>
-                  <td><%= certification.expiry_date.strftime("%B %e, %Y") %> </td>
-
+                    <td><%= certification.issue_date.strftime("%B %e, %Y") %> </td>
+                    <td><%= certification.expiry_date.strftime("%B %e, %Y") %> </td>
                   </tr>
                 <% end %>
               </tbody>
