@@ -4,7 +4,7 @@
       <div class="box-header">
         <div class="row">
           <div class="col-md-3">
-            <h4 class="box-title"> Clients </h4>
+            <h4 class="box-title"> <span class="badge"><%= Client.count %></span> Clients </h4>
           </div>
           <div class="col-md-6">
             <%=form_tag clients_path, method: :get, class: "search-form" do %>
@@ -38,9 +38,9 @@
                 <tbody>
                   <% @clients.each do |client| %>
                     <tr>
-                      <td><%=image_tag(client.avatar.url(:small), width: 35, height: 35,  class: "img-square") %> &nbsp; <%= link_to client.full_name, client_path(client), class: "timeline-header" %></td>
+                      <td><%=image_tag(client.avatar.url(:thumb), width: 35, height: 35,  class: "img-circle") %> &nbsp; <%= link_to client.full_name, client_path(client), class: "timeline-header" %></td>
                       <td><%= client.current_address %></td>
-                      <td></td>
+                      <td><%= client.contact_number %> </td>
                     </tr>
                   <% end %>
                 </tbody>

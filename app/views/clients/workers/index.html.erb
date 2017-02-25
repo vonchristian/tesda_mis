@@ -4,7 +4,7 @@
       <div class="box-header">
         <div class="row">
           <div class="col-md-3">
-            <h4 class="box-title"> workers </h4>
+            <h4 class="box-title"> Workers <span class="badge"><%= Clients::Worker.count %></span> </h4>
           </div>
           <div class="col-md-6">
             <%=form_tag workers_path, method: :get, class: "search-form" do %>
@@ -20,7 +20,7 @@
           </div>
           <div class="col-md-3">
             <%=link_to new_worker_path do %>
-              <span class="btn btn-primary pull-right"><i class="fa fa-user-plus"></i> New worker </span>
+              <span class="btn btn-primary pull-right"><i class="fa fa-user-plus"></i> New Worker </span>
             <% end %>
           </div>
         </div>
@@ -30,7 +30,7 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th> Name </th>
+                    <th> Client </th>
                     <th> Address </th>
                     <th> Contact No </th>
                   </tr>
@@ -38,7 +38,7 @@
                 <tbody>
                   <% @workers.each do |worker| %>
                     <tr>
-                      <td><%=image_tag(worker.avatar.url(:small), width: 40, height: 40,  class: "img-circle") %> &nbsp; <b><%= link_to worker.full_name, worker_path(worker), class: "timeline-header" %></b></td>
+                      <td><%=image_tag(worker.avatar.url(:thumb), width: 40, height: 40,  class: "img-circle") %> &nbsp; <b><%= link_to worker.full_name, worker_path(worker), class: "timeline-header" %></b></td>
                       <td><%= worker.current_address %></td>
                       <td><%= worker.contact_number %></td>
                       <td></td>
