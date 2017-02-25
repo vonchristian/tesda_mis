@@ -11,27 +11,28 @@ module Certifications
       certification_number
       issued_date
       expiry_date
+      signatory_signature
       signatory
     end
 
     def certified_candidate
-      bounding_box [100, 547], width: 400 do
+      bounding_box [80, 547], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
-          text "#{@certification.client.full_name.upcase}", size: 22,  align: :center
+          text "#{@certification.client.full_name.try(:upcase)}", size: 22,  align: :center
         end
       end
     end
     def competency
-      bounding_box [100, 650], width: 400 do
+      bounding_box [60, 650], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
           text "#{@certification.competency_name}", size: 8,  align: :center
         end
       end
     end
     def qualification
-      bounding_box [0, 280], width: 600 do
+      bounding_box [40, 280], width: 500 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
-          text "#{@certification.competency_qualification_name.upcase}", size: 20, align: :center
+          text "#{@certification.competency_qualification_name.try(:upcase)}", size: 20, align: :center
         end
       end
     end
@@ -58,8 +59,13 @@ module Certifications
         end
       end
     end
+    def signatory_signature
+      bounding_box [230, 140], width: 400 do
+        image "#{@certification.signatory.signature.path}", height: 70, width: 140
+      end
+    end
     def signatory 
-      bounding_box [100, 110], width: 400 do
+      bounding_box [80, 110], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
           text "#{@certification.signatory_full_name.upcase}", align: :center, size: 14
         end

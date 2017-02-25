@@ -7,7 +7,7 @@ module Qualifications
     validates :unit_title, presence: true, uniqueness: { scope: :qualification_id }
 
 
-    delegate :name, to: :qualification, prefix: true
+    delegate :name, to: :qualification, prefix: true, allow_nil: true
     def name 
       unit_title
     end

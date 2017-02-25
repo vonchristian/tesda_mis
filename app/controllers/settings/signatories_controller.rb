@@ -17,6 +17,24 @@ module Settings
       end 
     end 
 
+    def show 
+      @signatory = Configurations::Signatory.find(params[:id])
+    end
+
+    def edit 
+      @signatory = Configurations::Signatory.find(params[:id])
+    end
+
+    def update 
+      @signatory = Configurations::Signatory.find(params[:id])
+      @signatory.update(signatory_params)
+      if @signatory.save 
+        redirect_to settings_signatory_url(@signatory), notice: "Signatory updated successfully."
+      else 
+        render :new 
+      end 
+    end 
+
     private 
     def signatory_params 
       params.require(:configurations_signatory).permit(:first_name, :middle_name, :last_name, :term_start_date, :term_end_date, :designation, :signature)

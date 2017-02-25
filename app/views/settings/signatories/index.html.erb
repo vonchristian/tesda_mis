@@ -19,7 +19,7 @@
             <tbody>
               <% @signatories.each do |signatory| %>
                 <tr>
-                  <td><%= signatory.full_name %></td>
+                  <td><%= link_to signatory.full_name, settings_signatory_path(signatory) %></td>
                   <td><%= signatory.designation %></td>
                   <td><%= signatory.term_start_date.strftime("%B %e, %Y") %></td>
                   <td><%= signatory.term_end_date.strftime("%B %e, %Y") %></td>

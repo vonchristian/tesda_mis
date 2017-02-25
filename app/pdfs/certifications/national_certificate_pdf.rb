@@ -11,7 +11,9 @@ module Certifications
       certification_number
       issued_date
       expiry_date
+      signatory_signature
       signatory
+
     end
     def level
       bounding_box [455, 634], width: 100 do
@@ -22,7 +24,7 @@ module Certifications
     end
 
      def qualification
-      bounding_box [100, 552], width: 400 do
+      bounding_box [80, 552], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
           text "#{@certification.qualification_name_without_cert_level.upcase}", size: 22,  align: :center
         end
@@ -30,7 +32,7 @@ module Certifications
     end
 
     def certified_candidate
-      bounding_box [100, 490], width: 400 do
+      bounding_box [80, 490], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
           text "#{@certification.client.full_name.upcase}", size: 22,  align: :center
         end
@@ -58,8 +60,13 @@ module Certifications
         end
       end
     end
+    def signatory_signature
+      bounding_box [230, 140], width: 400 do
+        image "#{@certification.signatory.signature.path}", height: 70, width: 140
+      end
+    end
     def signatory 
-      bounding_box [100, 100], width: 400 do
+      bounding_box [80, 100], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
           text "#{@certification.signatory_full_name.upcase}", align: :center, size: 14
         end
