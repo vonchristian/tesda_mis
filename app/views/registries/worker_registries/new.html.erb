@@ -9,7 +9,6 @@
           <%=f.error_notification %>
           <%=f.input :spreadsheet, as: :file, label: "Upload Spreadsheet", input_html: { id: "registry-file" } %>
           <%= f.input :name %>
-          <%= f.input :date, as: :string, input_html: { class: "datepicker"} %>
           <div class="box-footer">
             <%=f.submit "Upload Registry", class: "btn btn-primary pull-right", data: {disable_with: "Uploading and saving records..."} %>
           </div>

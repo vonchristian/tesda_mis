@@ -6,7 +6,7 @@ class Registry < ApplicationRecord
   has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true, dependent: :destroy
   validates :spreadsheet, presence: true
   validates :name, presence: true
-  before_save :set_name
+  before_save :set_name, :set_date
   do_not_validate_attachment_file_type :spreadsheet
   # validates_attachment :spreadsheet, presence: true,
   #                    content_type: { content_type: [
@@ -20,5 +20,8 @@ class Registry < ApplicationRecord
   private 
   def set_name 
     self.name ||= self.spreadsheet_file_name
+  end
+  def set_date 
+    self.date ||= Time.zone.now
   end
 end

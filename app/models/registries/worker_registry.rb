@@ -1,7 +1,8 @@
 module Registries 
   class WorkerRegistry < Registry 
     after_commit :parse_for_records
-  
+    
+    private
     def parse_for_records
       book = Spreadsheet.open(self.spreadsheet.path)
       sheet = book.worksheet(0)
@@ -66,7 +67,8 @@ module Registries
     end
 
     def create_or_find_client(row)
-      Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].strip.downcase)
+      full_name = row[4] + " " + row[5] + " " + row[3]
+      Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].try(:strip).try(:downcase), full_name: full_name)
     end
     def create_or_find_worker(row)
       Clients::Worker.find_or_create_by(client: create_or_find_client(row))
@@ -170,7 +172,7 @@ module Registries
     end
 
     def result(row)
-      row[25].downcase.parameterize.gsub("-", "_")
+      row[25].strip.downcase.parameterize.gsub("-", "_")
     end
 
     def create_or_find_worker_assessment(row)
@@ -187,7 +189,7 @@ module Registries
 
 
     def type(row)
-      cert_type = row[22]
+      cert_type = row[22].try(:strip).try(:upcase)
       if cert_type == "NC" 
         type = "Certifications::NationalCertificate"
       elsif cert_type == "COC"
@@ -199,15 +201,18 @@ module Registries
     def create_or_find_certification(row)
       if result(row) == "competent" 
         if type(row) == "Certifications::NationalCertificate"
-          Certifications::NationalCertificate.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i, certification_level: create_or_find_certification_level(row))
+          create_or_find_national_certification(row)
         elsif type(row) == "Certifications::CertificateOfCompetency"
           create_or_find_competency_certification(row)
         end
       end
     end
+    def create_or_find_national_certification(row)
+      Certifications::NationalCertificate.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i, certification_level: create_or_find_certification_level(row))
+    end
 
     def create_or_find_competency_certification(row)
-      Certifications::CertificateOfCompetency.find_or_create_by!(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i)
+      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i)
     end
   end
 end

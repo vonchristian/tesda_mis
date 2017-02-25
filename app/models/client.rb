@@ -34,6 +34,7 @@ class Client < ApplicationRecord
 
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   validates :first_name, :middle_name, :last_name, presence: true
+  validates :full_name, uniqueness: true
 
   enum sex: [:male, :female]
   before_save :set_full_name

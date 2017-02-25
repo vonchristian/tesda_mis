@@ -60,7 +60,7 @@ module Certifications
       end
     end
     def signatory_signature
-      bounding_box [230, 140], width: 400 do
+      bounding_box [200, 140], width: 400 do
         image "#{@certification.signatory.signature.path}", height: 70, width: 140
       end
     end
