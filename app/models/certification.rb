@@ -24,6 +24,8 @@ class Certification < ApplicationRecord
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
   delegate :full_name, :designation, to: :signatory, prefix: true, allow_nil: true
+
+  validates :number, uniqueness: true
   
   before_commit :set_signatory
 
