@@ -11,5 +11,8 @@ module Qualifications
     def name 
       unit_title
     end
+    def self.basic_and_common
+      self.basic + self.common 
+    end
   end
 end

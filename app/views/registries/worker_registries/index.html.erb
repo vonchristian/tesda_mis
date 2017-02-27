@@ -46,7 +46,7 @@
                   <td><%= number_to_human_size registry.spreadsheet_file_size %></td>
                   <td>
                     <% if registry.date %>
-                      <%= registry.strftime("%B %e, %Y") %>
+                      <%= registry.date.strftime("%B %e, %Y") %>
                     <% end %>
                   </td>
                   </tr>

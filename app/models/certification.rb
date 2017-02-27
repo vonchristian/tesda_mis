@@ -13,6 +13,7 @@ class Certification < ApplicationRecord
   belongs_to :certification_level, class_name: "Configurations::CertificationLevel"
   belongs_to :signatory, class_name: "Configurations::Signatory"
   has_many :issuances, as: :issuable
+  has_many :competencies, through: :qualification
   
   delegate :full_name, :first_name, :last_name, :middle_name, to: :client, prefix: true, allow_nil: true
   delegate :level, to: :certification_level, prefix: true

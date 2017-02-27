@@ -38,7 +38,7 @@ module Certifications
     end
     
     def certification_number
-      bounding_box [150, 207], width: 400 do
+      bounding_box [150, 193], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Arial_Bold.ttf") do
           text "#{@certification.number}", size: 11
         end
@@ -46,26 +46,26 @@ module Certifications
     end
 
     def issued_date
-      bounding_box [425, 223], width: 400 do
+      bounding_box [425, 208], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Arial_Bold.ttf") do
           text "#{@certification.issue_date.strftime("%B %e, %Y")}"
         end
       end
     end
     def expiry_date
-      bounding_box [425, 207], width: 400 do
+      bounding_box [425, 193], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Arial_Bold.ttf") do
           text "#{@certification.expiry_date.strftime("%B %e, %Y")}"
         end
       end
     end
     def signatory_signature
-      bounding_box [200, 140], width: 400 do
-        image "#{@certification.signatory.signature.path}", height: 70, width: 140
+      bounding_box [190, 144], width: 400 do
+        image "#{@certification.signatory.signature.path}", height: 100, width: 200
       end
     end
     def signatory 
-      bounding_box [80, 110], width: 400 do
+      bounding_box [80, 93], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
           text "#{@certification.signatory_full_name.upcase}", align: :center, size: 14
         end
@@ -74,3 +74,4 @@ module Certifications
     end
   end
 end
+

@@ -1,4 +1,4 @@
-sector = Sector.find_or_create_by(name: "Automotive and Land Transport")
+sector = Sector.find_or_create_by!(name: "Automotive and Land Transport")
 qualification = Qualification.find_or_create_by!(name: "Motorcycle/Small Engine Servicing NC II", sector: sector)
 
 Qualifications::Competency.find_or_create_by(competency_type: 0, unit_code: '500311105', unit_title: "Participate in Workplace Communication", qualification: qualification)
