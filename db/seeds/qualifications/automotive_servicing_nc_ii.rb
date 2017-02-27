@@ -3,7 +3,7 @@ qualification = Qualification.find_or_create_by(name: "Automotive Servicing NC I
 qualification.competencies.basic.find_or_create_by(unit_code: "500311105", unit_title: "Participate in workplace communication")
 qualification.competencies.basic.find_or_create_by(unit_code: "500311106", unit_title: "Work in team environment")
 qualification.competencies.basic.find_or_create_by(unit_code: "500311107", unit_title: "Practice career professionalism")
-qualification.competencies.basic.find_or_create_by(unit_code: "500311108", unit_title: "Practice Occupational Health and Safety Procedures")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311108", unit_title: "Practice occupational health and safety procedures")
 
 qualification.competencies.common.find_or_create_by(unit_code: "ALT723201", unit_title: "Apply appropriate sealant/adhesive")
 qualification.competencies.common.find_or_create_by(unit_code: "ALT723202", unit_title: "Move and position vehicle")
