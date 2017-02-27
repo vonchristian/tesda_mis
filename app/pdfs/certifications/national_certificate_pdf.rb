@@ -1,6 +1,7 @@
 module Certifications
   class NationalCertificatePdf < Prawn::Document
-    TABLE_WIDTHS = [50, 150]
+    TABLE_WIDTHS = [45, 155]
+    TABLE_WIDTHS_2 = [45, 175]
 
 
     def initialize(certification, view_context)
@@ -45,8 +46,8 @@ module Certifications
 
     def display_basic_competencies
       font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
-        bounding_box [120, 390], width: 200 do
-          table(competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,8,1,0] },  column_widths: TABLE_WIDTHS) do
+        bounding_box [120, 390], width: 220 do
+          table(competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,0,1,0] },  column_widths: TABLE_WIDTHS_2) do
             cells.borders = []
             row(0).size = 9
           end
@@ -69,8 +70,8 @@ module Certifications
 
     def display_core_competencies
       font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
-        bounding_box [330, 390], width: 200 do
-          table(core_competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,8,1,0] }, column_widths: TABLE_WIDTHS) do
+        bounding_box [335, 390], width: 200 do
+          table(core_competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,0,1,0] }, column_widths: TABLE_WIDTHS) do
             cells.borders = []
             row(0).size = 9
           end
