@@ -12,7 +12,7 @@ describe Certification, type: :model do
     it { is_expected.to delegate_method(:full_name).to(:client).with_prefix }
     it { is_expected.to delegate_method(:first_name).to(:client).with_prefix }
     it { is_expected.to delegate_method(:last_name).to(:client).with_prefix }
-
+    it { is_expected.to delegate_method(:middle_name).to(:client).with_prefix }
     it { is_expected.to delegate_method(:name).to(:qualification).with_prefix }
     it { is_expected.to delegate_method(:level).to(:certification_level).with_prefix }
     it { is_expected.to delegate_method(:assessor).to(:certified) }

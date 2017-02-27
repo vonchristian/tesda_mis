@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225062058) do
+ActiveRecord::Schema.define(version: 20170227024516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,11 +260,15 @@ ActiveRecord::Schema.define(version: 20170225062058) do
     t.integer  "issuable_id"
     t.string   "issuable_type"
     t.datetime "issue_date"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "cars_date_received"
+    t.datetime "printing_date"
+    t.integer  "user_id"
     t.index ["issuable_id"], name: "index_issuances_on_issuable_id", using: :btree
     t.index ["issuable_type"], name: "index_issuances_on_issuable_type", using: :btree
     t.index ["type"], name: "index_issuances_on_type", using: :btree
+    t.index ["user_id"], name: "index_issuances_on_user_id", using: :btree
   end
 
   create_table "modalities", force: :cascade do |t|
@@ -444,6 +448,7 @@ ActiveRecord::Schema.define(version: 20170225062058) do
   add_foreign_key "educations", "educational_attainments"
   add_foreign_key "employments", "assessors"
   add_foreign_key "employments", "companies"
+  add_foreign_key "issuances", "users"
   add_foreign_key "municipality_or_cities", "provinces"
   add_foreign_key "provinces", "regions"
   add_foreign_key "training_centers", "institutions"

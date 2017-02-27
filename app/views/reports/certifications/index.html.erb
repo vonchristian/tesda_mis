@@ -46,7 +46,7 @@
           </span>
           <br>
 
-           <%= form_tag({:action => "index", controller: "certifications/issuances", format: 'pdf'}, {:method => :get})  do %>
+           <%= form_tag({:action => "index", controller: "certifications/tracking_sheets", format: 'pdf'}, {:method => :get})  do %>
                     <div class="col-md-3">
                       <div class="form-group">
                         <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control input-sm border-input', :placeholder => "From " %>

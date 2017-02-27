@@ -1,9 +1,16 @@
 class Issuance < ApplicationRecord
   belongs_to :issuable, polymorphic: true
+  belongs_to :issuer, class_name: "User", foreign_key: "user_id"
   validates :reference_number, :issue_date, presence: true
   validates :reference_number, uniqueness: true
 
-  delegate :client_full_name, :name, :type_name, to: :issuable
+  delegate :client_last_name, :name, :type_name, to: :issuable
+  delegate :client_first_name, :name, :type_name, to: :issuable
+  delegate :client_middle_name, :name, :type_name, to: :issuable
+  delegate :number, to: :issuable, prefix: true
+  delegate :assessment_date, to: :issuable, prefix: true
+  delegate :full_name, to: :issuer, prefix: true
+
 
   def self.issued_on(hash={})
     if hash[:from_date] && hash[:to_date]

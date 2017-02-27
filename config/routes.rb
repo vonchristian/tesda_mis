@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   resources :institutions, only: [:index, :show, :new, :create]
   resources :certifications, only: [:index, :show] do 
     match "/expired" => "certifications/expired_certifications#index",  via: [:get], on: :collection
-    match "/issued" => "certifications/issuances#index",  via: [:get], on: :collection
-
+    match "/tracking_sheet" => "certifications/tracking_sheets#index",  via: [:get], on: :collection
 
     resources :issuances, only: [:new, :create], module: :certifications
   end

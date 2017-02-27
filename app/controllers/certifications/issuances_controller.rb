@@ -23,6 +23,7 @@ module Certifications
       @certification = Certification.friendly.find(params[:certification_id])
       @issuance = @certification.issuances.create(issuance_params)
       @issuance.issuable = @certification
+      @issuance.issuer = current_user
       if @issuance.save 
         redirect_to certification_url(@issuance.issuable), notice: "issued successfully."
       else 
@@ -36,7 +37,7 @@ module Certifications
 
     private 
     def issuance_params 
-      params.require(:issuance).permit(:reference_number, :issue_date)
+      params.require(:issuance).permit(:reference_number, :issue_date, :cars_date_received, :printing_date)
     end 
   end 
 end 

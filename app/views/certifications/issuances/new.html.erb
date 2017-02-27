@@ -7,8 +7,10 @@
       <div class="box-body">
         <%= simple_form_for [@certification, @issuance], url: :certification_issuances do |f| %>
           <%= f.error_notification %>
-          <%= f.input :reference_number %>
-          <%= f.input :issue_date, as: :string, input_html: { class: "datepicker" } %>
+          <%= f.input :reference_number, label: "CLN Number" %>
+          <%= f.input :cars_date_received, label: "Date of Receipt of CARS:", as: :string, input_html: { class: "datepicker" } %>
+          <%= f.input :printing_date, label: "Date of Printing of NC/COC:", as: :string, input_html: { class: "datepicker" } %>
+          <%= f.input :issue_date, label: "Date Claimed", as: :string, input_html: { class: "datepicker" } %>
           <div class="modal-footer">
             <%= f.submit "Issue Certificate", class: "btn btn-primary" %>
           </div>
