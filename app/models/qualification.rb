@@ -21,4 +21,9 @@ class Qualification < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   delegate :name, to: :sector, prefix: true, allow_nil: true
+
+  def revised!
+    self.revised = true 
+    self.save 
+  end
 end

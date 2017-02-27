@@ -1,0 +1,4 @@
+<div class="tab-pane" id='settings'>
+  <h4 class="text-muted"> Settings </h4>
+  <%= link_to "Set as Revised", revise_qualification_path(@qualification), method: :post, data: {confirm: "Are you sure you want to set this qualification as revised?"}, class: "btn btn-danger btn-flat" %>
+</div>

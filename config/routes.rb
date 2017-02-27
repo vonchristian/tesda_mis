@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   end
   resources :addresses, only: [:new, :create]
   resources :qualifications, only: [:index, :new, :create, :show] do 
+    match "/revise" => "qualifications#revise",  via: [:post], on: :member
+
     resources :competencies, only: [:new, :create], module: :qualifications
   end
   namespace :settings do 

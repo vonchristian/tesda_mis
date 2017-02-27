@@ -26,6 +26,7 @@ class Certification < ApplicationRecord
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
   delegate :full_name, :designation, to: :signatory, prefix: true, allow_nil: true
   delegate :assessment_date, to: :certified
+  delegate :revised?, to: :qualification, allow_nil: true
   
   validates :number, uniqueness: true
   validates :client_id, presence: true
@@ -78,7 +79,7 @@ class Certification < ApplicationRecord
    expiry_date < Time.zone.now
   end
    def link_color
-    if expired?
+    if expired? || revised?
       "danger"
     end
   end

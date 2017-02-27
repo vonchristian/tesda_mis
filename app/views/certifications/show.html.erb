@@ -2,9 +2,20 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="box box-<%=@certification.link_color %>">
       <div class="box-header">
+      <% if @certification.revised? || @certification.expired? %>
+      <p class="alert alert-danger"> This certificate cannot be issued. <br>
+      <% if @certification.revised? %>
+      Qualification for this certificate has been revised. </p>
+      <% end %>
+      <% if @certification.expired? %>
+      Certificate has expired. </p>
+
+      <% end %>
+        
+      <% end %>
         
           <div class="box-tools pull-right">
-            <% if !@certification.expired? %>
+            <% if !@certification.expired? && !@certification.revised? %>
               <%=link_to certification_path(@certification, format: 'pdf') do %>
                 <span class="btn btn-default" title="Print Preview" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-print"></i> </span>
               <% end %>
@@ -45,7 +56,7 @@
           <div class="col-md-12">
             <h4> Issuance <span class="badge"><%= @certification.issuances.count %></span>
             <span class="pull-right">
-            <% if !@certification.expired? %>
+            <% if !@certification.expired? && !@certification.revised? %>
               <%=link_to "New Issue", new_certification_issuance_path(@certification), class: "btn btn-primary btn-sm btn-flat" %>
             <% end %>
             </span>

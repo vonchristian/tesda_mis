@@ -21,6 +21,12 @@ class QualificationsController < ApplicationController
   def show 
     @qualification = Qualification.friendly.find(params[:id])
   end
+  def revise
+    @qualification = Qualification.friendly.find(params[:id])
+    @qualification.revised!
+    redirect_to @qualification, notice: "Qualification revised successfully."
+  end
+
   private 
   def qualification_params
     params.require(:qualification).permit(:name, :sector_id)

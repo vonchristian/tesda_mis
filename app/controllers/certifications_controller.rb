@@ -13,13 +13,15 @@ class CertificationsController < ApplicationController
     @certification = type_class.friendly.find(params[:id])
     respond_to do |format|
       format.html 
-      format.pdf do 
-        if @certification.national_certificate?
+      if !@certification.revised? && !@certification.expired?
+        format.pdf do 
+          if @certification.national_certificate?
             pdf = Certifications::NationalCertificatePdf.new(@certification, @view_context)
             send_data(pdf.render, type: "application/pdf", disposition: "inline", file_name: "#{@certification.number} National Certificate.pdf")
-        elsif @certification.certificate_of_competency?
-          pdf = Certifications::CertificateOfCompetencyPdf.new(@certification, @view_context)
+          elsif @certification.certificate_of_competency?
+            pdf = Certifications::CertificateOfCompetencyPdf.new(@certification, @view_context)
             send_data(pdf.render, type: "application/pdf", disposition: "inline", file_name: "#{@certification.number} Certificate Of Competency.pdf")
+          end
         end
       end
     end

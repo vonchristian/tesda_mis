@@ -40,7 +40,13 @@
               <tbody>
                 <% @certifications.each do |certification| %>
                   <tr>
-                    <td><%= link_to certification.number, certification_path(certification) %></td>
+                    <td>
+                    <% if certification.revised? || certification.expired? %>
+                      <%= link_to certification.number, certification_path(certification), class: "text-danger" %>
+                    <% else %>
+                      <%= link_to certification.number, certification_path(certification) %>
+                    <% end %>
+                    </td>
                     <td><%= certification.try(:client_full_name) %></td>
                     <td>
                       <% if certification.national_certificate? %>
