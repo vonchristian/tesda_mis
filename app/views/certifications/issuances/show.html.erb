@@ -1,1 +1,1 @@
-<%= @issuance.issuable %>
+<%= @issuance.issuable.try(:client_full_name) %>

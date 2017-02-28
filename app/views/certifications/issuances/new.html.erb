@@ -5,6 +5,8 @@
         <h3 class="box-title"> Issuance Details </h3>
       </div>
       <div class="box-body">
+        <center><%=image_tag(@issuance.issuable.client.avatar.url(:thumb), class: "img-circle") %></center><br />
+        <h4><b><center><%= @issuance.issuable.client_full_name %></center></b></h4> <hr>
         <%= simple_form_for [@certification, @issuance], url: :certification_issuances do |f| %>
           <%= f.error_notification %>
           <%= f.input :reference_number, label: "CLN Number" %>

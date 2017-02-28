@@ -40,27 +40,6 @@
             </div>
           </div>
           <hr />
-          <h4>Issued Certificates</h4>
-          <span class="help-block">
-            Generate report for issued certificates
-          </span>
-          <br>
-
-           <%= form_tag({:action => "index", controller: "certifications/tracking_sheets", format: 'pdf'}, {:method => :get})  do %>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control input-sm border-input', :placeholder => "From " %>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <%= text_field_tag :to_date, @to_date, :class => 'form-control input-sm border-input datepicker', :placeholder => "To " %>
-                      </div>
-                    </div>
-                    <div class="col-md-1">
-                      <button type="submit" class="btn btn-default btn-sm btn-flat"> Go </button>
-                    </div>
-                  <% end %>
         </div>
       </div>
     </div>

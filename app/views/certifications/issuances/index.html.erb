@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <div class="row">
+          <div class="col-md-4">
+            <h3 class="box-title"> Issued Certificates </h3>
+          </div>
+          <div class="col-md-8">
+           <%=form_tag issuances_path, method: :get, class: "search-form" do %>
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", id: 'issuance-search-form' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', id: "issuance-search-btn", class: "btn btn-flat") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="table table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>CLN Number</th>
+              <th>Date Issued</th>
+              <th>Issued By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @issuances.each do |issuance| %>
+              <tr>
+                <td><%=link_to issuance.issuable.client_full_name, issuance %></td>
+                <td><%=link_to issuance.reference_number, issuance %></td>
+                <td><%= issuance.issue_date.strftime("%B %e, %Y") %></td>
+                <td><%= issuance.issuer_full_name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <center><%= paginate @issuances %></center>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="col-md-4">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Generate Report</h3>
+        <span class="help-block"> Generate report of issued certificates </span>
+        <%=link_to tracking_sheet_certifications_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
+          <span class="label label-default bg-gray">This Month </span>
+        <% end %> &nbsp;
+         <%=link_to tracking_sheet_certifications_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') do %>
+          <span class="label label-default bg-gray">This Week </span>
+        <% end %> &nbsp; 
+        <%=link_to tracking_sheet_certifications_path(from_date: Time.zone.now.beginning_of_day, to_date: Time.zone.now.end_of_day, format: 'pdf') do %>
+          <span class="label label-default bg-gray">This Day </span>
+        <% end %> 
+      </div>
+      <div class="box-body">
+      <p class="text-muted">or choose date: </p>
+        <%= form_tag({:action => "index", controller: "certifications/tracking_sheets", format: 'pdf'}, {:method => :get})  do %>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control input-sm border-input', :placeholder => "From " %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= text_field_tag :to_date, @to_date, :class => 'form-control input-sm border-input datepicker', :placeholder => "To " %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-default btn-sm btn-flat btn-block"> Generate Report </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

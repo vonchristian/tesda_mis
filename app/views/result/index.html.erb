@@ -3,10 +3,10 @@
     <div class="box box-default">
       <div class="box-body">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <%=form_tag result_index_path, method: :get, class: "search-form" do %>
               <div class="input-group">
-                <%= text_field_tag :search, params[:search], class: "form-control input-lg", placeholder: "Search...", id: 'client-search-form' %>
+                <%= text_field_tag :search, params[:search], class: "form-control input-lg", placeholder: "Search Client, Certificate Number, CLN Number...", id: 'client-search-form' %>
                 <span class="input-group-btn">
                   <%= button_tag(type: 'submit', id: "client-search-btn", class: "btn btn-flat btn-lg") do %>
                     <i class="fa fa-search"></i>

@@ -1,12 +1,12 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8">
     <div class="box box-default">
       <div class="box-header with-border">
         <div class="row">
           <div class="col-md-3">
             <h3 class="box-title"> Worker Registry </h3>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-9">
             <%=form_tag worker_registries_path, method: :get, class: "search-form" do %>
                         <div class="input-group">
                           <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search name, file name...", id: 'registry-search-form' %>
@@ -17,11 +17,6 @@
                           </span>
                         </div>
                       <% end %>
-          </div>
-          <div class="col-md-3">
-            <%= link_to new_worker_registry_path do %>
-              <span class="btn btn-primary btn-flat pull-right"><i class="fa fa-plus-circle"></i> Upload Registry </span>
-            <% end %>   
           </div>
         </div>
       </div>
@@ -56,6 +51,23 @@
           </div>
         <% else %>
           No registries found.
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="box box-default">
+      <div class="box-header">
+        <h3 class="box-title">Upload RWAC </h3>
+      </div>
+      <div class="box-body">
+         <%=simple_form_for Registries::WorkerRegistry.new, multipart: true, url: :worker_registries do |f| %>
+          <%=f.error_notification %>
+          <%=f.input :spreadsheet, as: :file, label: "Upload Spreadsheet", input_html: { id: "registry-file" } %>
+          <%= f.input :name %>
+          <div class="box-footer">
+            <%=f.submit "Upload Registry", class: "btn btn-primary pull-right", data: {disable_with: "Uploading and saving records..."} %>
+          </div>
         <% end %>
       </div>
     </div>

@@ -8,7 +8,7 @@ module Certifications
       @certification = certification
       @view_context = view_context
       certified_candidate
-      competency
+      # competency
       qualification
       display_basic_competencies
       display_core_competencies
@@ -26,13 +26,13 @@ module Certifications
         end
       end
     end
-    def competency
-      bounding_box [60, 650], width: 400 do
-        font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
-          text "#{@certification.competency_name}", size: 8,  align: :center
-        end
-      end
-    end
+    # def competency
+    #   bounding_box [60, 650], width: 400 do
+    #     font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
+    #       text "#{@certification.competency_name}", size: 8,  align: :center
+    #     end
+    #   end
+    # end
     def qualification
       bounding_box [40, 280], width: 500 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do

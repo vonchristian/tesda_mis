@@ -5,10 +5,13 @@ module Certifications
         @from_date = DateTime.parse(params[:from_date])
         @to_date =  DateTime.parse(params[:to_date])
         @issuances = Issuance.issued_on({from_date: @from_date, to_date: @to_date})
+      elsif params[:search].present?
+        @issuances = Issuance.text_search(params[:search]).page(params[:page]).per(50)
       else
-        @issuances = Issuance.all 
+        @issuances = Issuance.all.page(params[:page]).per(50)
       end
       respond_to do |format|
+        format.html
         format.pdf do 
           pdf = Certifications::IssuedCertificationsPdf.new(@issuances, @from_date, @to_date, @view_context)
           send_data(pdf.render, type: "application/pdf", disposition: "inline", file_name: "Issued Certificates.pdf")
@@ -33,6 +36,18 @@ module Certifications
 
     def show 
       @issuance = Issuance.find(params[:id])
+      respond_to do |format|
+        format.html 
+        format.pdf do 
+          if @issuance.issuable.national_certificate?
+            pdf = Certifications::NationalCertificatePdf.new(@issuance.issuable, @view_context)
+            send_data(pdf.render, type: "application/pdf", disposition: "inline", file_name: "#{@issuance.issuable.number} National Certificate.pdf")
+          elsif @issuance.issuable.certificate_of_competency?
+            pdf = Certifications::CertificateOfCompetencyPdf.new(@issuance.issuable, @view_context)
+            send_data(pdf.render, type: "application/pdf", disposition: "inline", file_name: "#{@issuance.issuable.number} Certificate Of Competency.pdf")
+          end
+        end
+      end
     end
 
     private 

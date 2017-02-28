@@ -2,80 +2,95 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="box box-<%=@certification.link_color %>">
       <div class="box-header">
-      <% if @certification.revised? || @certification.expired? %>
-      <p class="alert alert-danger"> This certificate cannot be issued. <br>
-      <% if @certification.revised? %>
-      Qualification for this certificate has been revised. </p>
-      <% end %>
-      <% if @certification.expired? %>
-      Certificate has expired. </p>
-
-      <% end %>
-        
-      <% end %>
-        
-          <div class="box-tools pull-right">
-            <% if !@certification.expired? && !@certification.revised? %>
-              <%=link_to certification_path(@certification, format: 'pdf') do %>
-                <span class="btn btn-default" title="Print Preview" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-print"></i> </span>
-              <% end %>
-            <% end %>
-          </div>
-     
+        <% if @certification.revised? || @certification.expired? %>
+          <p class="alert alert-danger"> This certificate cannot be issued. <br>
+          <% if @certification.revised? %>
+            Qualification for this certificate has been revised. </p>
+          <% end %>
+          <% if @certification.expired? %>
+            Certificate has expired. </p>
+          <% end %>
+        <% end %>
       </div>
       <div class="box-body">
         <center><%=image_tag(@certification.client.avatar.url(:thumb), class: "img-circle") %></center><br />
         <h4><b><center><%= @certification.client_full_name %></center></b></h4> <hr>
         <div class="row">
           <div class="col-md-12">
-           
             <%= @certification.type_name %>
-              <p class="text-muted">Certificate Type</p>
-              <br>
-                    <h4><%=@certification.number %></h4>
-                    <p class="help-block">Certificate Number </p><br>
+            <p class="text-muted">Certificate Type</p>
+            <br>
+            <h4><%=@certification.number %></h4>
+            <p class="help-block">Certificate Number </p><br>
             <% if @certification.national_certificate? %>
               <%= @certification.qualification_name %>
               <p class="text-muted">Qualification</p>
-
             <% else %>
               <b><%= @certification.competency_name %></b>
               <p class="text-muted">Competency</p>
             <% end %>
             <br>
-             <%= @certification.issue_date.strftime("%B %e, %Y") %>
-              <p class="text-muted">Issue Date</p>
-              <br>
-               <%= @certification.expiry_date.strftime("%B %e, %Y") %>
-              <p class="text-muted">Expiry Date</p>
+            <%= @certification.issue_date.strftime("%B %e, %Y") %>
+            <p class="text-muted">Issue Date</p>
+            <br>
+            <%= @certification.expiry_date.strftime("%B %e, %Y") %>
+            <p class="text-muted">Expiry Date</p>
           </div>
-          </div>
-          <hr>
-          <br>
-          <div class="row">
+        </div>
+        <br>
+        <div class="row">
           <div class="col-md-12">
             <h4> Issuance <span class="badge"><%= @certification.issuances.count %></span>
-            <span class="pull-right">
-            <% if !@certification.expired? && !@certification.revised? %>
-              <%=link_to "New Issue", new_certification_issuance_path(@certification), class: "btn btn-primary btn-sm btn-flat" %>
-            <% end %>
-            </span>
+              <span class="pull-right">
+                <% if !@certification.expired? && !@certification.revised? %>
+                  <%=link_to "New Issue", new_certification_issuance_path(@certification), class: "btn btn-primary btn-sm btn-flat" %>
+                <% end %>
+              </span>
             </h4>
-            <br>
+            <hr>
             <% if @certification.issuances.present? %>
-            <% @certification.issuances.each do |issuance| %>
-              <p>Reference Number <%= issuance.reference_number %><br>
-              Date Issued <%= issuance.issue_date.strftime("%B %e, %Y") %>
+              <% @certification.issuances.each do |issuance| %>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="row">
+                      <div class="col-md-4">
+                        CLN Number 
+                      </div>
+                      <div class="col-md-8">
+                        <b><%= issuance.reference_number %></b>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        Date Issued
+                      </div>
+                      <div class="col-md-8">
+                        <%= issuance.issue_date.strftime("%B %e, %Y") %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        Issued By
+                      </div>
+                      <div class="col-md-8">
+                        <%=image_tag(issuance.issuer.avatar.url(:small), class: "img-circle", height: 30, width: 30) %> <%= issuance.issuer_full_name %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <%=link_to issuance_path(issuance, format: 'pdf') do %>
+                      <span class="btn btn-default" title="Print Preview" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-print"></i> Print </span>
+                    <% end %>
+                  </div>
+                </div>
+                <br>
+              <% end %>
 
-              </p>
-              <br>
-            <% end %>
             <% else %>
               <p class="text-muted"> No previous issuance found.</p>
             <% end %>
-            </div>
-
-    
+          </div>
+        </div>
       </div>
     </div>
   </div>

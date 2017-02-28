@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :national_certificates, only: [:index, :show], controller: "certifications", type: "Certifications::NationalCertificate"
   resources :certificate_of_competencies, only: [:index, :show], controller: "certifications", type: "Certifications::CertificateOfCompetency"
 
-  resources :issuances, only: [:show], module: :certifications
+  resources :issuances, only: [:index, :show], module: :certifications
   resources :assessors, only: [:index, :show], module: :clients do 
     resources :addresses, only: [:new, :create], type: "Clients::Assessor", controller: "addresses"
     resources :accreditations, only: [:new, :create], type: "Clients::Assessor", controller: "accreditations", module: :assessors
