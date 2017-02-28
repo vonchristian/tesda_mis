@@ -38,6 +38,26 @@
               <div class="col-md-4">
               </div>
             </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-8">
+                <h4 class="text-muted"> Municipality </h4>
+                <span class="help-block"> Generate report of clients filtered by municipality. </span>
+                <% Addresses::MunicipalityOrCity.all.each do |municipality| %>
+                  <%=link_to per_municipality_certifications_path(municipality: municipality, from_date: Time.zone.now.beginning_of_week.beginning_of_day, to_date: Time.zone.now.end_of_week.end_of_day, format: 'pdf') do %>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <%=municipality.name %>
+                        </div>
+                        <div class="col-md-2">
+                          <span class="badge bg-blue"><%=municipality.clients.count %></span>
+                        </div>
+                      </div>
+                      <br>
+                    <% end %> 
+                <% end %>
+              </div>
           </div>
           <hr />
         </div>

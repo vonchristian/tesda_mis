@@ -68,7 +68,7 @@ module Registries
 
     def create_or_find_client(row)
       full_name = row[4] + " " + row[5] + " " + row[3]
-      Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10], sex: row[11].try(:strip).try(:downcase), full_name: full_name)
+      Client.find_or_create_by(last_name: row[3], first_name: row[4], middle_name: row[5], date_of_birth: row[6], contact_number: row[10].to_i, sex: row[11].try(:strip).try(:downcase), full_name: full_name)
     end
     def create_or_find_worker(row)
       Clients::Worker.find_or_create_by(client: create_or_find_client(row))

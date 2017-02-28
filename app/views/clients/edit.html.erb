@@ -11,7 +11,7 @@
             <%= simple_form_for @client, multipart: true do |f| %>
               <%= f.error_notification %>
               <center>
-                <%=image_tag(@client.avatar.url(:medium), class: "img-square img-responsive") %>
+                <%=image_tag(@client.avatar.url(:thumb), class: "img-square img-responsive") %>
                 <br>
                 <%= f.input :avatar, as: :file, label: "Upload Photo" %>
               </center>

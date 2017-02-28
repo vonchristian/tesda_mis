@@ -8,13 +8,13 @@ class Issuance < ApplicationRecord
   validates :reference_number, :issue_date, presence: true
   validates :reference_number, uniqueness: true
 
-  delegate :client_last_name, :name, :type_name, to: :issuable
-  delegate :client_first_name, :name, :type_name, to: :issuable
-  delegate :client_full_name, :name, :type_name, to: :issuable
+  delegate :client_last_name, :name, :type_name, to: :issuable, allow_nil: true
+  delegate :client_first_name, :name, :type_name, to: :issuable, allow_nil: true
+  delegate :client_full_name, :name, :type_name, to: :issuable, allow_nil: true
   delegate :client_middle_name, :name, :type_name, to: :issuable
   delegate :number, to: :issuable, prefix: true
   delegate :assessment_date, to: :issuable, prefix: true
-  delegate :full_name, to: :issuer, prefix: true
+  delegate :full_name, to: :issuer, prefix: true, allow_nil: true
 
 
   def self.issued_on(hash={})

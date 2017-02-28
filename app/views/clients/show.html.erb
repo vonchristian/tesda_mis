@@ -7,7 +7,7 @@
               <%= image_tag(@client.avatar.url(:medium), class: "profile-user-img img-responsive img-circle", alt: "Assessment center logo") %>
               <h3 class="profile-username text-center"><%= @client.full_name %></h3>
 
-              <p class="text-muted text-center"><%= @client.current_address %></p>
+              <p class="text-muted text-center"><%= @client.current_address.try(:details) %></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -42,7 +42,12 @@
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
-              <p class="text-muted"><%= @client.current_address %></p>
+              <p class="text-muted"><%= @client.current_address.try(:details) %></p>
+              <% if @client.current_address.present? %>
+                <%=link_to "Edit", edit_address_path(@client.current_address), class: "btn btn-xs btn-warning btn-flat" %>
+              <% else %>
+                <%=link_to "Add", new_client_address_path(@client), class: "btn btn-xs btn-default btn-flat" %>
+              <% end %>
 
               <hr>
 

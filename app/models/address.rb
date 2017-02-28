@@ -4,7 +4,7 @@ class Address < ApplicationRecord
   belongs_to :municipality_or_city, class_name: "Addresses::MunicipalityOrCity"
   belongs_to :barangay, class_name: "Addresses::Barangay"
 
-  delegate :name, to: :barangay, prefix: true
+  delegate :name, to: :barangay, prefix: true, allow_nil: true
   delegate :name, to: :municipality_or_city, prefix: true
   delegate :name, to: :province, prefix: true
 

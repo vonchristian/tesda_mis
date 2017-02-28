@@ -30,6 +30,7 @@ class Client < ApplicationRecord
   has_many :conducted_assessments, through: :assessorships
   has_many :conducted_trainings, through: :trainorships
   has_many :addresses, as: :addressable
+  has_many :municipality_or_cities, through: :addresses
 
 
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
@@ -38,12 +39,13 @@ class Client < ApplicationRecord
 
   enum sex: [:male, :female]
   before_save :set_full_name
+  
   def name 
     full_name
   end
   def current_address
     if addresses.present?
-      addresses.last.details 
+      addresses.last
     end
   end
 
