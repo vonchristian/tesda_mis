@@ -3,9 +3,9 @@ class CertificationsController < ApplicationController
   before_action :set_type
   def index
     if params[:search].present?
-      @certifications = type_class.text_search(params[:search])
+      @certifications = type_class.text_search(params[:search]).page(params[:page]).per(50)
     else
-      @certifications = type_class.all
+      @certifications = type_class.all.page(params[:page]).per(50)
     end
   end
 

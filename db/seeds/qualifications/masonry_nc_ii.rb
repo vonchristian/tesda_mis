@@ -1,0 +1,17 @@
+qualification = Qualification.find_or_create_by(name: "Masonry NC II")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311105", unit_title: "Participate in workplace communication")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311106", unit_title: "Work in team environment")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311107", unit_title: "Practice career professionalism")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311108", unit_title: "Practice occupational health and safety procedures")
+
+qualification.competencies.common.find_or_create_by(unit_code: "CON931201", unit_title: "Prepare construction materials and tools")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311201", unit_title: "Observe procedures, specifications and manuals of instruction")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311202", unit_title: "Interpret technical drawings and plans")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311203", unit_title: "Perform mensurations and calculations")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311204", unit_title: "Maintain tools and equipment")
+
+qualification.competencies.core.find_or_create_by(unit_code: "CON712301", unit_title: "Prepare masonry materials")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712302", unit_title: "Perform basic masonry works")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712303", unit_title: "Lay brick/block for structure")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712304", unit_title: "Plaster wall surface")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712305", unit_title: "Install pre-cast balusters and handrail")

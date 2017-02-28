@@ -1,0 +1,17 @@
+qualification = Qualification.find_or_create_by(name: "Carpentry NC II")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311105", unit_title: "Participate in workplace communication")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311106", unit_title: "Work in team environment")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311107", unit_title: "Practice career professionalism")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311108", unit_title: "Practice occupational health and safety procedures")
+
+qualification.competencies.common.find_or_create_by(unit_code: "CON931201", unit_title: "Prepare construction materials and tools")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311201", unit_title: "Observe procedures, specifications and manuals of instruction")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311202", unit_title: "Interpret technical drawings and plans")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311203", unit_title: "Perform mensurations and calculations")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311204", unit_title: "Maintain tools and equipment")
+
+qualification.competencies.core.find_or_create_by(unit_code: "CON712317", unit_title: "Prepare / Stake-out building lines")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712318", unit_title: "Fabricate formworks")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712319", unit_title: "Install formwork components")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712320", unit_title: "Strip formwork components")
+qualification.competencies.core.find_or_create_by(unit_code: "CON712321", unit_title: "Install framing works")

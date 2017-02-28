@@ -1,5 +1,5 @@
 
-qualification = Qualification.find_or_create_by!(name: "Motorcycle/Small Engine Servicing NC II")
+qualification = Qualification.find_or_create_by(name: "Motorcycle/Small Engine Servicing NC II")
 
 Qualifications::Competency.find_or_create_by(competency_type: 0, unit_code: '500311105', unit_title: "Participate in Workplace Communication", qualification: qualification)
 Qualifications::Competency.find_or_create_by(competency_type: 0, unit_code: '500311106', unit_title: "Work in a Team Environment", qualification: qualification)

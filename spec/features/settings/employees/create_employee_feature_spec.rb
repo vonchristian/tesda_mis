@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "employees creation" do 
+feature "Create Employee" do 
   before(:each) do 
     user = FactoryGirl.create(:user)
     login_as(user, :scope => :user)

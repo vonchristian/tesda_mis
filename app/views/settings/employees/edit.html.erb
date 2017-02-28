@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="box box-default">
+      <div class="box-header">
+        <h3 class="box-title"> Employee Details </h3>
+      </div>
+      <div class="box-body">
+        <%= simple_form_for @employee, url: :settings_employee, multipart: true do |f| %>
+          <%= f.error_notification %>
+          <center>
+            <%= image_tag @employee.avatar.url(:thumb), class: "img-circle" %>
+            <%= f.input :avatar, as: :file, label: "Upload Photo" %>
+          </center>
+          <%= f.input :first_name %>
+          <%= f.input :middle_name %>
+          <%= f.input :last_name %>
+          <%= f.input :designation, collection: User.designations.keys.to_a.map{ |a| [a.titleize.upcase, a] }, as: :radio_buttons %>
+          <%= f.input :email %>
+          <%= f.input :password %>
+          <%= f.input :password_confirmation %>
+          <div class="box-footer">
+            <%= f.submit "Update Employee", class: "btn btn-primary btn-flat pull-right", data: { disable_with: "Saving Employee..." } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+  

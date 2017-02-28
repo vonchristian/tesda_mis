@@ -1,0 +1,15 @@
+qualification = Qualification.find_or_create_by(name: "Heavy Equipment Operation - Off-Highway Dump Truck (Rigid) NC II")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311105", unit_title: "Participate in workplace communication")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311106", unit_title: "Work in team environment")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311107", unit_title: "Practice career professionalism")
+qualification.competencies.basic.find_or_create_by(unit_code: "500311108", unit_title: "Practice occupational health and safety procedures")
+
+qualification.competencies.common.find_or_create_by(unit_code: "CON931201", unit_title: "Prepare construction materials and tools")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311201", unit_title: "Observe procedures, specifications and manuals of instruction")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311202", unit_title: "Interpret technical drawings and plans")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311203", unit_title: "Perform mensurations and calculations")
+qualification.competencies.common.find_or_create_by(unit_code: "CON311204", unit_title: "Maintain tools and equipment")
+
+qualification.competencies.core.find_or_create_by(unit_code: "CON833316", unit_title: "Perform pre- and post-operation procedures for hauling equipment")
+qualification.competencies.core.find_or_create_by(unit_code: "CON833317", unit_title: "Perform basic preventive maintenance servicing for hauling equipment")
+qualification.competencies.core.find_or_create_by(unit_code: "CON833318", unit_title: "Perform productive operation for off-highway dump truck (rigid)")

@@ -54,7 +54,7 @@ module Registries
       Sector.find_or_create_by(name: row[21])
     end
     def create_or_find_qualification(row)
-      Qualification.find_or_create_by(name: row[23], sector: create_or_find_sector(row))
+      Qualification.find_or_create_by(name: row[23])
     end
     def create_or_find_training_institution(row)
       Institution.find_or_create_by(name: row[14])

@@ -14,7 +14,7 @@ module Registries
     def create
       @registry = Registries::WorkerRegistry.create(registry_params)
       if @registry.save
-        redirect_to worker_registry_url(@registry), notice: "uploaded successfully."
+        redirect_to worker_registries_url, notice: "RWAC uploaded successfully."
       else
         render :new
       end
