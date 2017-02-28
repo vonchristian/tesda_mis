@@ -1,9 +1,9 @@
 class QualificationsController < ApplicationController
   def index 
     if params[:search].present?
-      @qualifications = Qualification.text_search(params[:search])
+      @qualifications = Qualification.text_search(params[:search]).order(:name)
     else
-      @qualifications = Qualification.all
+      @qualifications = Qualification.all.order(:name)
     end
   end
   def new 

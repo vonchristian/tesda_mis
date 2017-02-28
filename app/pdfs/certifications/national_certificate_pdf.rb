@@ -28,10 +28,18 @@ module Certifications
     end
     end
 
-     def qualification
-      bounding_box [80, 552], width: 400 do
-        font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
-          text "#{@certification.qualification_name_without_cert_level.upcase}", size: 22,  align: :center
+    def qualification
+      if @certification.qualification_name_without_cert_level.size <= 28
+        bounding_box [70, 552], width: 420 do
+          font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
+            text "#{@certification.qualification_name_without_cert_level.try(:upcase)}", size: 22,  align: :center
+          end
+        end
+      elsif @certification.qualification_name_without_cert_level.size > 28
+        bounding_box [70, 572], width: 420 do
+          font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
+            text "#{@certification.qualification_name_without_cert_level.try(:upcase)}", size: 22,  align: :center
+          end
         end
       end
     end
@@ -39,7 +47,7 @@ module Certifications
     def certified_candidate
       bounding_box [80, 490], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
-          text "#{@certification.client.full_name.upcase}", size: 22,  align: :center
+          text "#{@certification.client.fullname.try(:upcase)}", size: 22,  align: :center
         end
       end
     end
