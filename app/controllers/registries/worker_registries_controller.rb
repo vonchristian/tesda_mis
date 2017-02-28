@@ -13,6 +13,7 @@ module Registries
     end
     def create
       @registry = Registries::WorkerRegistry.create(registry_params)
+      @registry.uploader = current_user
       if @registry.save
         redirect_to worker_registries_url, notice: "RWAC uploaded successfully."
       else

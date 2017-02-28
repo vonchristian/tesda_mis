@@ -3,6 +3,7 @@ class Registry < ApplicationRecord
   pg_search_scope( :text_search, against: [:name, :spreadsheet_file_name], using: { tsearch: { prefix: true }} )
   has_attached_file :spreadsheet, :path => ":rails_root/public/system/:attachment/:id/:filename"
 
+  belongs_to :uploader, class_name: "User", foreign_key: 'user_id'
   has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true, dependent: :destroy
   validates :spreadsheet, presence: true
   validates :name, presence: true
@@ -17,6 +18,8 @@ class Registry < ApplicationRecord
   #                    message: ' Only EXCEL files are allowed.'
 
   # after_commit :parse_for_records
+
+  delegate :full_name, to: :uploader, prefix: true, allow_nil: true
   private 
   def set_name 
     self.name ||= self.spreadsheet_file_name

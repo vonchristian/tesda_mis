@@ -7,6 +7,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   enum designation: [:administrative_officer_v, :administrative_officer_iv, :supervising_tesd_specialist, :senior_tesd_specialist, :tesda_specialist_ii]
+
+  has_many :issued_certificates, class_name: "Issuance", foreign_key: "user_id"
+  has_many :uploaded_registries, class_name: "Registry", foreign_key: 'user_id'
   has_attached_file :avatar,
   styles: { large: "120x120>",
             medium: "70x70>",

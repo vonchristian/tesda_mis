@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Registry do
   describe 'associations' do
+    it { is_expected.to belong_to :uploader }
     it { is_expected.to have_many :client_trainings }
   end
 
