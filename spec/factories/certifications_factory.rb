@@ -5,6 +5,7 @@ FactoryGirl.define do
     number { Faker::Number.number(12) }
     issue_date Date.today
     expiry_date Date.today.next_year(5)
+    client
 
     factory :national_certificate do 
       type "Certifications::NationalCertificate"

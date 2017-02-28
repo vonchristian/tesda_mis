@@ -32,6 +32,7 @@
       <%=link_to new_qualification_competency_path(@qualification) do %>
         <span class="btn btn-default btn-sm pull-right" title="New Competency" data-toggle="tooltip"><i class="fa fa-plus-circle"></i> </span>
       <% end %>
+      <h4 class="text-muted">Competencies </h4>
       <p class="text-muted"> Basic Competencies </p>
       <% @qualification.competencies.basic.each do |competency| %>
         <div class="row">

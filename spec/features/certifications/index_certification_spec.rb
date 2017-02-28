@@ -10,7 +10,7 @@ feature "certification index" do
      client = create(:client)
     assessee = create(:completed_training, client: client)
     assessment = create(:assessment, assessee: assessee)
-    certification = create(:national_certificate, number: "000", certified: assessment)
+    certification = create(:national_certificate, number: "000", certified: assessment, client: client)
       visit certifications_path
 
       expect(page).to have_content(certification.number)
@@ -27,8 +27,8 @@ feature "certification index" do
     assessee = create(:completed_training, client: client)
     assessment = create(:assessment, assessee: assessee)
     
-    certification = create(:national_certificate, number: "000", certified: assessment)
-    certification_2 = create(:national_certificate, number: "001", certified: assessment)
+    certification = create(:national_certificate, number: "000", certified: assessment, client: client)
+    certification_2 = create(:national_certificate, number: "001", certified: assessment, client: client)
       visit certifications_path
       fill_in 'certification-search-form', with: certification.number
       click_button 'certification-search-btn'

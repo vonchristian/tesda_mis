@@ -17,8 +17,8 @@ feature "Issue certificate" do
   end
 
   scenario 'with valid attributes' do
-    fill_in "Reference number", with: "009-0092"
-    fill_in "Issue date", with: Date.today
+    fill_in "CLN Number", with: "009-0092"
+    fill_in "Date Claimed", with: Date.today
     click_button "Issue Certificate"
     expect(page).to have_content("issued successfully.")
   end

@@ -8,7 +8,7 @@ module Qualifications
       @qualification = Qualification.friendly.find(params[:qualification_id])
       @competency = @qualification.competencies.create(competency_params)
       if @competency.save 
-        redirect_to qualification_url(@qualification), notice: "created successfully"
+        redirect_to qualification_url(@qualification), notice: "Competency created successfully."
       else 
         render :new 
       end 

@@ -9,7 +9,7 @@ feature "Show certification" do
     client = create(:client)
     assessee = create(:completed_training, client: client)
     assessment = create(:assessment, assessee: assessee)
-    certification = create(:national_certificate, number: "000", certified: assessment)
+    certification = create(:national_certificate, number: "000", certified: assessment, client: client)
     visit certifications_path
     click_link certification.number
 
