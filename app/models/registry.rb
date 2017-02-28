@@ -6,7 +6,7 @@ class Registry < ApplicationRecord
   has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true, dependent: :destroy
   validates :spreadsheet, presence: true
   validates :name, presence: true
-  before_save :set_name, :set_date
+  before_validation :set_name, :set_date
   do_not_validate_attachment_file_type :spreadsheet
   # validates_attachment :spreadsheet, presence: true,
   #                    content_type: { content_type: [
