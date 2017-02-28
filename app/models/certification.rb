@@ -15,7 +15,7 @@ class Certification < ApplicationRecord
   has_many :issuances, as: :issuable
   has_many :competencies, through: :qualification
   
-  delegate :full_name, :first_name, :last_name, :middle_name, to: :client, prefix: true, allow_nil: true
+  delegate :full_name, :first_name, :last_name, :middle_name, :contact_number, :sex, to: :client, prefix: true, allow_nil: true
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified, allow_nil: true
   delegate :full_name, to: :assessor, prefix: true, allow_nil: true

@@ -10,6 +10,8 @@ describe Certification, type: :model do
 
   describe "delegations" do 
     it { is_expected.to delegate_method(:full_name).to(:client).with_prefix }
+    it { is_expected.to delegate_method(:sex).to(:client).with_prefix }
+    it { is_expected.to delegate_method(:contact_number).to(:client).with_prefix }
     it { is_expected.to delegate_method(:first_name).to(:client).with_prefix }
     it { is_expected.to delegate_method(:last_name).to(:client).with_prefix }
     it { is_expected.to delegate_method(:middle_name).to(:client).with_prefix }

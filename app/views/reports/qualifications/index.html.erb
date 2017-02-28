@@ -2,11 +2,11 @@
   <div class="col-md-12">
     <div class="box box-default">
       <div class="box-body">
-        <h4 class="text-muted"> Certified Clients </h4>
+        <h4> Certified Clients By Qualification </h4>
         <span class="help-block"> Generate report of clients filtered by qualification </span>
         <hr>
         <% @qualifications.each do |qualification| %>
-          <%=link_to scope_by_qualification_clients_path(qualification: qualification, format: "pdf") do %>
+          <%=link_to scope_by_qualification_certifications_path(qualification: qualification, format: "pdf") do %>
             <div class="row">
               <div class="col-md-8">
                 <span class="text-muted"> <%=qualification.name %></span>
