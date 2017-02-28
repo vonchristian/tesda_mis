@@ -1,5 +1,6 @@
 module Certifications
   class CertificateOfCompetencyPdf < Prawn::Document
+    TABLE_WIDTHS_2 = [45, 175]
 
     def initialize(certification, view_context)
       super(margin: 20, page_size: "A4", page_layout: :portrait)
@@ -8,6 +9,7 @@ module Certifications
       certified_candidate
       competency
       qualification
+      display_basic_competencies
       certification_number
       issued_date
       expiry_date
@@ -35,6 +37,21 @@ module Certifications
           text "#{@certification.competency_qualification_name.try(:upcase)}", size: 20, align: :center
         end
       end
+    end
+    def display_basic_competencies
+      font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
+        bounding_box [120, 420], width: 220 do
+          table(competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,0,1,0] },  column_widths: TABLE_WIDTHS_2) do
+            cells.borders = []
+            row(0).size = 9
+          end
+        end
+      end
+    end
+
+    def competencies_table_data
+      [["Unit Code", "Unit Title"]] + 
+      @basic_table_data ||= @certification.competencies.basic_and_common.map { |e| [e.unit_code, e.unit_title]}     
     end
     
     def certification_number
