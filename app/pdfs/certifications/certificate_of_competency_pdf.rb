@@ -1,5 +1,6 @@
 module Certifications
   class CertificateOfCompetencyPdf < Prawn::Document
+    TABLE_WIDTHS = [45, 155]
     TABLE_WIDTHS_2 = [45, 175]
 
     def initialize(certification, view_context)
@@ -10,6 +11,7 @@ module Certifications
       competency
       qualification
       display_basic_competencies
+      display_core_competencies
       certification_number
       issued_date
       expiry_date
@@ -40,7 +42,7 @@ module Certifications
     end
     def display_basic_competencies
       font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
-        bounding_box [120, 420], width: 220 do
+        bounding_box [100, 478], width: 220 do
           table(competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,0,1,0] },  column_widths: TABLE_WIDTHS_2) do
             cells.borders = []
             row(0).size = 9
@@ -51,7 +53,22 @@ module Certifications
 
     def competencies_table_data
       [["Unit Code", "Unit Title"]] + 
-      @basic_table_data ||= @certification.competencies.basic_and_common.map { |e| [e.unit_code, e.unit_title]}     
+      @basic_table_data ||= @certification.competency.qualification.competencies.basic_and_common.map { |e| [e.unit_code, e.unit_title]}     
+    end
+    def display_core_competencies
+      font("#{Rails.root.to_s}/app/assets/fonts/Arial_Narrow.ttf") do
+        bounding_box [335, 478], width: 200 do
+          table(core_competencies_table_data, header: true, cell_style: { size: 8, :padding => [0,0,1,0] }, column_widths: TABLE_WIDTHS) do
+            cells.borders = []
+            row(0).size = 9
+          end
+        end
+      end
+    end
+
+    def core_competencies_table_data
+      [["Unit Code", "Unit Title"]] + 
+     [["#{@certification.competency.unit_code}", "#{@certification.competency.unit_title}"]]    
     end
     
     def certification_number

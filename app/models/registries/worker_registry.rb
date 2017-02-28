@@ -80,7 +80,7 @@ module Registries
       Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: create_or_find_client(row))
     end
     def create_or_find_competency(row)
-      Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[24].try(:downcase).try(:capitalize))
+      Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[24].try(:downcase).try(:capitalize), competency_type: 2)
     end
     def create_or_find_worker_type(row)
       Configurations::ClientType.find_or_create_by(name: row[8])
@@ -208,11 +208,11 @@ module Registries
       end
     end
     def create_or_find_national_certification(row)
-      Certifications::NationalCertificate.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification_id: create_or_find_qualification(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i, certification_level: create_or_find_certification_level(row))
+      Certifications::NationalCertificate.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification: create_or_find_qualification(row), issue_date: row[27], expiry_date: row[28], number: row[26].to_i, certification_level: create_or_find_certification_level(row))
     end
 
     def create_or_find_competency_certification(row)
-      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency_id: create_or_find_competency(row).id, issue_date: row[27], expiry_date: row[28], number: row[26].to_i)
+      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency: create_or_find_competency(row), issue_date: row[27], expiry_date: row[28], number: row[26].to_i)
     end
   end
 end

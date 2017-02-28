@@ -5,6 +5,7 @@ module Qualifications
 
     # validates :unit_code, presence: true, uniqueness: { scope: :qualification_id }
     validates :unit_title, presence: true, uniqueness: { scope: :qualification_id }
+    validates :qualification_id, presence: true
 
 
     delegate :name, to: :qualification, prefix: true, allow_nil: true
