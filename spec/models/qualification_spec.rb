@@ -9,6 +9,7 @@ describe Qualification do
     it { is_expected.to have_many :accredited_trainors }
     it { is_expected.to have_many :nc_certifieds }
     it { is_expected.to have_many :coc_certifieds }
+    it { is_expected.to have_many :clients }
     it { is_expected.to have_many :accredited_assessment_centers }
     it { is_expected.to have_many :accredited_training_centers }
 

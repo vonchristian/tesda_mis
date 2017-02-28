@@ -9,7 +9,8 @@ class Qualification < ApplicationRecord
   has_many :accreditations, foreign_key: "qualification_id"
   has_many :nc_certifieds, class_name: "Certifications::NationalCertificate", foreign_key: 'qualification_id'
   has_many :coc_certifieds, class_name: "Certifications::CertificateOfCompetency", foreign_key: 'qualification_id'
-
+  has_many :certifications
+  has_many :clients, through: :certifications
   has_many :accredited_assessors, through: :accreditations, source: :accredited, source_type: "Clients::Assessor"
   has_many :accredited_trainors, through: :accreditations, source: :accredited, source_type: "Clients::Trainor"
 

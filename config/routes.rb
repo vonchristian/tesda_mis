@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' , registrations: "settings/employees"}
   resources :clients, except: [:destroy] do 
     resources :addresses, only: [:new, :create], type: "Client", controller: "clients/addresses"
+    match "/scope_by_qualification" => "clients/scope_by_qualification#index",  via: [:get], on: :collection
   end
   resources :worker_registries, only: [:index, :show, :new, :create], module: :registries
   resources :assessor_registries, only: [:index, :show, :new, :create], module: :registries
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   resources :assessments, only: [:show], module: :services
   namespace :reports do 
     resources :certifications, only: [:index]
+    resources :qualifications, only: [:index]
   end
   resources :addresses, only: [:edit, :update], module: :clients
   resources :qualifications, only: [:index, :new, :create, :show] do 
