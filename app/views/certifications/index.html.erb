@@ -52,7 +52,7 @@
                       <% if certification.national_certificate? %>
                         <%= certification.try(:qualification_name) %>
                       <% else %>
-                        <%= certification.try(:competency_name)%>
+                        <%= certification.try(:competency_name) || certification.try(:competency_unit_title) %>
                       <% end %>
                     </td>
                     <td><%= certification.type.gsub("Certifications::", "").titleize %></td>

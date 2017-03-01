@@ -7,6 +7,7 @@ module Certifications
       super(margin: 20, page_size: "A4", page_layout: :portrait)
       @certification = certification
       @view_context = view_context
+      tesda_revision
       certified_candidate
       # competency
       qualification
@@ -17,6 +18,12 @@ module Certifications
       expiry_date
       signatory_signature
       signatory
+    end
+    def tesda_revision
+      bounding_box [400, 810], width: 100 do 
+        text "TESDA-SOP-CO-08-F32", size: 8
+        text "Rev. No. 01 - #{Configurations::CertificateRevision.last.revision_date.strftime("%m/%e/%y")}", size: 8
+      end
     end
 
     def certified_candidate

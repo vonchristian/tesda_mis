@@ -20,7 +20,7 @@ class Certification < ApplicationRecord
   delegate :assessor, to: :certified, allow_nil: true
   delegate :full_name, to: :assessor, prefix: true, allow_nil: true
   delegate :name, to: :qualification, prefix: true, allow_nil: true
-  delegate :name, to: :competency, prefix: true, allow_nil: true
+  delegate :name, :unit_title, to: :competency, prefix: true, allow_nil: true
   delegate :qualification_name, to: :competency, prefix: true, allow_nil: true
   delegate :assessee, to: :certified, allow_nil: true
   delegate :full_name, to: :assessee, prefix: true, allow_nil: true
