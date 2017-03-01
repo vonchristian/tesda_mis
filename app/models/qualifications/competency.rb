@@ -5,7 +5,7 @@ module Qualifications
 
     # validates :unit_code, presence: true, uniqueness: { scope: :qualification_id }
     validates :unit_title,  uniqueness: { scope: :qualification_id }
-    validates :name, presence: true
+    # validates :name, presence: true
     validates :qualification_id, presence: true
 
 
