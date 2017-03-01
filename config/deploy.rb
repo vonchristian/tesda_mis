@@ -6,7 +6,7 @@ require 'mina/whenever/tasks'
 require 'mina/puma'
 
 set :whenever_name, 'production'
-set :domain, '192.168.254.114'
+set :domain, '192.168.254.100'
 set :deploy_to, '/var/www/tesda_mis'
 set :repository, 'https://github.com/vonchristian/tesda_mis.git'
 set :branch, 'master'
