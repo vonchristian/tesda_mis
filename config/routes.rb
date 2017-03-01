@@ -46,5 +46,6 @@ Rails.application.routes.draw do
   namespace :settings do 
     resources :employees, except:[:destroy]
     resources :signatories, except:[:destroy]
+    resources :certificate_revisions, only: [:new, :create, :index]
   end
 end

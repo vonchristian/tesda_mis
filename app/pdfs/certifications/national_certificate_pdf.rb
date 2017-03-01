@@ -8,6 +8,7 @@ module Certifications
       super(margin: 20, page_size: "A4", page_layout: :portrait)
       @certification = certification
       @view_context = view_context
+      tesda_revision
       level
       qualification
       certified_candidate
@@ -18,14 +19,20 @@ module Certifications
       expiry_date
       signatory_signature
       signatory
-
     end
+    
+    def tesda_revision
+      bounding_box [400, 800], width: 100 do 
+        text "TESDA-SOP-CO-08-F32", size: 8
+      end
+    end
+
     def level
       bounding_box [460, 632], width: 100 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
           text "#{@certification.certification_level_level}", size: 25
         end
-    end
+      end
     end
 
     def qualification

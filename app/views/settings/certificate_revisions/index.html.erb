@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-default">
+      <div class="box-header">
+      
+        <h3 class="box-title"> Certificate Revisions
+          <span class="pull-right">
+            <%=link_to "New Revision", new_settings_certificate_revision_path, class: "btn btn-primary btn-flat pull-right" %>
+          </span>
+        </h3>
+      </div>
+      <div class="box-body">
+        <% @revisions.each do |revision| %>
+          <p class="text-muted"><%=revision.revision_date.strftime("%B %e, %Y") %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
