@@ -39,7 +39,7 @@
                   <% @workers.each do |worker| %>
                     <tr>
                       <td><%=image_tag(worker.avatar.url(:thumb), width: 40, height: 40,  class: "img-circle") %> &nbsp; <b><%= link_to worker.full_name, worker_path(worker), class: "timeline-header" %></b></td>
-                      <td><%= worker.current_address %></td>
+                      <td><%= worker.current_address.try(:details) %></td>
                       <td><%= worker.contact_number %></td>
                       <td></td>
                     </tr>

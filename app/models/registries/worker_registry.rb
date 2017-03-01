@@ -80,7 +80,7 @@ module Registries
       Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: create_or_find_client(row))
     end
     def create_or_find_competency(row)
-      Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), unit_title: row[24].try(:downcase).try(:capitalize), competency_type: 2)
+      Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), name: row[24].try(:downcase).try(:capitalize), unit_title: row[24].try(:downcase).try(:capitalize))
     end
     def create_or_find_worker_type(row)
       Configurations::ClientType.find_or_create_by(name: row[8])

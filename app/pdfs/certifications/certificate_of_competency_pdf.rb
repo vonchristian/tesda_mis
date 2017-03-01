@@ -68,7 +68,7 @@ module Certifications
 
     def core_competencies_table_data
       [["Unit Code", "Unit Title"]] + 
-     [["#{@certification.competency.unit_code}", "#{@certification.competency.unit_title}"]]    
+     [["#{@certification.competency.unit_code}", "#{@certification.competency.name}"]]    
     end
     
     def certification_number

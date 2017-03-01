@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228091454) do
+ActiveRecord::Schema.define(version: 20170301010726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20170228091454) do
     t.datetime "updated_at",         null: false
     t.boolean  "default_competency"
     t.integer  "competency_type"
+    t.string   "name"
     t.index ["competency_type"], name: "index_competencies_on_competency_type", using: :btree
     t.index ["qualification_id"], name: "index_competencies_on_qualification_id", using: :btree
   end
