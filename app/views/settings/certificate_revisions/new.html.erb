@@ -8,6 +8,7 @@
         <%=simple_form_for @revision, url: :settings_certificate_revisions do |f| %>
           <%=f.error_notification %>
           <%=f.input :revision_date, as: :string, input_html: { class: "datepicker" } %>
+          <%= f.input :revision_number, as: :string %>
         <%= f.submit "Save Revision", class: "btn btn-primary btn-flat" %>
       <% end %>
     </div>

@@ -17,7 +17,7 @@ module Settings
 
     private 
     def certificate_revision_params
-      params.require(:configurations_certificate_revision).permit(:revision_date)
+      params.require(:configurations_certificate_revision).permit(:revision_date, :revision_number)
     end
   end 
 end 
