@@ -38,7 +38,7 @@
                 <tbody>
                   <% @clients.each do |client| %>
                     <tr>
-                      <td><%=image_tag(client.avatar.url(:thumb), width: 35, height: 35,  class: "img-circle") %> &nbsp; <%= link_to client.full_name, client_path(client), class: "timeline-header" %></td>
+                      <td><%=image_tag(client.avatar.url(:thumb), width: 35, height: 35,  class: "img-circle") %> &nbsp; <%= link_to client.fullname, client_path(client), class: "timeline-header" %></td>
                       <td><%= client.current_address.try(:details) %></td>
                       <td><%= client.contact_number %> </td>
                     </tr>

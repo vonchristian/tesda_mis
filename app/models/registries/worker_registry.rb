@@ -67,17 +67,22 @@ module Registries
     end
 
     def create_or_find_client(row)
-      full_name = row[4] + " " + row[5] + " " + row[3]
-      Client.find_or_create_by(last_name: row[3].downcase.capitalize, first_name: row[4].downcase.capitalize, middle_name: row[5].downcase.capitalize, date_of_birth: row[6], contact_number: row[10].to_i, sex: row[11].try(:strip).try(:downcase), full_name: full_name)
+      full_name = row[4].downcase.capitalize + " " + row[5].first.capitalize + ". " + row[3].downcase.capitalize
+      Client.find_or_create_by(last_name: row[3].downcase.capitalize, first_name: row[4].downcase.capitalize, middle_name: row[5].downcase.capitalize, date_of_birth: row[6], contact_number: row[10], sex: row[11].try(:strip).try(:downcase), full_name: full_name)
     end
+    def find_client(row)
+      Client.where(last_name: row[3].downcase.capitalize, first_name: row[4].downcase.capitalize).first
+    end
+
+
     def create_or_find_worker(row)
-      Clients::Worker.find_or_create_by(client: create_or_find_client(row))
+      Clients::Worker.find_or_create_by(client: find_client(row))
     end
     def create_or_find_educational_attainment(row)
       Configurations::EducationalAttainment.find_or_create_by(name: row[12])
     end
     def create_or_find_education(row)
-      Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: create_or_find_client(row))
+      Clients::Education.find_or_create_by(educational_attainment: create_or_find_educational_attainment(row), client: find_client(row))
     end
     def create_or_find_competency(row)
       Qualifications::Competency.find_or_create_by(qualification: create_or_find_qualification(row), name: row[24].try(:downcase).try(:capitalize), unit_title: row[24].try(:downcase).try(:capitalize))
@@ -102,11 +107,11 @@ module Registries
     end
 
     def create_or_find_worker_address(row)
-      Address.find_or_create_by(addressable: create_or_find_client(row), street: row[9].split(",").first.strip, barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_worker_province(row))
+      Address.find_or_create_by(addressable: find_client(row), street: row[9].split(",").first.strip, barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_worker_province(row))
     end
 
     def create_or_find_completed_training(row)
-      Clients::CompletedTraining.find_or_create_by(region: create_or_find_region(row), province: create_or_find_province(row), reference_number: row[2], client: create_or_find_client(row), modality: create_or_find_modality(row), client_type: create_or_find_worker_type(row), training: create_or_find_training(row), registry: self)
+      Clients::CompletedTraining.find_or_create_by(region: create_or_find_region(row), province: create_or_find_province(row), reference_number: row[2], client: find_client(row), modality: create_or_find_modality(row), client_type: create_or_find_worker_type(row), training: create_or_find_training(row), registry: self)
     end
 
     def create_or_find_assessor(row)
@@ -208,11 +213,11 @@ module Registries
       end
     end
     def create_or_find_national_certification(row)
-      Certifications::NationalCertificate.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), qualification: create_or_find_qualification(row), issue_date: row[27], expiry_date: row[28], number: row[26].to_i, certification_level: create_or_find_certification_level(row))
+      Certifications::NationalCertificate.find_or_create_by(client: find_client(row), certified: create_or_find_worker_assessment(row), qualification: create_or_find_qualification(row), issue_date: Date.strptime(row[27], "%m/%d/%Y"), expiry_date: Date.strptime(row[28], "%m/%d/%Y"), number: row[26].to_i, certification_level: create_or_find_certification_level(row))
     end
 
     def create_or_find_competency_certification(row)
-      Certifications::CertificateOfCompetency.find_or_create_by(client: create_or_find_client(row), certified: create_or_find_worker_assessment(row), competency: create_or_find_competency(row), issue_date: row[27], expiry_date: row[28], number: row[26].to_i)
+      Certifications::CertificateOfCompetency.find_or_create_by(client: find_client(row), certified: create_or_find_worker_assessment(row), competency: create_or_find_competency(row), issue_date: Date.strptime(row[27], "%m/%d/%Y"), expiry_date: Date.strptime(row[28], "%m/%d/%Y"), number: row[26].to_i)
     end
   end
 end

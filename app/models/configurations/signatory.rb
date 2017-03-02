@@ -13,9 +13,11 @@ module Configurations
   validates_attachment_content_type :signature, content_type: /\Aimage\/.*\Z/
     
     def self.set(certification)
-      signatory = all.select{ |a| certification.issue_date.between?(a.term_start_date, a.term_end_date) }.first
-      if signatory.present?
-        certification.signatory = signatory
+      if certification.issue_date.present?
+        signatory = all.select{ |a| certification.issue_date.between?(a.term_start_date, a.term_end_date) }.first
+        if signatory.present?
+          certification.signatory = signatory
+        end
       end
     end
 

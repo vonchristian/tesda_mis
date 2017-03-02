@@ -47,7 +47,7 @@
                       <%= link_to certification.number, certification_path(certification) %>
                     <% end %>
                     </td>
-                    <td><%= certification.try(:client_full_name) %></td>
+                    <td><%= certification.try(:client_fullname) %></td>
                     <td>
                       <% if certification.national_certificate? %>
                         <%= certification.try(:qualification_name) %>

@@ -15,7 +15,7 @@ class Certification < ApplicationRecord
   has_many :issuances, as: :issuable
   has_many :competencies, through: :qualification
   
-  delegate :full_name, :first_name, :last_name, :middle_name, :contact_number, :sex, to: :client, prefix: true, allow_nil: true
+  delegate :full_name, :fullname, :first_name, :last_name, :middle_name, :contact_number, :sex, to: :client, prefix: true, allow_nil: true
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified, allow_nil: true
   delegate :full_name, to: :assessor, prefix: true, allow_nil: true
@@ -31,7 +31,7 @@ class Certification < ApplicationRecord
   validates :number, uniqueness: true
   validates :client_id, presence: true
   
-  after_commit :set_signatory
+  # after_commit :set_signatory
 
   def self.expires_on(hash={})
     if hash[:from_date] && hash[:to_date]
@@ -76,7 +76,7 @@ class Certification < ApplicationRecord
     end 
   end 
   def expired?
-   expiry_date < Time.zone.now
+    expiry_date < Time.zone.now
   end
    def link_color
     if expired? || revised?
@@ -86,6 +86,5 @@ class Certification < ApplicationRecord
   private 
   def set_signatory
     Configurations::Signatory.set(self)
-    self.save
   end
 end

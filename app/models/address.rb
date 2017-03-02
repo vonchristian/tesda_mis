@@ -12,6 +12,10 @@ class Address < ApplicationRecord
   validates :street, presence: true
 
   def details
-    "#{barangay_name}, #{municipality_or_city_name}, #{province_name}"
+    if street.present?
+      "#{barangay_name}, #{municipality_or_city_name}, #{province_name}"
+    else
+      "#{street}, #{barangay_name}, #{municipality_or_city_name}, #{province_name}"
+    end
   end
 end
