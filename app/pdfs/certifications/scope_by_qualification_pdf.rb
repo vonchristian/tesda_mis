@@ -47,7 +47,7 @@ module Certifications
     def table_data
       move_down 5
       [["CLIENT", "ADDRESS", "GENDER", "CONTACT NUMBER", "CERTIFICATE #", "TYPE", "EXPIRY DATE"]] +
-      @table_data ||= @certifications.map { |e| [e.client_full_name.try(:titleize), e.client.current_address.try(:details), e.client_sex, e.client_contact_number.to_i, e.number, e.type_name, e.expiry_date.strftime("%B %e, %Y")]}
+      @table_data ||= @certifications.map { |e| [e.client_full_name.try(:titleize), e.client.current_address.try(:details), e.client_sex, e.client_contact_number, e.number, e.type_name, e.expiry_date.strftime("%B %e, %Y")]}
     end
   end
 end
