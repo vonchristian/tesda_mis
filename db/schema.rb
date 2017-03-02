@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302013506) do
+ActiveRecord::Schema.define(version: 20170302114749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,12 +127,15 @@ ActiveRecord::Schema.define(version: 20170302013506) do
     t.string   "slug"
     t.integer  "client_id"
     t.integer  "signatory_id"
+    t.datetime "assessment_date"
+    t.integer  "registry_id"
     t.index ["certification_level_id"], name: "index_certifications_on_certification_level_id", using: :btree
     t.index ["certified_id"], name: "index_certifications_on_certified_id", using: :btree
     t.index ["certified_type"], name: "index_certifications_on_certified_type", using: :btree
     t.index ["client_id"], name: "index_certifications_on_client_id", using: :btree
     t.index ["competency_id"], name: "index_certifications_on_competency_id", using: :btree
     t.index ["qualification_id"], name: "index_certifications_on_qualification_id", using: :btree
+    t.index ["registry_id"], name: "index_certifications_on_registry_id", using: :btree
     t.index ["signatory_id"], name: "index_certifications_on_signatory_id", using: :btree
     t.index ["slug"], name: "index_certifications_on_slug", unique: true, using: :btree
     t.index ["type"], name: "index_certifications_on_type", using: :btree
@@ -447,6 +450,7 @@ ActiveRecord::Schema.define(version: 20170302013506) do
   add_foreign_key "certifications", "clients"
   add_foreign_key "certifications", "competencies"
   add_foreign_key "certifications", "qualifications"
+  add_foreign_key "certifications", "registries"
   add_foreign_key "certifications", "signatories"
   add_foreign_key "competencies", "qualifications"
   add_foreign_key "completed_trainings", "clients"

@@ -4,6 +4,9 @@ describe Registry do
   describe 'associations' do
     it { is_expected.to belong_to :uploader }
     it { is_expected.to have_many :client_trainings }
+    it { is_expected.to have_many :certifications }
+    it { is_expected.to have_many :certified_clients }
+
   end
 
   describe "validations" do

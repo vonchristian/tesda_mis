@@ -1,1 +1,51 @@
-<%= @registry.name %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-default">
+      <div class="box-header">
+        <h3 class="box-title"> Workers </h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4 border-right">
+                <center><small>MALE</small></center>
+                <h2><center><%= @registry.certified_clients.male.count %></center></h2>
+              </div>
+              <div class="col-md-4 border-right">
+                <center><small>FEMALE</small></center>
+                <h2><center><%= @registry.certified_clients.female.count %></center></h2>        
+              </div>
+              <div class="col-md-4">
+                <center><small>TOTAL</small></center>
+                <h2><center><%= @registry.certified_clients.count %></center></h2>        
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      <div class="row">
+        <div class="col-md-7">
+          <% @registry.certified_clients.each do |client| %>
+            <div class="row">
+              <div class="col-md-2">
+                <%=image_tag(client.avatar.url(:small)) %>
+              </div>
+              <div class="col-md-6">
+                <b><%=client.first_and_last_name %></b><br>
+                <small class="text-muted"><%=client.current_address.try(:details) %></small>
+              </div>
+              <div class="col-md-3">
+                <%= client %>
+              </div>
+            </div>
+            <br>
+          <% end %>
+        </div>
+        <div class="col-md-5">
+          Certi
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

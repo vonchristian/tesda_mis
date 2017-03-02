@@ -13,16 +13,9 @@ class Issuance < ApplicationRecord
   delegate :client_full_name, :name, :type_name, to: :issuable, allow_nil: true
   delegate :client_middle_name, :name, :type_name, to: :issuable
   delegate :number, to: :issuable, prefix: true
-  delegate :assessment_date, to: :issuable, prefix: true
+  delegate :assessment_date, to: :issuable
   delegate :full_name, to: :issuer, prefix: true, allow_nil: true
-  def assessment_date 
-    if issuable_assessment_date.present?
-      issuable_assessment_date.strftime("%B %e, %y")
-    else
-      ""
-    end 
-  end 
-
+ 
   def self.issued_on(hash={})
     if hash[:from_date] && hash[:to_date]
       from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : Time.parse(hash[:from_date].strftime('%Y-%m-%d 12:00:00'))

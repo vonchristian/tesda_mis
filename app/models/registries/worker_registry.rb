@@ -172,11 +172,11 @@ module Registries
       end
     end
     def create_or_find_national_certification(row)
-      Certifications::NationalCertificate.find_or_create_by(client: find_client(row), certified: create_or_find_worker_assessment(row), qualification: create_or_find_qualification(row), issue_date: issue_date(row), expiry_date: expiry_date(row), number: row[26].to_i, certification_level: create_or_find_certification_level(row))
+      Certifications::NationalCertificate.find_or_create_by(client: find_client(row), certified: create_or_find_worker_assessment(row), qualification: create_or_find_qualification(row), issue_date: issue_date(row), expiry_date: expiry_date(row), assessment_date: assessment_date(row), number: row[26].to_i, certification_level: create_or_find_certification_level(row), registry: self)
     end
 
     def create_or_find_competency_certification(row)
-      Certifications::CertificateOfCompetency.find_or_create_by(client: find_client(row), certified: create_or_find_worker_assessment(row), competency: create_or_find_competency(row), issue_date: issue_date(row), expiry_date: expiry_date(row), number: row[26].to_i)
+      Certifications::CertificateOfCompetency.find_or_create_by(client: find_client(row), certified: create_or_find_worker_assessment(row), competency: create_or_find_competency(row), issue_date: issue_date(row), expiry_date: expiry_date(row), assessment_date: assessment_date(row), number: row[26].to_i, registry: self)
     end
     def issue_date(row)
       issue_date = row[27]
@@ -195,6 +195,15 @@ module Registries
         expiry_date = Date.strptime(row[28], "%m/%d/%Y")
       end
       expiry_date
+    end  
+    def assessment_date(row)
+      assessment_date = row[17]
+      if assessment_date.instance_of?(DateTime)
+        assessment_date
+      elsif assessment_date.instance_of?(String)
+        assessment_date = Date.strptime(row[28], "%m/%d/%Y")
+      end
+      assessment_date
     end  
   end
 end

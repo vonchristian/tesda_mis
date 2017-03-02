@@ -9,6 +9,7 @@ class Certification < ApplicationRecord
   belongs_to :certified, polymorphic: true
   belongs_to :qualification
   belongs_to :client
+  belongs_to :registry
   belongs_to :competency, class_name: "Qualifications::Competency"
   belongs_to :certification_level, class_name: "Configurations::CertificationLevel"
   belongs_to :signatory, class_name: "Configurations::Signatory"

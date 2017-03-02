@@ -11,6 +11,7 @@ module Clients
     delegate :full_name, to: :client
     delegate :qualification, to: :training
     delegate :competency, to: :training
+    delegate :name, to: :region, prefix: true
 
     def name 
       training.name 
