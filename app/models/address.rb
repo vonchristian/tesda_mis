@@ -8,14 +8,16 @@ class Address < ApplicationRecord
   delegate :name, to: :municipality_or_city, prefix: true
   delegate :name, to: :province, prefix: true
 
-  validates :municipality_or_city, presence: true
-  validates :street, presence: true
+  # validates :municipality_or_city, presence: true
+  # validates :street, presence: true
 
   def details
-    if street.present?
-      "#{barangay_name}, #{municipality_or_city_name}, #{province_name}"
-    else
+    if street && barangay && municipality_or_city && province
       "#{street}, #{barangay_name}, #{municipality_or_city_name}, #{province_name}"
+    elsif barangay && municipality_or_city && province
+      "#{barangay_name}, #{municipality_or_city_name}, #{province_name}"
+    elsif municipality_or_city && province
+      "#{municipality_or_city_name}, #{province_name}"
     end
   end
 end

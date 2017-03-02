@@ -5,7 +5,7 @@ module Addresses
     has_many :addresses
     has_many :clients, through: :addresses, source: :addressable, source_type: "Client"
 
-    validates :name, presence: true, uniqueness: true
+    validates :name, uniqueness: true
 
   end
 end

@@ -96,18 +96,30 @@ module Registries
     def create_or_find_training(row)
       Training.find_or_create_by(name: row[13], qualification: create_or_find_qualification(row), training_center_id: create_or_find_training_center(row).id)
     end
-    def create_or_find_barangay(row)
-      Addresses::Barangay.find_or_create_by(name: row[9].split(",").first.strip)
+    def create_or_find_barangay(barangay)
+      Addresses::Barangay.find_or_create_by(name: barangay)
     end
-    def create_or_find_municipality_or_city(row)
-      Addresses::MunicipalityOrCity.find_or_create_by(name: row[9].split(",").second.strip)
+    def create_or_find_municipality_or_city(municipality)
+      Addresses::MunicipalityOrCity.find_by_name(municipality)
     end
-    def create_or_find_by_worker_province(row)
-      Addresses::Province.find_or_create_by(name: row[9].split(",").last.strip)
+    def create_or_find_by_worker_province(province)
+      Addresses::Province.find_or_create_by(name: province)
     end
 
     def create_or_find_worker_address(row)
-      Address.find_or_create_by(addressable: find_client(row), street: row[9].split(",").first.strip, barangay: create_or_find_barangay(row), municipality_or_city: create_or_find_municipality_or_city(row), province: create_or_find_by_worker_province(row))
+      full_address = row[9]
+      if full_address.present? && full_address.split(",").count == 5
+        Address.find_or_create_by(addressable: find_client(row), street: row[9].split(",").first(2).join.strip, barangay: create_or_find_barangay(row[9].split(",").third.strip), municipality_or_city: create_or_find_municipality_or_city(row[9].split(",").fourth.strip), province: create_or_find_by_worker_province(row[9].split(",").last.strip))
+      end
+      if full_address.present? && full_address.split(",").count == 4
+        Address.find_or_create_by(addressable: find_client(row), street: row[9].split(",").first.strip, barangay: create_or_find_barangay(row[9].split(",").second.strip), municipality_or_city: create_or_find_municipality_or_city(row[9].split(",").third.strip), province: create_or_find_by_worker_province(row[9].split(",").last.strip))
+      end
+      if full_address.present? && full_address.split(",").count == 3
+        Address.find_or_create_by(addressable: find_client(row),  barangay: create_or_find_barangay(row[9].split(",").first.strip), municipality_or_city: create_or_find_municipality_or_city(row[9].split(",").second.strip), province: create_or_find_by_worker_province(row[9].split(",").last.strip))
+      end
+      if full_address.present? && full_address.split(",").count == 2
+        Address.find_or_create_by(addressable: find_client(row),  municipality_or_city: create_or_find_municipality_or_city(row[9].split(",").first.strip), province: create_or_find_by_worker_province(row[9].split(",").last.strip))
+      end
     end
 
     def create_or_find_completed_training(row)
