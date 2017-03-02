@@ -31,7 +31,7 @@ class Certification < ApplicationRecord
   validates :number, uniqueness: true
   validates :client_id, presence: true
   
-  before_commit :set_signatory
+  after_commit :set_signatory
 
   def self.expires_on(hash={})
     if hash[:from_date] && hash[:to_date]
