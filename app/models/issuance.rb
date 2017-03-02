@@ -15,7 +15,13 @@ class Issuance < ApplicationRecord
   delegate :number, to: :issuable, prefix: true
   delegate :assessment_date, to: :issuable, prefix: true
   delegate :full_name, to: :issuer, prefix: true, allow_nil: true
-
+  def assessment_date 
+    if issuable_assessment_date.present?
+      issuable_assessment_date.strftime("%B %e, %y")
+    else
+      ""
+    end 
+  end 
 
   def self.issued_on(hash={})
     if hash[:from_date] && hash[:to_date]

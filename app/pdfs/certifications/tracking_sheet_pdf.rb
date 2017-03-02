@@ -46,7 +46,7 @@ module Certifications
     def table_data
       move_down 5
       [["LAST NAME", "FIRST NAME", "MI", "CLN", "CERTIFICATE #", "QUALIFICATION/COMPETENCY", "DATE OF ASSESSMENT", "DATE OF RECEIPT OF CARS BY THE PO", "DATE OF PRINTING OF NC/COC", "SIGNATURE OF CANDIDATE", "DATE CLAIMED", "ISSUED BY"]] +
-      @table_data ||= @certifications.map { |e| [e.client_last_name.try(:upcase), e.client_first_name.try(:upcase), e.client_middle_name.try(:upcase), e.reference_number, e.issuable_number, e.name, e.issuable_assessment_date, e.cars_date_received.strftime('%b %e, %Y'), e.printing_date.strftime('%b %e, %Y'), "", e.issue_date.strftime('%b %e, %Y'), e.issuer_full_name]}
+      @table_data ||= @certifications.map { |e| [e.client_last_name.try(:upcase), e.client_first_name.try(:upcase), e.client_middle_name.try(:upcase).first, e.reference_number, e.issuable_number, e.name, e.assessment_date, e.cars_date_received.strftime('%b %e, %Y'), e.printing_date.strftime('%b %e, %Y'), "", e.issue_date.strftime('%b %e, %Y'), e.issuer_full_name]}
     end
   end
 end

@@ -29,7 +29,7 @@ module Certifications
     def certified_candidate
       bounding_box [80, 547], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
-          text "#{@certification.client.full_name.try(:upcase)}", size: 22,  align: :center
+          text "#{@certification.client.name_with_middle_initial.try(:upcase)}", size: 22,  align: :center
         end
       end
     end
@@ -101,7 +101,7 @@ module Certifications
       end
     end
     def signatory_signature
-      bounding_box [190, 144], width: 400 do
+      bounding_box [182, 148], width: 400 do
         image "#{@certification.signatory.signature.path}", height: 100, width: 200
       end
     end

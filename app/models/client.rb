@@ -38,8 +38,37 @@ class Client < ApplicationRecord
   validates :full_name, uniqueness: true
 
   enum sex: [:male, :female]
+
   before_save :set_full_name
-  
+  def self.parse_for_client(record)
+    if record.present?
+      if record.split.count == 2
+        first_name = record.split.first
+        middle_name = record.split.last
+        last_name = record.split.last
+      elsif record.split.count == 3
+        first_name = record.split.first
+        middle_name = record.split.second
+        last_name = record.split.last
+      elsif record.split.count == 4
+        first_name = record.split.first(2).join.titleize
+        middle_name = record.split.third
+        last_name = record.split.last
+      elsif record.split.count == 5
+        first_name = record.split.first(3).join.titleize
+        middle_name = record.split.fourth
+        last_name = record.split.last
+      end
+      first_name
+      middle_name
+      last_name
+      full_name = first_name + " " + middle_name + " " + last_name
+      client = Client.where(first_name: first_name, middle_name: middle_name, last_name: last_name, full_name: full_name).first
+      if client.nil?
+        Client.find_or_create_by(first_name: first_name, middle_name: middle_name, last_name: last_name, full_name: full_name)
+      end
+    end  
+  end
   def name 
     full_name
   end
@@ -53,9 +82,18 @@ class Client < ApplicationRecord
     "#{last_name}, #{first_name} #{middle_name.first}."
   end
 
-  def fullname
-    "#{first_name} #{middle_name.try(:first)}. #{last_name}"
+  def first_and_last_name
+    "#{first_name} #{last_name}"
   end
+
+  def fullname
+    "#{first_name} #{middle_name} #{last_name}"
+  end
+  def name_with_middle_initial
+    "#{first_name} #{middle_name.first}. #{last_name}"
+  end
+
+
 
   private 
   def set_full_name

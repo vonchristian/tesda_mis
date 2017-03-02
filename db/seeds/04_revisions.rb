@@ -1,0 +1,1 @@
+Configurations::CertificateRevision.create(revision_number: "01", revision_date: "20/07/2015")

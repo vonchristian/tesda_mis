@@ -5,7 +5,7 @@ class CertificationsController < ApplicationController
     if params[:search].present?
       @certifications = type_class.text_search(params[:search]).page(params[:page]).per(50)
     else
-      @certifications = type_class.all.page(params[:page]).per(50)
+      @certifications = type_class.all.order(issue_date: :desc).page(params[:page]).per(50)
     end
   end
 

@@ -2,9 +2,9 @@ module Clients
   class WorkersController < ApplicationController 
     def index 
       if params[:search].present?
-        @workers = Client.text_search(params[:search])
+        @workers = Client.text_search(params[:search]).page(params[:page]).per(50)
       else
-        @workers = Clients::Worker.all 
+        @workers = Clients::Worker.all.page(params[:page]).per(50)
       end
     end 
     def new 

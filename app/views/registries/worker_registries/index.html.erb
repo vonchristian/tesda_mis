@@ -56,19 +56,19 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="box box-default">
+    <div class="box box-primary">
       <div class="box-header">
         <h3 class="box-title">Upload RWAC </h3>
       </div>
       <div class="box-body">
-        <p class="text-danger"><i class="fa fa-asterisk"></i> Please ensure Qualification and Competencies are present in the system before uploading RWAC. </p>
+        <p class="text-muted"><i class="fa fa-asterisk"></i> <b>Please ensure Qualification and Competencies are present in the system before uploading RWAC.</b> </p>
         <br>
          <%= simple_form_for Registries::WorkerRegistry.new, multipart: true, url: :worker_registries do |f| %>
           <%=f.error_notification %>
           <%=f.input :spreadsheet, as: :file, label: "Upload Spreadsheet", input_html: { id: "registry-file" } %>
           <%= f.input :name, placeholder: "RWAC Name" %>
           <div class="box-footer">
-            <%=f.submit "Upload Registry", class: "btn btn-primary pull-right", data: {disable_with: "Uploading and saving records..."} %>
+            <center><%=f.submit "Upload Registry", class: "btn btn-primary btn-block", data: {disable_with: "Uploading and saving records..."} %></center>
           </div>
         <% end %>
       </div>

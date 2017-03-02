@@ -55,7 +55,7 @@ module Certifications
     def certified_candidate
       bounding_box [80, 490], width: 400 do
         font("#{Rails.root.to_s}/app/assets/fonts/Book_Antiqua_Bold.ttf") do
-          text "#{@certification.client.fullname.try(:upcase)}", size: 22,  align: :center
+          text "#{@certification.client.name_with_middle_initial.try(:upcase)}", size: 22,  align: :center
         end
       end
     end

@@ -2,9 +2,9 @@ module Registries
   class WorkerRegistriesController < ApplicationController
     def index
       if params[:search].present?
-        @registries = Registries::WorkerRegistry.text_search(params[:search])
+        @registries = Registries::WorkerRegistry.text_search(params[:search]).page(params[:page]).per(30)
       else
-        @registries = Registries::WorkerRegistry.all
+        @registries = Registries::WorkerRegistry.all.page(params[:page]).per(30)
       end
     end
 

@@ -2,15 +2,15 @@
   <% client.certifications.each do |certification| %>
     <%=link_to certification_path(certification) do %>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-2">
+          <%=image_tag("default_cert.jpg", height: 120, width: 110) %>
+        </div>
+        <div class="col-md-7">
           <p class="text-<%=certification.link_color %>"> <b><%= certification.name %></b></p>
           <p class="text-muted"> <%= certification.type_name %></p>
           <p class="text-muted">Certificate Number: <%= certification.number %></p>
           <p class="text-muted">Issue Date: <%= certification.issue_date.strftime("%B %e, %Y") %></p>
           <p class="text-muted">Expiry Date: <%= certification.expiry_date.strftime("%B %e, %Y") %></p>
-        </div>
-        <div class="col-md-4">
-        <br>
         </div>
       </div>
     <% end %>

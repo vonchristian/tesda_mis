@@ -40,7 +40,7 @@ describe Client do
   it '#fullname' do
     client = create(:client, first_name: "Von", middle_name: 'Pinosan', last_name: 'Halip')
 
-    expect(client.full_name).to eql('Von P. Halip')
+    expect(client.full_name).to eql('Von Pinosan Halip')
   end
 
   it '#last_and_first_name' do
@@ -51,6 +51,36 @@ describe Client do
 
   describe "enums" do
     it { is_expected.to define_enum_for(:sex).with([:male, :female]) }
+  end
+
+  describe "parse_for_client(record)" do 
+    it "with first_name, middle_name and last_name" do 
+      record = "Von Christian Pinosan Halip"
+      client = Client.parse_for_client(record)
+
+      expect(client.first_name).to eql("Von Christian")
+      expect(client.middle_name).to  eql("Pinosan")
+      expect(client.last_name).to eql("Halip")
+      expect(client.full_name).to eql("Von Christian Pinosan Halip")
+    end
+
+    it "with first_name and last_name" do 
+      record = "Maria  Halip"
+      client = Client.parse_for_client(record)
+
+      expect(client.first_name).to eql("Maria")
+      expect(client.last_name).to eql("Halip")
+      expect(client.full_name).to eql("Maria Halip Halip")
+    end
+    it 'with long name ' do 
+      record = "Mark Jhon Wade P. Halip"
+      client = Client.parse_for_client(record)
+
+      expect(client.first_name).to eql("Mark Jhon Wade")
+      expect(client.middle_name).to  eql("P.")
+      expect(client.last_name).to eql("Halip")
+      expect(client.full_name).to eql("Mark Jhon Wade P. Halip")
+    end
   end
 
 end

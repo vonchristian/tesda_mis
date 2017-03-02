@@ -17,8 +17,6 @@ class Qualification < ApplicationRecord
   has_many :accredited_assessment_centers, through: :accreditations, source: :accredited, source_type: "Institutions::AssessmentCenter"
   has_many :accredited_training_centers, through: :accreditations, source: :accredited, source_type: "Institutions::TrainingCenter"
 
-
-
   validates :name, presence: true, uniqueness: true
 
   delegate :name, to: :sector, prefix: true, allow_nil: true

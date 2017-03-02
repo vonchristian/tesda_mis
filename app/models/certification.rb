@@ -4,7 +4,7 @@ class Certification < ApplicationRecord
   friendly_id :number, use: :slugged
 
   multisearchable :against => [:number, :client_full_name, :client_last_name, :client_first_name]
-  pg_search_scope :text_search, :against => [:number], :associated_against => {:client => [:last_name, :first_name]}
+  pg_search_scope :text_search, :against => [:number], :associated_against => {:client => [:last_name, :first_name], :qualification =>[:name]}
   
   belongs_to :certified, polymorphic: true
   belongs_to :qualification
@@ -15,7 +15,7 @@ class Certification < ApplicationRecord
   has_many :issuances, as: :issuable
   has_many :competencies, through: :qualification
   
-  delegate :full_name, :fullname, :first_name, :last_name, :middle_name, :contact_number, :sex, to: :client, prefix: true, allow_nil: true
+  delegate :full_name, :fullname, :first_name, :last_name, :name_with_middle_initial, :middle_name, :contact_number, :sex, to: :client, prefix: true, allow_nil: true
   delegate :level, to: :certification_level, prefix: true
   delegate :assessor, to: :certified, allow_nil: true
   delegate :full_name, to: :assessor, prefix: true, allow_nil: true
