@@ -43,7 +43,7 @@
               <hr>
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
-                <%=link_to "Add Address", new_assessor_address_path(@assessor)%>
+                <%=link_to "Add Address", new_client_address_path(@assessor)%>
               <p class="text-muted"><%= @assessor.current_address.try(:details) %></p>
 
               <hr>

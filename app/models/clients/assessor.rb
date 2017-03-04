@@ -12,7 +12,7 @@ module Clients
     has_many :educations, as: :educationship
     has_many :addresses, as: :addressable
 
-    delegate :full_name, :last_name, :first_name, :avatar, :current_address, to: :client, allow_nil: true
+    delegate :full_name, :last_name, :middle_name, :first_name, :avatar, :current_address, to: :client, allow_nil: true
     delegate :name, to: :assessment_center, prefix: true, allow_nil: true
   
   end
