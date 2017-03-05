@@ -53,8 +53,6 @@ group :development, :test do
   gem "rspec-rails"
   gem 'rspec-its'
   gem 'factory_girl_rails'
-  gem 'capybara'
-  gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
@@ -71,6 +69,10 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+  gem 'capybara'
+  gem 'faker'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rack-mini-profiler'
