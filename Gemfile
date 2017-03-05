@@ -45,7 +45,7 @@ gem 'delayed_job_active_record'
 gem "spreadsheet"
 
 group :production do
-  gem 'pg',  group: :development
+  gem 'pg',  group: [:development, :test]
   gem 'puma', group: :development
 end
 group :development, :test do

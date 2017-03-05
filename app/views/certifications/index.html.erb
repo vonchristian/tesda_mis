@@ -29,6 +29,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th></th>
                   <th> Certificate No.</th>
                   <th> Client </th>
                   <th> Qualification/Competency </th>
@@ -40,6 +41,12 @@
               <tbody>
                 <% @certifications.each do |certification| %>
                   <tr>
+                    <td>
+                      <% if certification.expired? %>
+                        <center><%=image_tag("expired_cert.png", height: 40, width: 40, class: "img-circle") %></center>
+                      <% else %>
+                        <center><%=image_tag("cert_img.png", height: 40, width: 40, class: "img-circle") %></center>
+                      <% end %>
                     <td>
                     <% if certification.revised? || certification.expired? %>
                       <%= link_to certification.number, certification_path(certification), class: "text-danger" %>

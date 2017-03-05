@@ -3,7 +3,11 @@
     <%=link_to certification_path(certification) do %>
       <div class="row">
         <div class="col-md-2">
-          <%=image_tag("default_cert.jpg", height: 120, width: 110) %>
+          <% if certification.expired? %>
+            <center><%=image_tag("expired_cert.png", height: 60, width: 60, class: "img-circle") %></center>
+          <% else %>
+         <center><%=image_tag("cert_img.png", height: 60, width: 60, class: "img-circle") %></center>
+          <% end %>
         </div>
         <div class="col-md-7">
           <p class="text-<%=certification.link_color %>"> <b><%= certification.name %></b></p>

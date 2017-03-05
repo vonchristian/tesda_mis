@@ -4,8 +4,8 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <%= image_tag(@worker.avatar.url(:medium), class: "profile-user-img img-responsive img-circle", alt: "Assessment center logo") %>
-              <h3 class="profile-username text-center"><%= @worker.full_name %></h3>
+              <%= image_tag(@worker.avatar.url(:large), class: "profile-user-img img-responsive img-circle", alt: "client avatar") %>
+              <h3 class="profile-username text-center"><%= @worker.first_and_last_name.try(:upcase) %></h3>
 
               <p class="text-muted text-center"><%= @worker.current_address.try(:details) %></p>
 
@@ -43,17 +43,17 @@
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
 
               <p class="text-muted"><%= @worker.current_address.try(:details) %></p>
+              <% if @worker.current_address.present? %>
+                <%=link_to "Edit", edit_address_path(@worker.current_address), class: "btn btn-xs btn-warning btn-flat" %>
+              <% else %>
+                <%=link_to "Add", new_worker_address_path(@worker), class: "btn btn-xs btn-default btn-flat" %>
+              <% end %>
 
               <hr>
 
               <strong><i class="fa fa-phone margin-r-5"></i> Contact Number</strong>
 
               <p class="text-muted"><%= @worker.contact_number %></p>
-              <hr />
-
-              <strong><i class="fa fa-calendar"></i> Date of Birth</strong>
-
-              <p class="text-muted"><%= @worker.date_of_birth.strftime("%B %e, %Y") %></p>
              
               <hr>
 
@@ -67,10 +67,9 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#certifications" data-toggle="tab">Certifications</a></li>
-              <li><a href="#trainings" data-toggle="tab">Trainings</a></li>
+              <!-- <li><a href="#trainings" data-toggle="tab">Trainings</a></li>
               <li><a href="#assessments" data-toggle="tab">Assessments</a></li>
-              <li><a href="#assessments" data-toggle="tab">Employment</a></li>
-              <li><a href="#settings" data-toggle="tab">Settings</a></li>
+              <li><a href="#settings" data-toggle="tab">Settings</a></li> -->
 
             </ul>
             <div class="tab-content">

@@ -7,5 +7,7 @@ module Addresses
 
     validates :name, uniqueness: true
 
+    delegate :name, to: :province, prefix: true, allow_nil: true
+
   end
 end
