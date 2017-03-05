@@ -2,9 +2,9 @@ module Clients
   class WorkersController < ApplicationController 
     def index 
       if params[:search].present?
-        @workers = Client.text_search(params[:search]).page(params[:page]).per(50)
+        @workers = Client.text_search(params[:search]).page(params[:page]).per(30)
       else
-        @workers = Clients::Worker.all.page(params[:page]).per(50)
+        @workers = Kaminari.paginate_array(Clients::Worker.all.to_a.sort_by(&:last_name)).page(params[:page]).per(30)
       end
     end 
     def new 

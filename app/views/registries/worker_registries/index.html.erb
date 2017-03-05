@@ -3,60 +3,65 @@
     <div class="box box-default">
       <div class="box-header with-border">
         <div class="row">
-          <div class="col-md-4">
-            <h3 class="box-title"> Worker Registry </h3>
+          <div class="col-md-3">
+            <p class="text-muted"> Uploaded RWACs </p>
           </div>
           <div class="col-md-8">
             <%=form_tag worker_registries_path, method: :get, class: "search-form" do %>
-                        <div class="input-group">
-                          <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search name, file name...", id: 'registry-search-form' %>
-                          <span class="input-group-btn">
-                            <%= button_tag(type: 'submit', id: "worker-search-btn", class: "btn btn-flat") do %>
-                              <i class="fa fa-search"></i>
-                            <% end %>
-                          </span>
-                        </div>
-                      <% end %>
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search name, file name...", id: 'registry-search-form' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', id: "worker-search-btn", class: "btn btn-flat") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
           </div>
         </div>
-      </div>
-      <div class="box-body">
-        <% if @registries.present? %>
-          <div class="table table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th> Certified </th>
-                  <th> File </th>
-                  <th> Uploader </th>
-                  <th> Date Uploaded </th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <% @registries.each do |registry| %>
-                  <tr>
-                    <td><%= registry.client_trainings.count %></td>
-                  <td><%= link_to registry.name, worker_registry_path(registry) %></td>
-                  <td><%= registry.uploader_full_name %></td>
-                  <td>
-                    <% if registry.date %>
-                      <%= registry.date.strftime("%B %e, %Y") %>
+        <hr>
+        <div class="box-body">
+          <% if @registries.present? %>
+            <% @registries.each do |registry| %>
+              <%=link_to worker_registry_path(registry) do %>
+                <div class="row">
+                  <div class="col-md-2">
+                    <h4><center class="text-muted"><%= registry.client_trainings.count %></center></h4>
+                    <% if registry.client_trainings.count == 1 %>
+                      <small><center class="text-muted"> WORKER </center></small>
+                    <% else %>
+                      <small><center class="text-muted"> WORKERS </center></small>
                     <% end %>
-                  </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        <% else %>
-          No registries found.
-        <% end %>
+                  </div>
+                  <div class="col-md-9">
+                    <span class="text-muted"><b><%=registry.name %></b></span><br/>
+                    <small class="text-muted"><i class="fa fa-user"></i> &nbsp; <%=registry.uploader_full_name %></small><br>
+                    <small class="text-muted"><i class="fa fa-calendar"></i> &nbsp; 
+                      <% if registry.date %>
+                        <%= registry.date.strftime("%B %e, %Y") %>
+                      <% end %>
+                    </small>
+                     <% registry.qualifications.uniq.each do |qualification| %>
+                      <p class="text-muted"><i class="fa fa-list"></i> &nbsp; <%=qualification.name %></p>
+                    <% end %>
+                    <p></p>
+                    <span class="label bg-blue"> <%=registry.assessments.competent.count %> COMPETENT</span> &nbsp; &nbsp;
+                    <span class="label bg-gray"> <%=registry.assessments.not_yet_competent.count %> NOT YET COMPETENT</span> 
+
+                  </div>
+                </div>
+                <hr>
+              <% end %>
+            <% end %>
+          <% else %>
+            No registries found.
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="box box-primary">
+    <div class="well">
       <div class="box-header">
         <h3 class="box-title">Upload RWAC </h3>
       </div>
@@ -68,10 +73,9 @@
           <%=f.input :spreadsheet, as: :file, label: "Upload Spreadsheet", input_html: { id: "registry-file" } %>
           <%= f.input :name, placeholder: "RWAC Name" %>
           <div class="box-footer">
-            <center><%=f.submit "Upload Registry", class: "btn btn-primary btn-block", data: {disable_with: "Uploading and saving records..."} %></center>
+            <center><%=f.submit "Upload Registry", class: "btn btn-primary btn-block bg-blue", data: {disable_with: "Uploading and saving records..."} %></center>
           </div>
         <% end %>
       </div>
     </div>
-  </div>
 </div>

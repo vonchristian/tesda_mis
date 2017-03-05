@@ -6,7 +6,9 @@ class Registry < ApplicationRecord
   belongs_to :uploader, class_name: "User", foreign_key: 'user_id'
   has_many :client_trainings, class_name: "Clients::CompletedTraining", counter_cache: true, dependent: :destroy
   has_many :certifications
-  has_many :certified_clients, through: :certifications, source: :client
+  has_many :assessments
+  has_many :qualifications, through: :certifications
+  has_many :clients, through: :client_trainings
   validates :spreadsheet, presence: true
   validates :name, presence: true
   before_validation :set_name, :set_date

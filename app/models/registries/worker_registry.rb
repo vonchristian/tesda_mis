@@ -140,7 +140,7 @@ module Registries
     end
 
     def create_or_find_worker_assessment(row)
-      Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: result(row), application_date: row[16], assessment_date: row[17])
+      Assessment.find_or_create_by(assessee: create_or_find_completed_training(row), assessor: find_assessorship(row), assessment_center: create_or_find_assessment_center(row), result: result(row), application_date: row[16], assessment_date: row[17], registry: self)
     end
 
     def level(row)

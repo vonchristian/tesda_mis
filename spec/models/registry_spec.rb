@@ -5,8 +5,8 @@ describe Registry do
     it { is_expected.to belong_to :uploader }
     it { is_expected.to have_many :client_trainings }
     it { is_expected.to have_many :certifications }
-    it { is_expected.to have_many :certified_clients }
-
+    it { is_expected.to have_many :clients }
+    it { is_expected.to have_many :assessments }
   end
 
   describe "validations" do

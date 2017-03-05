@@ -7,7 +7,7 @@ module Clients
     pg_search_scope :text_search, :against => [:last_name, :first_name]
     belongs_to :client
 
-    delegate :full_name, :first_and_last_name, :name_with_middle_initial, :last_name, :first_name, :date_of_birth,
+    delegate :full_name, :last_and_first_name, :first_and_last_name, :name_with_middle_initial, :last_name, :first_name, :date_of_birth,
              :avatar, :current_address, :contact_number,
              :educations, :certifications, 
              :national_certificates, :certificate_of_competencies, 

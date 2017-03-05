@@ -4,6 +4,7 @@ describe Assessment do
   describe 'associations' do
     it { is_expected.to belong_to :assessor }
     it { is_expected.to belong_to :assessee }
+    it { is_expected.to belong_to :registry }
     it { is_expected.to belong_to :assessment_center }
     it { is_expected.to have_one :certification }
   end

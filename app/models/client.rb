@@ -89,8 +89,13 @@ class Client < ApplicationRecord
   def fullname
     "#{first_name} #{middle_name} #{last_name}"
   end
+  
   def name_with_middle_initial
     "#{first_name} #{middle_name.first}. #{last_name}"
+  end
+
+  def certification_from(registry)
+    certifications.where(registry: registry)
   end
 
 

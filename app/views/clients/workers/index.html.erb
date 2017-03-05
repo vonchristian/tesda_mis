@@ -1,57 +1,63 @@
 <div class="row">
   <div class="col-md-12">
     <div class="box box-default">
-      <div class="box-header">
-        <div class="row">
-          <div class="col-md-3">
-            <h4 class="box-title"> Workers <span class="badge"><%= Clients::Worker.count %></span> </h4>
-          </div>
-          <div class="col-md-6">
-            <%=form_tag workers_path, method: :get, class: "search-form" do %>
-              <div class="input-group">
-                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by last name, first name, middle name ...", id: 'worker-search-form' %>
-                <span class="input-group-btn">
-                  <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
-                    <i class="fa fa-search"></i>
-                  <% end %>
-                </span>
-              </div>
-            <% end %>
-          </div>
-          <div class="col-md-3">
-            <%=link_to new_client_path do %>
-              <span class="btn btn-primary pull-right"><i class="fa fa-user-plus"></i> New Worker </span>
-            <% end %>
-          </div>
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-md-2 hidden-xs">
+          <h3 class="box-title"> Workers </h3>
         </div>
-        <div class="box-body">
-          <% if @workers.present? %>
-            <div class="table table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th> Client </th>
-                    <th> Address </th>
-                    <th> Contact No </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @workers.each do |worker| %>
-                    <tr>
-                      <td><%=image_tag(worker.avatar.url(:thumb), width: 40, height: 40,  class: "img-circle") %> &nbsp; <b><%= link_to worker.name_with_middle_initial, worker_path(worker), class: "timeline-header" %></b></td>
-                      <td><%= worker.current_address.try(:details) %></td>
-                      <td><%= worker.contact_number %></td>
-                      <td></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-              <center><%= paginate @workers %></center>
+        <div class="col-md-9 col-xs-12">
+          <%=form_tag workers_path, method: :get, class: "search-form" do %>
+            <div class="input-group">
+              <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by last name, first name, middle name ...", id: 'worker-search-form' %>
+              <span class="input-group-btn">
+                <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-flat") do %>
+                  <i class="fa fa-search"></i>
+                <% end %>
+              </span>
             </div>
-          <% else %>
-            No workers found.
           <% end %>
         </div>
       </div>
     </div>
+
+      <div class="box-body">
+       <% if @workers.present? %>
+          <% @workers.each do |worker | %>
+            <%=link_to worker_path(worker) do %>
+              <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-3">
+                  <%=image_tag(worker.avatar.url(:medium), height: 120, width: 120, class: "img-responsive img-square") %>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-9">
+                  <span class="text-muted"><b><%=worker.last_and_first_name.try(:upcase) %></b></span><br>
+                  <small class="text-muted"><i class="fa fa-map-marker"></i> &nbsp; <%=worker.current_address.try(:details) %></small><br>
+                  <small class="text-muted"><i class="fa fa-phone"></i> &nbsp; <%=worker.contact_number || "None" %></small>
+                  <p></p>
+                  <% if worker.national_certificates.expired.present? %>
+                    <span class="label bg-red"><%= worker.national_certificates.expired.count %> Expired NC </span>
+                  <% end %><br>
+                  <% if worker.certificate_of_competencies.expired.present? %>
+                    <span class="label bg-red"><%= worker.certificate_of_competencies.expired.count %> Expired COC </span>
+                  <% end %>
+                </div>
+                <div class="col-md-4 hidden-xs">
+                 <% worker.national_certificates.each do |nc| %>
+                     <span class="text-muted"><%=nc.qualification_name %></span><br>
+                  <% end %>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                  
+                </div>
+              </div>
+              <hr>
+            <% end %>
+          <% end %>
+          <center><%= paginate @workers %> </center>
+        <% else %>
+          No workers found.
+        <% end %>
+      </div>
+    </div>
   </div>
+</div>
