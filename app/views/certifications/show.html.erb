@@ -14,7 +14,7 @@
       </div>
       <div class="box-body">
         <center><%=image_tag(@certification.client.avatar.url(:large), class: "img-circle") %></center><br />
-        <h4><b><center><%= @certification.client_full_name %></center></b></h4> <hr>
+        <h4><b><center><%= @certification.client_first_and_last_name.try(:upcase) %></center></b></h4> <hr>
         <div class="row">
           <div class="col-md-12">
             <%= @certification.type_name %>

@@ -64,6 +64,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'guard-rspec', require: false
+  gem 'pry-rails'
 end
 
 group :test do
