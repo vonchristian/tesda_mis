@@ -46,7 +46,6 @@ gem "spreadsheet"
 
 group :production do
   gem 'pg',  group: :development
-  gem 'rails_12factor'
   gem 'puma', group: :development
 end
 group :development, :test do
